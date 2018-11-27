@@ -15,6 +15,13 @@ class Login
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+       $cid = session('cid');
+        if($cid){
+            return $next($request);
+
+        } else {
+
+            return redirect('/admin/login');
+        }
     }
 }

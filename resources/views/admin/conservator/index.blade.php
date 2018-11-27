@@ -19,7 +19,7 @@
 		<div class="box">
 
 			<div class="box-header">
-			<h3 class="box-title">用户列表</h3>
+			<h3 class="box-title">管理员列表</h3>
 				<div class="search-content" style="float:right">
 					<form action="/admin/conservator" method="get">
 						<table class="search-tab">
@@ -58,7 +58,7 @@
 				<div class="result-list"style="margin-top:20px;">
 					
 					
-						<button id="alldelete"class="btn btn-default">批量删除</button>  
+						<button id="alldelete"class="btn btn-default"><i class='fa fa-trash-o'></i></button>  
 						
 						
 					<!--<a id="updateOrd" href=""><i class="icon-font"></i>更新排序</a>-->
@@ -91,10 +91,9 @@
 
 						<td>@if($v->status== 1)
 
-                        		启用
+                        		<i class='fa  fa-toggle-on' id='on'></i>
                         	@else 
-                        		禁用
-
+                        		<i class='fa  fa-toggle-off' id='off'></i>
                         	@endif
 
               
@@ -185,6 +184,35 @@
 			}
 		})
 	})
+
+	//开关
+	$('i').click(function(){
+		var i = $(this).attr('id');
+		var kg = $(this);
+		if(i == 'on'){
+			$(this).attr('class','fa  fa-toggle-off');
+							$(this).attr('id','off');
+			var status = 0;
+		}
+		if( i == 'off'){
+			$(this).attr('class','fa  fa-toggle-on');
+			$(this).attr('id','on');
+			var status = 1;
+		}
+		var ids = $(this).parents('tr').find('td').eq(1).text().trim();
+		
+		$.get('/admin/kgajax',{status:status,ids:ids},function(data){
+						console.log(data);
+						if(data == 1){
+							
+							alert("修改成功");
+						}else{
+							alert("修改失败！"); 
+						}
+				})
+	})
+
+	
 
 	//批量删除
 	$('#alldelete').click(function(){

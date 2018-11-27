@@ -74,13 +74,13 @@ class ConservatorController extends Controller
 
         }
 
-        //网数据表里面添加数据  hash加密
+        // //网数据表里面添加数据  hash加密
         $res['password'] = Hash::make($request->password);
 
-        //加密 解密
-        // $res['password'] = encrypt($request->password);
+        //加密 解密 
+      /*  $res['password'] = encrypt($request->password);*/
+       
         //存数据
-        
 
         try{
 
@@ -232,5 +232,22 @@ class ConservatorController extends Controller
         }
 
         
+    }
+
+    //修改管理员状态
+    public function kgajax(Request $request)
+    {
+         $id = $request->ids;
+         $status = $request ->status; 
+        
+
+         $data = Conservator::where('id',$id)->update(['status'=>$status]);
+         if($data){
+
+                echo 1;
+            } else {
+
+                echo 0;
+            }
     }
 }

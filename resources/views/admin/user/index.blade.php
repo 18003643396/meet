@@ -59,7 +59,7 @@
 				<div class="result-list"style="margin-top:20px;">
 					
 					
-						<button id="alldelete"class="btn btn-default">批量删除</button>  
+						<button id="alldelete"class="btn btn-default"><i class='fa fa-trash-o'></i></button>  
 						
 						
 					<!--<a id="updateOrd" href=""><i class="icon-font"></i>更新排序</a>-->

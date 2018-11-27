@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ConservatorRequest;
-
+use App\Http\Requests\ConupdateRequest;
 use Hash;
 use App\Model\Admin\User;
 class UserController extends Controller
@@ -140,7 +140,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ConupdateRequest $request, $id)
     {
         $res =$request->except('_token','img','_method');
       

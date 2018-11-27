@@ -47,6 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
     .skin-purple-light .left-side {
     background-color: #f9fafc;
+ 
 }
 .skin-purple-light .sidebar-menu>li:hover>a, .skin-purple-light .sidebar-menu>li.active>a {
     color: #000;
@@ -97,13 +98,17 @@ desired effect
 
   <!-- Main Header -->
   <header class="main-header">
+                @php
 
+                    $user = DB::table('conservator')->where('id',session('cid'))->first();
+
+                @endphp
     <!-- Logo -->
     <a href="index2.html" class="logo"style='background:#605CA8;color: #fff;'>
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>M</b>eet</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>遇见</b>meet</span>
+      <span class="logo-lg"><b>遇见·</b>meet</span>
     </a>
 
     <!-- Header Navbar -->
@@ -131,7 +136,7 @@ desired effect
                     <a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="/admins/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="{{$user->img}}" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
@@ -216,44 +221,51 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"style='color: #fff;'>
               <!-- The user image in the navbar-->
-              <img src="/admins/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="{{$user->img}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{$user->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header"style='background:#605CA8'>
-                <img src="/admins/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                
+                   <img src="{{$user->img}}" class="img-circle" alt="User Image">
+               
 
                 <p>
-                  Alexander Pierce - Web Developer
+                 {{$user->name}}
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+              <li class="user-footer">
                 <div class="row">
                   <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
+                    <a href="/admin/pass">修改密码</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
+                    <a href="/admin/img">
+                     
+                         修改头像
+                       </a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
+                    <a href="/admin/logout">退出</a>
                   </div>
                 </div>
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->
-              <li class="user-footer">
+<!--               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="/admin/passchange" class="btn btn-default btn-flat">修改密码</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="/admin/logout" class="btn btn-default btn-flat">退出</a>
                 </div>
               </li>
+           
+ -->
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
@@ -273,10 +285,10 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/admins/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="{{$user->img}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{$user->name}}</p>
           <!-- Status -->
           <a href="#"style='color:#000'><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -322,6 +334,50 @@ desired effect
             <li><a href="/admin/user"style='color: #000'><i class="fa fa-users"></i>用户列表</a></li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#"style='color: #000'><i class="fa fa-chain"></i> <span>友情链接管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/friend/create"style='color: #000'><i class="fa fa-plus"></i>友情链接添加</a></li>
+            <li><a href="/admin/friend"style='color: #000'><i class="fa fa-chain"></i>友情链接列表</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"style='color: #000'><i class="fa fa-image"></i> <span>轮播图管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/rotate/create"style='color: #000'><i class="fa fa-plus"></i>轮播图添加</a></li>
+            <li><a href="/admin/rotate"style='color: #000'><i class="fa fa-image"></i>轮播图列表</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"style='color: #000'><i class="fa fa-bars"></i> <span>类别管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/cate/create"style='color: #000'><i class="fa fa-plus"></i>类别添加</a></li>
+            <li><a href="/admin/cate"style='color: #000'><i class="fa fa-align-justify"></i>类别列表</a></li>
+          </ul>
+        </li>
+         <li class="treeview">
+          <a href="#"style='color: #000'><i class="fa fa-newspaper-o"></i> <span>文章管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            
+            <li><a href="#"style='color: #000'><i class="fa fa-newspaper-o"></i>文章列表</a></li>
+          </ul>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -341,8 +397,12 @@ desired effect
 
     <!-- Main content -->
     <section class="content container-fluid">
-      
-   
+      <br>
+    @if(session('success'))
+                  <div class="alert alert-success alert-dismissible">
+                      <li style='list-style:none;font-size:14px'><i class="icon fa fa-check"></i>{{session('success')}}</li>
+                  </div>
+              @endif
      @section('content')
 
       @show
@@ -363,7 +423,7 @@ desired effect
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2018 <a href="#">Company</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -460,6 +520,8 @@ desired effect
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-
+<script>
+    $('.alert-dismissible').delay(2000).fadeOut(2000);
+</script>
 </body>
 </html>

@@ -36,6 +36,8 @@
 #header .toggle-tougao:hover {
 	background-color: #FFF;
 }
+#btnForgetpsw::hover{color:#6A6A5F
+}
 </style>
         </head>
         <body class="home blog off-canvas-nav-left">
@@ -53,13 +55,11 @@
         <ul id="menu-navigation" class="menu">
                   <li class="current-menu-ancestor"><a href="/">首页</a></li>
                    <li><a href="#">关注</a></li>
-                  <li class="menu-item-has-children"><a>预览</a>
-                    <ul class="sub-menu">
-                      <li><a href="#">话题</a></li>
-                      <li><a href="#">专题</a></li>
-                      <li><a href="#">达人</a></li>
-                    </ul>
-                  </li>
+                    <li><a href="#">话题</a></li>
+                    <li><a href="#">专题</a></li>
+                    <li><a href="#">达人</a></li>
+                   
+                  
                  
                   <li class="menu-item-has-children"><a>更多</a>
                     <ul class="sub-menu">
@@ -87,8 +87,15 @@
       </div>
               <button class="js-toggle-search"><i class=" icon-search"></i></button>
               <a href="#" class="toggle-tougao  hidden-xs">投稿</a> 
+              @if(session('uid') == '')
               <a href="#" class="toggle-login hidden-xs a globalLoginBtn">登录</a> <span class="line  hidden-xs"></span>
-              <a href="#" class="toggle-login hidden-xs">注册</a> 
+              <a href="/home/zhuce" class="toggle-login hidden-xs">注册</a> 
+              @else
+              <a href="#" class="toggle-login hidden-xs">{{session('uname')}}</a> 
+              <span class="line  hidden-xs"></span>
+              <a href="/home/logout" class="toggle-login hidden-xs">退出</a> 
+              @endif
+
         </div>
   </div>
         </div>
@@ -97,23 +104,24 @@
             <div style="vertical-align:middle; display:table-cell;">
               <div class="modal-dialog modal-sm" style="width:540px;">
         <div class="modal-content" style="border: none;height:360px;">
-            <div class="col-left" style="height: 360px"></div>
+            <div class="col-left" style="height: 360px;background:url(homes/images/left.jpg)"></div>
             <div class="col-right"style="height: 360px">
                 <div class="modal-header1">
                     <button type="button" id="login_close" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="loginModalLabel" style="font-size: 18px;color:#5ecfba;margin-bottom: 15px;">登录</h4>
+                    <h4 class="modal-title" id="loginModalLabel" style="font-size: 20px;color:#1E1E1E;margin-bottom: 10px;margin-left: 110px;: ">登&nbsp;录</h4>
                 </div>
                 <div class="modal-body"style="height: 300px; padding-bottom:5px">
                     <section class="box-login v5-input-txt" id="box-login"style="height: 280px;padding-bottom:5px">
-                        <div class="error"></div>
+                        
                             <ul>
+                              <div class="error"style="margin-left:80px;"></div>
                                 <li class="form-group"><input class="form-control name" id="id_account_l" maxlength="50" name="name" placeholder="请输入邮箱账号/手机号" type="text"style="border: 1px solid #ccc">
                                   <div style="float:right"></div></li>
                                 <li class="form-group"><input class="form-control password" id="id_password_l" name="password" placeholder="请输入密码" type="password">
                                   <div style="float:right"></div></li>
                                   <li class="form-group">
                                     <input class="form-control code" id="id_password_l" name="code" placeholder="请输入验证码" type="text" style="width:120px;display:inline;border: 1px solid #ccc">
-                                    <img src="/admin/captcha" alt="" onclick='this.src = this.src+="?1"' style="display:inline;float: right;">
+                                    <img src="/admin/captcha" alt="" onclick='this.src = this.src+="?1"' style="display:inline;float: right;border-radius: 10px;">
                                     <div style="float:right">
                                       
                                     </div>
@@ -121,10 +129,10 @@
                                 
                             </ul>
                         <br>
-                        <p class="good-tips marginB10"><a id="btnForgetpsw" class="fr">忘记密码？</a>还没有账号？<a href="javascript:;" id="btnRegister">立即注册</a></p>
+                        <p class="good-tips marginB10"><a id="btnForgetpsw" class="fr"style="color:#353630; ">忘记密码？</a>还没有账号？<a href="javascript:;" id="btnRegister">立即注册</a></p>
                           <div class="login-box marginB10">
                             {{csrf_field()}}
-                            <button id="login_btn" class="btn btn-micv5 btn-block"value="登录" style="height:47px;background:#01c26f;color:#fff;font-size:14px;background:-webkit-linear-gradient(#1fd783,#1fd06b);background:-o-linear-gradient(#1fd783,#1fd06b);background:-moz-linear-gradient(#1fd783,#1fd06b);background:linear-gradient(#1fd783,#1fd06b)}">登录</button>
+                            <button id="login_btn" class="btn btn-micv5 btn-block"value="登录" style="height:47px;background:#A5A593;border-color:#A5A593;color:#fff;font-size:16px;">登录</button>
                             
                         </div>
 
@@ -145,6 +153,7 @@
   <script type="text/javascript" src="/homes/js/common.js"></script>
   <script type="text/javascript" src="/homes/js/login.js"></script>
   <script type="text/javascript">
+
       $(function () {
         $("#login_btn").click(function () {
            
@@ -179,19 +188,22 @@
                 $(".code").css('border','1px solid #ccc');
                 $('.code').next().next().text('')
             }
-          console.log(name);
+         
             $.get('/home/dologin',{name:name,password,password,code:code},function(data){
               console.log(data);
               if(data == 1){
-                  $('.error').text("验证码错误！");
-                  return;
+                $('.error').fadeIn(1000);
+                $('.error').html('<i class="icon-warning"></i>验证码错误！').css('color','#e53e41');
+
+                  $('.error').delay(2000).fadeOut(2000);
               }
-              if(data == 2)
+              else if(data == 2)
               {
-                $('.error').text("用户名或密码错误！");
-                  return;
+                 $('.error').fadeIn(1000);
+               $('.error').html('<i class="icon-warning"></i>用户名密码错误！').css('color','#e53e41');
+                   $('.error').delay(2000).fadeOut(2000);
               }
-              if(data == 3){
+              else{
                 location.reload();
               }
             })
@@ -203,32 +215,27 @@
           <div class="top-content">
     <div class="container">
               <div class="row">
-        <div class="owl-carousel top-slide-two">
-                  <div class="item"> <a href="#" title="WordPress免费中文博客主题">
-                    <div class="slider-content"><img src="/homes/images/19.jpg" alt="WordPress免费中文博客主题">
-                    <div class="slider-cat">wordpress主题</div>
-                    <div class="slider-content-item">
-                        <h2>WordPress免费中文博客主题</h2>
+          @php
+
+          $rotate = DB::table('rotate')->orderBy('position','asc')->offset(0)->limit(5)->get();
+
+         @endphp
+         <div class="owl-carousel top-slide-two">
+               @foreach($rotate as $k => $v)
+                  <div class="item"> 
+                    <a href="#" title="">
+                      <div class="slider-content">
+                          <img src="{{$v->img}}" alt="">
+                         <!--   <div class="slider-cat">wordpress主题</div> -->
+                            <div class="slider-content-item">
+                            <h2>{{$v->title}}</h2>
+                          </div>
                       </div>
+                    </a> 
                   </div>
-                    </a> </div>
-                  <div class="item"> <a href="#" title="极简WordPress个人博客主题">
-                    <div class="slider-content"><img src="/homes/images/20.jpg" alt="极简WordPress个人博客主题">
-                    <div class="slider-cat">wordpress主题</div>
-                    <div class="slider-content-item">
-                        <h2>极简WordPress个人博客主题</h2>
-                      </div>
-                  </div>
-                    </a> </div>
-                  <div class="item"> <a href="#" title="Module 模块化多功能WordPress企业主题">
-                    <div class="slider-content"><img src="/homes/images/21.jpg" alt="Module 模块化多功能WordPress企业主题">
-                    <div class="slider-cat">wordpress主题</div>
-                    <div class="slider-content-item">
-                        <h2>Module 模块化多功能WordPress企业主题</h2>
-                      </div>
-                  </div>
-                    </a> </div>
-                </div>
+                @endforeach
+                 
+          </div>
         <div class="top-singles hidden-xs">
                   <div class="single-item">
             <div class="image" style="background-image:url(/homes/images/11.jpg)"> <a href="#">
@@ -646,7 +653,16 @@
               <div class="copyright-footer">
         <p>Copyright © 2018 <a class="site-link" href="#" title="lmlblog" rel="home">lmlblog</a> · Powered By WordPress · Grace Theme By <a href="http://www.lmlblog.com" target="_blank">maolai</a></p>
       </div>
-              <div class="links-footer"> <span>友情链接：</span> <a href="#" title="博客模板下载" target="_blank">模板下载</a> <a href="#" target="_blank">lmlblog.com</a> <a href="#" target="_blank">MAOLAI博客</a> </div>
+        @php
+
+          $fri = DB::table('friend')->get();
+
+         @endphp
+              <div class="links-footer"> <span>友情链接：</span> 
+                @foreach($fri as $k => $v)
+                <a href="{{$v->url}}" title="{{$v->title}}" target="_blank">{{$v->name}}</a>
+                 @endforeach
+                  </div>
             </div>
   </div>
         </div>

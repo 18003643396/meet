@@ -56,3 +56,10 @@ Route::group(['middleware'=>'login'],function(){
 
 Route::any('/home/dologin','Home\LoginController@dologin');
 Route::any('/home/captcha','Home\LoginController@captcha');
+//注册
+Route::any('/home/zhuce','Home\LoginController@zhuce');
+
+Route::group([],function(){
+	//退出
+	Route::any('/home/logout','Home\LoginController@logout');
+});

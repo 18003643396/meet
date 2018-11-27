@@ -4,11 +4,7 @@
 <!--  {{$search = empty($_GET['search'])?null:$_GET['search']}} -->
 <!--  {{$keywords = empty($_GET['keywords'])?null:$_GET['keywords']}} -->
 <div class="content-wrapper"style='margin-left:10px'><br>
-	@if(session('success'))
-	                <div class="alert alert-success alert-dismissible">
-	                    <li style='list-style:none;font-size:14px'><i class="icon fa fa-check"></i>{{session('success')}}</li>
-	                </div>
-	            @endif
+	
 
             @if(session('error'))
                 <div class="alert alert-danger alert-dismissible">

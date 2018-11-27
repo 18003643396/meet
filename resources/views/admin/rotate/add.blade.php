@@ -26,6 +26,12 @@
                         <div class="form-group"style="margin-left:50px">
                             <tbody>
                             <tr>
+                                 <th><i class="require-red">*</i>标题：</th>
+                                    <td>
+                                    <input class="common-text required" id="title" name="title" size="16" value="" type="text">
+                                    </td>
+                                 </tr>
+                            <tr>
                                 <th><i class="require-red">*</i>位置：</th>
                                 <td>
                                     <select name="position" id="catid" class="required">

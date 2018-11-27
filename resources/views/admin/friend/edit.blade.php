@@ -32,6 +32,12 @@
                                     <input class="common-text required" id="title" name="name" size="20" value="{{$res->name}}" type="text">
                                 </td>
                             </tr>
+                            <tr>
+                                <th><i class="require-red">*</i>标题：</th>
+                                <td>
+                                    <input class="common-text required" id="title" name="title" size="20" value="{{$res->title}}" type="text">
+                                </td>
+                            </tr>
                             
                              <tr>
                                 <th><i class="require-red">*</i>网址：</th>

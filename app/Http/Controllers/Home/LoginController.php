@@ -20,30 +20,33 @@ class LoginController extends Controller
 
 		if($code != $request->code){
 		    echo 1;
-		}
-    	//判断用户名
-    	$rs = DB::table('user')->where('name',$request->name)->first();
+		}else {
+	    	//判断用户名
+	    	$rs = DB::table('user')->where('name',$request->name)->first();
 
 
-    	if(!$rs){
+	    	if(!$rs){
 
-    		echo 2;
-    	}
-
-    	//判断密码
-    	//hash
-    	if (!Hash::check($request->password, $rs->password)) {
-		    
-		    echo 2;
-		}
+	    		echo 2;
+	    	}else{
 		
+    		//判断密码
+    		//hash
+		    	if (!Hash::check($request->password, $rs->password)) {
+				    
+				    echo 2;
+				}else{
+					//存点信息  session
+				session(['uid'=>$rs->id]);
+				session(['uname'=>$rs->name]);
+       			 echo 3; 
+				}
+			}
+		}
 
-		//存点信息  session
-		session(['uid'=>$rs->id]);
-		session(['uname'=>$rs->name]);
-        echo 3; 
+		
     }
-
+    //验证码
     public function captcha()
     {
         $phrase = new PhraseBuilder;
@@ -57,7 +60,7 @@ class LoginController extends Controller
         $builder->setMaxBehindLines(0);
         $builder->setMaxFrontLines(0);
         // 可以设置图片宽高及字体
-        $builder->build($width = 120, $height = 42, $font = null);
+        $builder->build($width = 100, $height = 42, $font = null);
         // 获取验证码的内容
         $phrase = $builder->getPhrase();
         // 把内容存入session
@@ -68,5 +71,20 @@ class LoginController extends Controller
         $builder->output();
     }
 
+    //退出
+    public function logout()
+    {
+    	//清空session
+    	session(['uid'=>'']);
+    	session(['uname'=> '']);
+
+    	return redirect('/');
+    }
+
+    //注册
+    public function zhuce()
+    {
+        
+    }
 }
 

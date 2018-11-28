@@ -357,14 +357,14 @@ desired effect
           </ul>
         </li>
         <li class="treeview">
-          <a href="#"style='color: #000'><i class="fa fa-bars"></i> <span>类别管理</span>
+          <a href="#"style='color: #000'><i class=""><b>#&nbsp;&nbsp;</b></i> <span> 话题管理</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin/cate/create"style='color: #000'><i class="fa fa-plus"></i>类别添加</a></li>
-            <li><a href="/admin/cate"style='color: #000'><i class="fa fa-align-justify"></i>类别列表</a></li>
+            <li><a href="/admin/cate/create"style='color: #000'><i class="fa fa-plus"></i>话题添加</a></li>
+            <li><a href="/admin/cate"style='color: #000'><i class=""><b>#&nbsp;&nbsp;</b></i>话题列表</a></li>
           </ul>
         </li>
          <li class="treeview">

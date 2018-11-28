@@ -80,9 +80,9 @@ class UserController extends Controller
             //获取后缀
             $suffix = $request->file('img')->getClientOriginalExtension();
 
-            $request->file('img')->move('./uploads',$name.'.'.$suffix);
+            $request->file('img')->move('./uploads/user',$name.'.'.$suffix);
 
-            $res['img'] = '/uploads/'.$name.'.'.$suffix;
+            $res['img'] = '/uploads/user/'.$name.'.'.$suffix;
 
         }
 
@@ -151,9 +151,9 @@ class UserController extends Controller
                 //获取后缀
                 $suffix = $request->file('img')->getClientOriginalExtension();
 
-                $request->file('img')->move('./uploads',$name.'.'.$suffix);
+                $request->file('img')->move('./uploads/user',$name.'.'.$suffix);
 
-                $res['img'] = '/uploads/'.$name.'.'.$suffix;
+                $res['img'] = '/uploads/user/'.$name.'.'.$suffix;
 
             }
 

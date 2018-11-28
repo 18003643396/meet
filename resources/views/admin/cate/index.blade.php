@@ -14,7 +14,7 @@
 		<div class="box">
 
 			<div class="box-header">
-			<h3 class="box-title">类别列表</h3>
+			<h3 class="box-title">话题列表</h3>
 				<div class="search-content" style="float:right">
 					<form action="/admin/cate" method="get">
 						<table class="search-tab">

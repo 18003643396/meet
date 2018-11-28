@@ -68,9 +68,9 @@ class ConservatorController extends Controller
             //获取后缀
             $suffix = $request->file('img')->getClientOriginalExtension();
 
-            $request->file('img')->move('./uploads',$name.'.'.$suffix);
+            $request->file('img')->move('./uploads/conservator',$name.'.'.$suffix);
 
-            $res['img'] = '/uploads/'.$name.'.'.$suffix;
+            $res['img'] = '/uploads/conservator/'.$name.'.'.$suffix;
 
         }
 
@@ -142,9 +142,9 @@ class ConservatorController extends Controller
                 //获取后缀
                 $suffix = $request->file('img')->getClientOriginalExtension();
 
-                $request->file('img')->move('./uploads',$name.'.'.$suffix);
+                $request->file('img')->move('./uploads/conservator',$name.'.'.$suffix);
 
-                $res['img'] = '/uploads/'.$name.'.'.$suffix;
+                $res['img'] = '/uploads/conservator/'.$name.'.'.$suffix;
 
             }
 

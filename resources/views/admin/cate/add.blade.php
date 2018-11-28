@@ -8,7 +8,7 @@
     	<div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">添加类别</h3>
+                <h3 class="box-title">添加话题</h3>
             </div>
             @if (count($errors) > 0)
             <div class="alert alert-danger alert-dismissible">

@@ -50,34 +50,37 @@
             if (imgPath == "") {
                 alert("请选择上传图片！");
                 return;
-            }
+            }else{
             //判断上传文件的后缀名
-            var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
-            if (strExtension != 'jpg' && strExtension != 'gif'
-                && strExtension != 'png' && strExtension != 'bmp') {
-                alert("请选择图片文件");
-                return;
-            }
+              var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+              if (strExtension != 'jpg' && strExtension != 'gif'
+                  && strExtension != 'png' && strExtension != 'bmp') {
+                  alert("请选择图片文件");
+                  return;
+              }else{
+                var formData = new FormData($('#art_form')[0]);
+                    // console.log(formData);
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/upload",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            $('#imgs').attr('src',data);
+                            // $('#art_thumb').val(data);
 
-            var formData = new FormData($('#art_form')[0]);
-            // console.log(formData);
-            $.ajax({
-                type: "POST",
-                url: "/admin/upload",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    $('#imgs').attr('src',data);
-                    // $('#art_thumb').val(data);
+                            setTimeout(function(){
+                            location.href = '/admin';
+                            },500)
 
-                    setTimeout(function(){
-                    location.href = '/admin';
-                    },500)
-
-                },
-               
-            });
+                        }
+                       
+                    });
+                  } 
+            
+              }
+            
         })
     })
 </script>

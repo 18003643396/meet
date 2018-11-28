@@ -7,7 +7,7 @@
     	<div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">修改类别信息</h3>
+                <h3 class="box-title">修改话题</h3>
             </div>
             @if (count($errors) > 0)
             <div class="alert alert-danger alert-dismissible">

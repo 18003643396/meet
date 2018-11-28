@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ZhuceRequest;
 use Gregwar\Captcha\CaptchaBuilder;
 use Gregwar\Captcha\PhraseBuilder;
 use Session;
 use DB;
 use Hash;
+use App\Model\Admin\User;
 class LoginController extends Controller
 {
     public function dologin(Request $request)
@@ -84,7 +86,31 @@ class LoginController extends Controller
     //注册
     public function zhuce()
     {
+        return view("home.zhuce",['title'=>"用户注册"]);
+    }
+    public function dozhuce(ZhuceRequest $request)
+    {
+        $res =$request->except('_token','repass');
+        // dump($res);
         
+
+        //网数据表里面添加数据  hash加密
+        $res['password'] = Hash::make($request->password);
+
+     
+
+        try{
+
+            $data = User::create($res);
+            dump($data);
+            if($data){
+                return redirect('/');
+            }
+
+        }catch(\Exception $e){
+
+            return back();
+        }
     }
 }
 

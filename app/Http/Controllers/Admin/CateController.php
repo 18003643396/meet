@@ -27,7 +27,7 @@ class CateController extends Controller
              
         }
         return view('admin.cate.index',[
-                'title'=>'类别列表',
+                'title'=>'话题列表',
                 'res'=>$res  
            ]);
     }
@@ -39,7 +39,7 @@ class CateController extends Controller
      */
     public function create()
     {
-          return view('admin.cate.add',['title'=>'添加类别']);
+          return view('admin.cate.add',['title'=>'添加话题']);
     }
 
     /**
@@ -89,7 +89,7 @@ class CateController extends Controller
          $res = Cate::find($id);
 
          return view('admin.cate.edit',[
-            'title'=>'类别的修改页面',
+            'title'=>'话题的修改页面',
             'res'=>$res
         ]);
     }

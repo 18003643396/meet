@@ -63,7 +63,7 @@
                  
                   <li class="menu-item-has-children"><a>更多</a>
                     <ul class="sub-menu">
-                      <li><a href="#">个人中心</a></li>
+                      <li><a href="/home/user">个人中心</a></li>
                       <li><a href="#">寻找好友</a></li>
                       <li><a href="#">退出</a></li>
                     </ul>
@@ -665,7 +665,7 @@
                   </div>
             </div>
   </div>
-        </div>
+    </div>
 <div class="search-form">
           <form method="get" action="" role="search">
     <div class="search-form-inner">

@@ -58,8 +58,11 @@ Route::any('/home/dologin','Home\LoginController@dologin');
 Route::any('/home/captcha','Home\LoginController@captcha');
 //注册
 Route::any('/home/zhuce','Home\LoginController@zhuce');
+Route::any('/home/dozhuce','Home\LoginController@dozhuce');
 
 Route::group([],function(){
 	//退出
 	Route::any('/home/logout','Home\LoginController@logout');
+	//个人中心主页
+	Route::get('/home/user','Home\UserController@index');
 });

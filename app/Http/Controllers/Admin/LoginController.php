@@ -110,22 +110,25 @@ class LoginController extends Controller
     {
     	//获取上传的文件对象
         $file = $request->file('img');
-        
-        if($file->isValid()){
-        	//上传文件的后缀名
-            $entension = $file->getClientOriginalExtension();
-            //修改名字
-            $newName = date('YmdHis').mt_rand(1000,9999).'.'.$entension;
-            //移动文件
-            $path = $file->move('./uploads',$newName);
+        if(!$file == ''){
+            if($file->isValid()){
+            	//上传文件的后缀名
+                $entension = $file->getClientOriginalExtension();
+                //修改名字
+                $newName = date('YmdHis').mt_rand(1000,9999).'.'.$entension;
+                //移动文件
+                $path = $file->move('./uploads',$newName);
 
-            $filepath = '/uploads/'.$newName;
+                $filepath = '/uploads/'.$newName;
 
-            $res['img'] = $filepath;
-            DB::table('conservator')->where('id',session('cid'))->update($res);
-            //返回文件的路径
-            // return  $filepath;
-            return redirect('/admin')->with('success','修改成功');
+                $res['img'] = $filepath;
+                DB::table('conservator')->where('id',session('cid'))->update($res);
+                //返回文件的路径
+                // return  $filepath;
+                return redirect('/admin')->with('success','修改成功');
+            }
+        }else{
+            return back();
         }
     }
 

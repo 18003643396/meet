@@ -9,7 +9,8 @@
         "fideloper/proxy": "~3.3",
         "gregwar/captcha": "^1.1",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "toplan/laravel-sms": "~2.6"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -21,7 +22,10 @@
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "app/Sms/api_sdk",
+            "app/Sms/msg_sdk"
+
         ],
         "psr-4": {
             "App\\": "app/"

@@ -26,7 +26,7 @@ input[type="text"]:focus,input[type="password"]:focus{
 .div_form{height:48px; margin-bottom:24px;}
 .div_form label{float:left; width:146px; font-size:14px; color:#333; text-align:right; height:48px; line-height:48px;}
 .div_form .input_div{float:left; width:620px;}
-#username,#mail,#password1,#password2,#varcode{width:308px; height:26px;line-height:26px;padding:10px 5px; border:1px solid #aeaeae; border-radius:4px; color:#666;}
+#username,#mail,#password1,#repass,#tel,#varcode{width:308px; height:26px;line-height:26px;padding:10px 5px; border:1px solid #aeaeae; border-radius:4px; color:#666;}
 .input_div span{ margin-left:6px;}
 #btn, .btn2, .success_login, .login_btn{width:460px; height:60px; text-align:center; font:bold 16px/60px '宋体'; border:0 none; border-radius:4px; color:#fff; cursor:pointer; background:#464D57;letter-spacing:6px;}
 #btn{width:320px;}

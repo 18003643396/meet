@@ -259,7 +259,7 @@
       </div>
             </div>
   </div>
-          <div class="recommend-content">
+  <!--         <div class="recommend-content">
     <div class="container">
               <div class="row">
         <div class="cat">
@@ -286,7 +286,7 @@
                 </div>
       </div>
             </div>
-  </div>
+  </div> -->
           <div class="main-content">
     <div class="container">
               <div class="row">

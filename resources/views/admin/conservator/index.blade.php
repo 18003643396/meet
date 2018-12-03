@@ -73,11 +73,11 @@
 						<th>TEL</th>
 						<th>头像</th>
 						<th>状态</th>
+						<th>设置角色</th>
 						<th>操作</th>
 					</tr>
 					@foreach($res as $k => $v)
 					<tr>
-
 						<td class="tc"><input name="subChk" value="{{$v->id}}" type="checkbox"></td>
 						<td>{{$v->id}}</td>
 						<td class='name'>{{$v->name}}</td>
@@ -94,7 +94,8 @@
 
               
                         </td>
-						<td>
+                        <td><a href="/admin/conservator_role?id={{$v->id}}"class='btn btn-block btn-default btn-xs'style='width: 40px;'><i class='fa fa-user-secret'></i></a>&nbsp;</td>
+						<td>	
 							<a href="/admin/conservator/{{$v->id}}/edit"class='btn btn-block btn-default btn-xs'style='width: 50px;'><i class='fa fa-pencil-square-o'></i></a>&nbsp;
 							<form action="/admin/conservator/{{$v->id}}" method='post' style='display:inline'>
                             	{{csrf_field()}}

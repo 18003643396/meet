@@ -8,9 +8,67 @@ use App\Http\Requests\ConservatorRequest;
 use App\Http\Requests\ConupdateRequest;
 use Hash;
 use App\Model\Admin\Conservator;
-
+use App\Model\Admin\Role;
+use DB;
 class ConservatorController extends Controller
 {
+    public function conservator_role(Request $request)
+    {
+        //根据id查询用户
+        $id = $request->id;
+
+        $res = Conservator::find($id);
+
+         // dd($res->roles);
+        $info = [];
+        foreach($res->roles as $k=>$v){
+
+            $info[] = $v->id;
+        }
+
+        // dd($info);
+
+        //查询所有的角色
+        $roles = Role::all();
+
+
+        return view('admin.conservator.conservator_role',[
+            'title'=>'管理员添加角色页面',
+            'res'=>$res,
+            'roles'=>$roles,
+            'info'=>$info
+        ]);
+    }
+
+    public function do_conservator_role(Request $request)
+    {
+        $id = $request->id;
+
+        $res = $request->role_id;
+
+        //删除原来的角色
+        DB::table('conservatorrole')->where('conservator_id',$id)->delete();
+
+        $arr = [];
+        foreach($res as $k => $v){
+            $rs = [];
+
+            $rs['conservator_id'] = $id;
+            $rs['role_id'] = $v;
+            
+            $arr[] = $rs;
+        }
+
+        //往数据表里面插入数据
+        $data = DB::table('conservatorrole')->insert($arr);
+
+        if($data){
+
+            return redirect('/admin/conservator')->with('success','添加成功');
+        }
+        
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -11,4 +11,8 @@ class Conservator extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $guarded = [];
+    public function roles()
+    {
+        return $this->belongsToMany('App\Model\Admin\Role','conservatorrole');
+    }
 }

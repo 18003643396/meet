@@ -11,4 +11,8 @@ class User extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $guarded = [];
+    // public function article()
+    // {
+    // 	return $this->hasMany('..\Article');
+    // }
 }

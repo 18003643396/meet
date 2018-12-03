@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>jQuery Plugin For Slider</title>
+	<script src="./js/jquery-1.12.4.js"></script>
+	<script src="./js/jquery.bxslider.min.js"></script>
+	<link href="./css/bxslider.css" rel="stylesheet" />
+	<style>
+		.test{
+			width: 1000px;
+			height:200px;
+			margin: 0 auto;
+			background: #000;
+		}
+		ul.bxslider{
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<script>
+		$(function(){
+			$('.bxslider').bxSlider({
+				'mode':'horizontal',    // 设置滚动模式默认平滚动(horizontal)垂直滚动(vertical) 淡入淡出(fade)
+				'auto':true,            // 是否自动滚动
+				'pause':2000,           // 每一个滚动元素停留的时间
+				'controls':false,       // 每一个滚动元素停留的时间
+			});
+		});
+	</script>
+</head>
+<body>
+<div class="test">
+	<ul class="bxslider">
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+	</ul>
+</div>
+</body>
+</html>

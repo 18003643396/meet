@@ -323,6 +323,28 @@ desired effect
             <li><a href="/admin/conservator"style='color: #000'><i class="fa fa-users"></i>管理员列表</a></li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#"style='color: #000'><i class="fa fa-user-secret"></i> <span>角色管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/role/create"style='color: #000'><i class="fa fa-user-plus"></i>角色添加</a></li>
+            <li><a href="/admin/role"style='color: #000'><i class="fa fa-users"></i>角色列表</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"style='color: #000'><i class="fa fa-user-secret"></i> <span>权限管理</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/permission/create"style='color: #000'><i class="fa fa-user-plus"></i>权限添加</a></li>
+            <li><a href="/admin/permission"style='color: #000'><i class="fa fa-users"></i>权限列表</a></li>
+          </ul>
+        </li>
          <li class="treeview">
           <a href="#"style='color: #000'><i class="fa fa-user"></i> <span>用户管理</span>
             <span class="pull-right-container">

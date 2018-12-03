@@ -58,14 +58,16 @@
                     <li><a href="#">话题</a></li>
                     <li><a href="#">专题</a></li>
                     <li><a href="#">达人</a></li>
-                   
-                  
+                     @if(!session('uid') == '')
+                    <li><a href="/home/user">个人中心</a></li>
+                    
                  
                   <li class="menu-item-has-children"><a>更多</a>
                     <ul class="sub-menu">
-                      <li><a href="/home/user">个人中心</a></li>
+                      
                       <li><a href="#">寻找好友</a></li>
                       <li><a href="#">退出</a></li>
+                      @endif
                     </ul>
                   </li>
                 </ul>
@@ -86,8 +88,9 @@
                                   </div>
       </div>
               <button class="js-toggle-search"><i class=" icon-search"></i></button>
-              <a href="#" class="toggle-tougao  hidden-xs">投稿</a> 
+              <a href="/home/tougao" class="toggle-tougao  hidden-xs">投稿</a> 
               @if(session('uid') == '')
+
               <a href="#" class="toggle-login hidden-xs a globalLoginBtn">登录</a> <span class="line  hidden-xs"></span>
               <a href="/home/zhuce" class="toggle-login hidden-xs">注册</a> 
               @else
@@ -211,7 +214,8 @@
     })
   </script>
 
-<div id="page-content" >
+<div id="page-content" > 
+  @section('content')
           <div class="top-content">
     <div class="container">
               <div class="row">
@@ -259,35 +263,7 @@
       </div>
             </div>
   </div>
-  <!--         <div class="recommend-content">
-    <div class="container">
-              <div class="row">
-        <div class="cat">
-                  <div class="thumbnail-cat">
-            <div class="image col-xs-12 col-sm-4 col-md-4">
-                      <div class="index-cat-box" style="background-image:url(/homes/images/2.jpg)"> <a  class="iscat" href="#">
-                        <div class="promo-overlay">网站建设</div>
-                        <div class="modulo_line"></div>
-                        </a> </div>
-                    </div>
-            <div class="image col-xs-12 col-sm-4 col-md-4">
-                      <div class="index-cat-box" style="background-image:url(/homes/images/6.jpg)"> <a  class="iscat" href="#">
-                        <div class="promo-overlay">wordpress主题</div>
-                        <div class="modulo_line"></div>
-                        </a> </div>
-                    </div>
-            <div class="image col-xs-12 col-sm-4 col-md-4">
-                      <div class="index-cat-box" style="background-image:url(/homes/images/4.jpg)"> <a  class="iscat" href="#">
-                        <div class="promo-overlay">模板下载</div>
-                        <div class="modulo_line"></div>
-                        </a> </div>
-                    </div>
-          </div>
-                </div>
-      </div>
-            </div>
-  </div> -->
-          <div class="main-content">
+  <div class="main-content">
     <div class="container">
               <div class="row">
         <div class="article col-xs-12 col-sm-8 col-md-8">
@@ -313,46 +289,35 @@
                         </div>
               </div>
                     </div>
+           @php
+
+          $art = DB::table('article')->join('user','user_id','=','user.id')->get();
+          
+         @endphp
+        @foreach($art as $k => $v) 
             <div class="ajax-load-con content wow fadeInUp">
                       <div class="content-box posts-image-box">
                 <div class="posts-default-title">
-                          <h2><a href="#" title="vidorev视频的WordPress主题" target="_blank">vidorev视频的WordPress主题</a></h2>
-                        </div>
-                <div class="post-images-item">
-                          <ul>
-                    <li>
-                              <div class="image-item"> <a href="#">
-                                <div class="overlay"></div>
-                                <img class="lazy" src="/homes/images/2.jpg" alt="vidorev视频的WordPress主题" /> </a> </div>
-                            </li>
-                    <li>
-                              <div class="image-item"> <a href="http://www.lmlblog.com/965.html">
-                                <div class="overlay"></div>
-                                <img class="lazy" src="/homes/images/3.jpg" alt="vidorev视频的WordPress主题" /> </a> </div>
-                            </li>
-                    <li>
-                              <div class="image-item"> <a href="http://www.lmlblog.com/965.html">
-                                <div class="overlay"></div>
-                                <img class="lazy" src="/homes/images/4.jpg" alt="vidorev视频的WordPress主题" /> </a> </div>
-                            </li>
-                  </ul>
+                          <h2><a href="#" title="vidorev视频的WordPress主题" target="_blank">{{$v->title}}</a></h2>
                         </div>
                 <div class="posts-default-content">
-                          <div class="posts-text">vidorev(视频革命)是一个敏感的WordPress主题最适合视频，电影，新闻，杂志或博客。随着视频的强大功能，它将带来一个全新的体验。&hellip;</div>
+                          <div class="posts-text">{{strip_tags( str_limit($v->content,200) )}}&hellip;</div>
                         </div>
                 <div class="posts-default-info">
                           <ul>
                     <li class="post-author hidden-xs">
-                              <div class="avatar"><img alt='maolai' src="/homes/images/wo.jpg" height='96' width='96' /></div>
-                              <a href="http://www.lmlblog.com/" target="_blank">maolai</a></li>
-                    <li class="ico-cat"><i class="icon-list-2"></i> <a href="#">wordpress主题</a></li>
-                    <li class="ico-time"><i class="icon-clock-1"></i> 2017-10-25</li>
-                    <li class="ico-eye hidden-xs"><i class="icon-eye-4"></i> 4,572</li>
-                    <li class="ico-like hidden-xs"><i class="icon-heart"></i> 107</li>
+                              <div class="avatar"><img alt='maolai' src="{{$v->img}}" height='96' width='96' /></div>
+                              <a href="" target="_blank">{{$v->user_name}}</a></li>
+                    <li class="ico-cat"><i class="icon-list-2"></i>
+                    <a href="#">wordpress主题</a></li>
+                    <li class="ico-time"><i class="icon-clock-1"></i> {{$v->time}}</li>
+                    <li class="ico-eye hidden-xs"><i class="icon-eye-4"></i> {{$v->count}}</li>
+                    <li class="ico-like hidden-xs"><i class="icon-thumbs-up"></i> {{$v->zan}}</li>
                   </ul>
                         </div>
               </div>
                     </div>
+                    @endforeach
             <div class="ajax-load-con content wow fadeInUp">
                       <div class="content-box posts-gallery-box">
                 <div class="posts-gallery-img"> <a href="#" title="gridbase -新闻和博客的WordPress主题" target="_blank"> <img class="lazy" src="/homes/images/5.jpg" alt="gridbase -新闻和博客的WordPress主题" /> </a> </div>
@@ -363,6 +328,8 @@
                         </div>
               </div>
                     </div>
+
+
             <div class="ajax-load-con content wow fadeInUp">
                       <div class="content-box posts-gallery-box">
                 <div class="posts-gallery-img"> <a href="#" title="minberi报纸编辑WordPress主题" target="_blank"> <img class="lazy" src="/homes/images/6.jpg" alt="minberi报纸编辑WordPress主题" /> </a> </div>
@@ -557,9 +524,9 @@
                     </div>
           </div>
                   <div class="clearfix"></div>
-                  <div id="ajax-load-posts">
+           <div id="ajax-load-posts">
             <button id="fa-loadmore" class="button button-more wow fadeInUp" data-wow-delay="0.3s" data-home="true" data-paged="2" data-action="fa_load_postlist" data-total="4">加载更多</button>
-          </div>
+          </div>       
                 </div>
         <div class="sidebar col-xs-12 col-sm-4 col-md-4">
                   <div class="widget suxingme_topic">
@@ -642,8 +609,10 @@
                 </div>
       </div>
             </div>
-  </div>
+  </div> @show
         </div>
+
+      
 <div class="clearfix"></div>
 <div id="footer" class="two-s-footer clearfix">
           <div class="footer-box">

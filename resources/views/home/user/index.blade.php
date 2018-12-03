@@ -8,16 +8,15 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" type="text/css" href="/homes/statics/css/index.css" media="all" />
+
 	</head>
 
 	<body class="home blog custom-background round-avatars">
-		 @php
-
-          $user = DB::table('user')->where('id',session('uid'))->first();
-
-         @endphp
-		<div class="Yarn_Background" style="background-image: url( /homes/statics/images/47fb3c_.jpg);"></div>
-		<form class="js-search search-form search-form--modal" method="get" action="search.html" role="search">
+		@php 
+			 $user = DB::table('user')->where('id',session('uid'))->first();
+		@endphp
+		<div class="Yarn_Background" style="background-image: url({{$user->background}});"></div>
+		<form class="js-search search-form search-form--modal" method="get" action="/home/search" role="search">
 			<div class="search-form__inner">
 				<div>
 					<div id="search-container" class="ajax_search">
@@ -44,33 +43,37 @@
 							<div class="menu-menu-container">
 								<ul id="primary-menu" class="menu">
 									<li id="menu-item-17" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-17">
-										<a href="index.html">首页</a>
-									</li>
-									<li id="menu-item-173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
-										<a href="update.html">更新</a>
+										<a href="/">首页</a>
 									</li>
 									<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78">
-										<a href="link.html">链接</a>
+										<a href="/home/guanzhu">关注</a>
 									</li>
 									<li id="menu-item-252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-252">
-										<a href="archives.html">归档</a>
+										<a href="">归档</a>
 										<ul class="sub-menu">
 											<li id="menu-item-165" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-165">
-												<a href="">theme</a>
+												<a href="/home/huati">我的话题</a>
 											</li>
 											<li id="menu-item-163" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-163">
-												<a href="">Happen</a>
+												<a href="/home/zhuanti">我的专题</a>
 											</li>
 											<li id="menu-item-924" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-924">
-												<a href="">WeWork</a>
+												<a href="/home/dongtai">我的动态</a>
 											</li>
-											<li id="menu-item-164" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-164">
-												<a href="">WordPress</a>
-											</li>
+											
 										</ul>
 									</li>
+
+									<li id="menu-item-173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
+										<a href="/home/shijianzhou">时间轴</a>
+									</li>
+									
+									
 									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
-										<a href="gustbook.html">留言</a>
+										<a href="/home/liuyan">留言版</a>
+									</li>
+									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
+										<a href="gustbook.html">个人设置</a>
 									</li>
 								</ul>
 							</div>
@@ -80,6 +83,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="hebin" data-aos="fade-down">
 			<i class=" js-toggle-search iconfont">&#xe60e;</i>
 		</div>
@@ -90,7 +94,8 @@
 						<img class="custom-logo avatar" src="{{$user->img}}" />
 					</figure>
 				</a>
-				<h3 class="blog-description"><p>{{$user->name}}</p></h3>
+				<h3 class="blog-description"style="margin-bottom:5px; "><p>{{$user->name}}</p></h3>
+				<h4 class="blog-description"style="margin-top:5px; "><p>关注： 0&nbsp;    粉丝：0</p></h4>
 			</div>
 			<!-- .site-branding -->
 			<div class="decor-part">
@@ -111,27 +116,33 @@
 				</div>
 			</div>
 		</header>
+		  @section('content')
+
+      
+
 		<div id="main" class="content">
 			<div class="container">
 				<article itemscope="itemscope">
 					<div class="posts-list js-posts">
+						@foreach($article as $k => $v)
 						<div class="post post-layout-list" data-aos="fade-up">
 							<div class="status_list_item icon_kyubo">
-								<div class="status_user" style="background-image: url(statics/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
+								<div class="status_user" style="background-image: url(/homes/statics/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
 									<div class="status_section">
-										<a href="detail.html" class="status_btn">交代是不可能交代的</a>
-										<p class="section_p">相隔上一次的更新我掰手指数一数，下意识的双腿一软，给各位小哥哥小姐姐们跪下了。自从有了对象后，周末几乎落下了主题的进度（邪魅的笑）。一边开发新的主题，一边收集您们给我反馈回来的"臭虫"，还有新的主题后台看见了一些大神在... </p>
+										<a href="/home/user/xiangqing?id={{$v->id}}" class="status_btn">{{$v->title}}</a>
+										<p class="section_p">{{strip_tags( str_limit($v->content,200) )}}&hellip;</p>
 									</div>
 								</div>
 							</div>
 						</div>
+						@endforeach
 						<div class="post post-layout-list" data-aos="fade-up">
 							<div class="postnormal review ">
 								<div class="post-container review-item">
 									<div class="row review-item-wrapper">
 										<div class="col-sm-3">
 											<a rel="nofollow" href="detail.html">
-												<div class="review-item-img" style="background-image: url(statics/images/diego-ph-249471-2-800x1000.jpg);"></div>
+												<div class="review-item-img" style="background-image: url(/homes/statics/images/diego-ph-249471-2-800x1000.jpg);"></div>
 											</a>
 										</div>
 										<div class="col-sm-9 flex-xs-middle">
@@ -143,7 +154,7 @@
 										</div>
 									</div>
 									<div class="review-bg-wrapper">
-										<div class="bg-blur" style="background-image: url(statics/images/diego-ph-249471-2-800x1000.jpg);"></div>
+										<div class="bg-blur" style="background-image: url(/homes/statics/images/diego-ph-249471-2-800x1000.jpg);"></div>
 									</div>
 								</div>
 								<div class="post-container">
@@ -157,7 +168,7 @@
 						</div>
 						<div class="post post-layout-list" data-aos="fade-up">
 							<div class="status_list_item icon_kyubo">
-								<div class="status_user" style="background-image: url(statics/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
+								<div class="status_user" style="background-image: url(/homes/statics/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
 									<div class="status_section">
 										<a href="detail.html" class="status_btn">状态</a>
 										<p class="section_p">因为我这后半年飘忽不定的更新节奏，感觉真的对不住用户。最近才松下来能处理反馈的bug，顺便加快新主题 Dcras 的制作，农历年后或许能上线，准确时间，不敢说-- 为了感谢大家对 Yarn 的支持，Dcras 会以 获兑现码半价的承诺 给 Yarn ... </p>
@@ -168,7 +179,7 @@
 						<div class="post post-layout-list js-gallery" data-aos="fade-up">
 							<div class="post-album">
 								<div class="row content">
-									<div class="bg" style="background-image: url(statics/images/IMG_0150.jpg);"></div>
+									<div class="bg" style="background-image: url(/homes/statics/images/IMG_0150.jpg);"></div>
 									<div class="contentext flex-xs-middle">
 										<div class="album-title">
 											<a href="detail.html">重构图像样式测试</a>
@@ -232,7 +243,7 @@
 					<!-- -pagination  -->
 			</div>
 		</div>
-
+			@show
 		<footer id="footer" class="overlay animated from-top">
 			<div class="decor-wrapper">
 				<svg id="footer-decor" class="decor top" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -267,6 +278,10 @@
 			<script type='text/javascript' src='/homes/statics/js/script.js'></script>
 			<script type='text/javascript' src='/homes/statics/js/particles.js'></script>
 			<script type='text/javascript' src='/homes/statics/js/aos.js'></script>
+			<script type='text/javascript' src='/homes/statics/js/prism.js'></script>
+			<script type='text/javascript' src='/homes/statics/js/gravatar.js'></script>
+			<script type='text/javascript' src='/homes/statics/js/comments-ajax.js'></script>
+			<script type='text/javascript' src='/homes/statics/js/form.js'></script>
 
 	</body>
 

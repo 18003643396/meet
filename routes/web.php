@@ -30,26 +30,47 @@ Route::group(['middleware'=>'login'],function(){
 	//修改密码
 	Route::any('/admin/pass','Admin\LoginController@pass');
 	Route::any('/admin/passchange','Admin\LoginController@passchange');
-	//后台管理员
-	Route::resource('admin/conservator',"Admin\ConservatorController");
-	Route::get('/admin/conservatorajax','Admin\ConservatorController@ajaxupdate');
-	Route::get('/admin/condeleteajax','Admin\ConservatorController@alldelete');
-	Route::get('/admin/kgajax','Admin\ConservatorController@kgajax');
-	//后台用户
-	Route::resource('admin/user',"Admin\UserController");
-	Route::get('/admin/userajax','Admin\UserController@ajaxupdate');
-	Route::get('/admin/userdeleteajax','Admin\UserController@alldelete');
+	Route::any('/admin/remind',function(){
+		return view('admin.remind',['title'=>"后台"]);
+	});
 
-	//友情链接
-	Route::resource('admin/friend',"Admin\FriendController");
-	Route::get('admin/frienddeleteajax',"Admin\FriendController@alldelete");
-	//轮播图
-	Route::resource('admin/rotate',"Admin\RotateController");
-	Route::get('admin/rotatedeleteajax',"Admin\RotateController@alldelete");
+	Route::group(['middleware'=>'conper'],function(){
+		//后台管理员
+		Route::resource('admin/conservator',"Admin\ConservatorController");
+		Route::get('/admin/conservatorajax','Admin\ConservatorController@ajaxupdate');
+		Route::get('/admin/condeleteajax','Admin\ConservatorController@alldelete');
+		Route::get('/admin/kgajax','Admin\ConservatorController@kgajax');
+		//管理员添加角色
+		Route::get('/admin/conservator_role','Admin\ConservatorController@conservator_role');
+		Route::any('/admin/do_conservator_role','Admin\ConservatorController@do_conservator_role');
+		//后台用户
+		Route::resource('admin/user',"Admin\UserController");
+		Route::get('/admin/userajax','Admin\UserController@ajaxupdate');
+		Route::get('/admin/userdeleteajax','Admin\UserController@alldelete');
 
-	// 类别
-	Route::resource('admin/cate',"Admin\CateController");
-	Route::get('admin/catedeleteajax',"Admin\CateController@alldelete");
+		//友情链接
+		Route::resource('admin/friend',"Admin\FriendController");
+		Route::get('admin/frienddeleteajax',"Admin\FriendController@alldelete");
+		//轮播图
+		Route::resource('admin/rotate',"Admin\RotateController");
+		Route::get('admin/rotatedeleteajax',"Admin\RotateController@alldelete");
+
+		// 类别
+		Route::resource('admin/cate',"Admin\CateController");
+		Route::get('admin/catedeleteajax',"Admin\CateController@alldelete");
+		//角色管理
+		Route::resource('/admin/role','Admin\RoleController');
+		Route::get('admin/roledeleteajax',"Admin\RoleController@alldelete");
+		Route::any('/admin/role_per','Admin\RoleController@role_per');
+		Route::any('/admin/do_role_per','Admin\RoleController@do_role_per');
+
+		//权限管理
+		Route::resource('/admin/permission','Admin\PerController');
+		Route::get('admin/perdeleteajax',"Admin\PerController@alldelete");
+
+	});
+	
+
 });
 
 //前台登录
@@ -66,4 +87,16 @@ Route::group(['middleware'=>'qlogin'],function(){
 	Route::any('/home/logout','Home\LoginController@logout');
 	//个人中心主页
 	Route::get('/home/user','Home\UserController@index');
+	Route::get('/home/guanzhu','Home\UserController@guanzhu');
+	Route::get('/home/huati','Home\UserController@huati');
+	Route::get('/home/zhuanti','Home\UserController@zhuanti');
+	Route::get('/home/dongtai','Home\UserController@dongtai');
+	Route::get('/home/shijianzhou','Home\UserController@shijianzhou');
+	Route::get('/home/liuyan','Home\UserController@liuyan');
+	Route::get('/home/search','Home\UserController@search');
+	Route::get('/home/user/xiangqing','Home\UserController@xiangqing');
+	//发文章
+	Route::get('/home/tougao','Home\ArticleController@create');
+	Route::any('/home/article/store','Home\ArticleController@store');
+	
 });

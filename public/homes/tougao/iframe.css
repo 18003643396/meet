@@ -1,0 +1,93 @@
+@charset "utf-8";
+/*可以在这里添加你自己的css*/
+.selectTdClass{background-color:#3399FF !important}
+table{margin-bottom:10px;border-collapse:collapse;}td{padding:2px;}
+.view{padding:0;word-wrap:break-word;word-break:break-word;/*word-break:break-all;*/cursor:text;height:100%;}
+html{}
+body{margin:15px 0 8px 0;font-family:"Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";font-size:14px;color:#333;text-align:left;}
+html.js-in-ueditor-fullscreen{padding-left:17px;overflow-y:scroll;}
+html.js-in-ueditor-fullscreen body{width:600px;margin:8px auto;}
+li{clear:both}
+*{line-height:1.4;}
+a{color:#7594b3;}
+p{margin:10px 0;}
+body > p:first-child{margin-top:0;}
+ol,ul{margin:0;padding:0;}
+ol li p,ul li p{margin:0;}
+blockquote{padding:0 0 0 10px;margin:10px 0 10px 10px;border-left:3px solid #ccc;}
+body blockquote p{margin: 0;}
+img,embed,object{max-width:100%;}
+
+/* 长文章发布说明弹窗中的富文本 */
+.iframe-publish-desc{overflow:auto !important;}
+
+/*内容正文样式*/
+
+body strong{font-weight: bold;font-style: normal;}
+body em{font-weight: normal;font-style: italic;}
+
+body p{margin:20px 0;color:#666;font-size:16px;line-height:30px;/*width:100%;*/word-wrap:break-word;word-break:break-word;}
+
+body ol{box-sizing:border-box;padding-left:20px;margin-bottom:20px;font-size:16px;color:#666;line-height:44px;}
+body ol li{list-style-type:inherit;}
+
+body ol li p{color:#666;font-size:16px;/*width:100%;*/word-break:break-word;margin-bottom:0;margin-top:0;}
+body ul{box-sizing: border-box;padding-left: 20px;margin-bottom: 20px;font-size: 18px;color: #666;line-height: 44px;}
+body ul li{list-style-type:inherit;}
+
+body ul li p{color:#666;font-size:16px;/*width:100%;*/word-break:break-word;margin-bottom: 0;margin-top: 0;}
+body blockquote{font-size: 14px;color: #666;line-height: 28px;width: calc(100% - 38px);padding-left: 18px;background: #fff;position: relative;margin-bottom: 20px;border:none;}
+body blockquote::before{content: '';border-left: 4px solid #ddd;border-radius: 2px;height: calc(100% - 14px);position: absolute;top: 7px;left: 0px}
+body p img{display:block;max-width:100%;margin:0 auto;margin-bottom:10px;margin-top:6px;resize:none;}
+body img{display:block;max-width:100%;margin:0 auto;margin-bottom:40px;}
+body hr{border:none;border-top:1px dashed #ccc;margin: 30px 0;}
+body h1, body h2, body h3, body h4{font-weight: normal;}
+body h1{margin-bottom: 20px;color:#333;font-size:26px;word-break:break-word;}
+body h2{margin-bottom: 20px;color:#333;font-size:24px;word-break:break-word;}
+body h3{margin-bottom: 20px;color:#333;font-size:22px;word-break:break-word;}
+body h4{margin-bottom: 20px;color:#333;font-size:20px;word-break:break-word;}
+
+
+/*  LOF-3139:长文章增加插入视频功能  */
+body img[localvideo="localvideo"]{width:450px;height:450px;background-color:#000;background-repeat:no-repeat;background-size:contain;background-position:center center;}
+
+/*  视频上传进度条  */
+.noselect,
+.noselect *{user-select:none;-moz-user-select:none;-webkit-user-select:none;-khtml-user-select:none;-o-user-select:none;}
+.uploadvieoprogressbar{width:588px;height:76px;padding:16px 20px;background:#fff;border:1px solid #eee;box-shadow: 0 1px 4px 0 rgba(215,215,215,0.50);}
+.uploadvieoprogressbar{-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;}
+
+.uploadvieoprogressbar i,
+.uploadvieoprogressbar b,
+.uploadvieoprogressbar em{font-style:normal;font-weight:normal;}
+
+.uploadvieoprogressbar .part1{display:block;height:22px;line-height:22px;padding:0 0 15px 0;color:#666;font-size:16px;}
+.uploadvieoprogressbar .part1 b{float:right;}
+.uploadvieoprogressbar .part1 em{display:block;width:450px;height:22px;line-height:22px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;word-break:keep-all;}
+.uploadvieoprogressbar .part1 i{display:none;float:right;padding-left:22px;color:#bc0017;background:url(http://l.bst.126.net/rsc/js/ueditor4longpost/themes/loftskin/images/error.png) 0 3px no-repeat;}
+
+.uploadvieoprogressbar .part2{position:relative;display:block;}
+.uploadvieoprogressbar .part2 b{position:absolute;left:0;top:0;width:0;height:4px;background:#97cc00;}
+.uploadvieoprogressbar .part2 em{display:block;width:100%;height:4px;background:#ddd;}
+.uploadvieoprogressbar .part2 b,
+.uploadvieoprogressbar .part2 em{border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;}
+
+.uploadvieoprogressbar .part3{display:block;height:22px;line-height:22px;padding:14px 0 2px 0;font-size:14px;}
+.uploadvieoprogressbar .part3 b{float:right;color:#409db9;font-size:16px;cursor:pointer;}
+.uploadvieoprogressbar .part3 em{color:#ccc;}
+
+.uploadvieoprogressbar .part4{display:none;height:22px;line-height:22px;padding:14px 0 2px 0;color:#409db9;font-size:16px;}
+.uploadvieoprogressbar .part4 i{float:right;margin-left:30px;cursor:pointer;}
+.uploadvieoprogressbar .part4 b{float:right;cursor:pointer;}
+
+.uploadvieoprogressbar.js-uploadvideoerror{}
+.uploadvieoprogressbar.js-uploadvideoerror .part1 .progressnum{display:none;}
+.uploadvieoprogressbar.js-uploadvideoerror .part1 i{display:block;}
+.uploadvieoprogressbar.js-uploadvideoerror .part2 b,
+.uploadvieoprogressbar.js-uploadvideoerror .part2 em{background:#bc0017;}
+.uploadvieoprogressbar.js-uploadvideoerror .part3{display:none;}
+.uploadvieoprogressbar.js-uploadvideoerror .part4{display:block;}
+
+/*  LOF-3270:长文章插入第三方视频  */
+body img[webvideo="webvideo"]{width:450px;height:450px;background-color:#000;background-repeat:no-repeat;background-size:contain;background-position:center center;}
+

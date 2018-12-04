@@ -8,6 +8,8 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="stylesheet" type="text/css" href="/homes/statics/css/index.css" media="all" />
+		
+		
 
 	</head>
 
@@ -73,7 +75,7 @@
 										<a href="/home/user/liuyan">留言版</a>
 									</li>
 									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
-										<a href="gustbook.html">个人设置</a>
+										<a href="/home/user/info">个人设置</a>
 									</li>
 								</ul>
 							</div>

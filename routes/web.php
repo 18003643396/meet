@@ -97,13 +97,25 @@ Route::group(['middleware'=>'qlogin'],function(){
 	Route::get('/home/user/liuyan','Home\UserController@liuyan');
 	Route::get('/home/user/search','Home\UserController@search');
 	Route::get('/home/user/xiangqing','Home\UserController@xiangqing');
+	Route::get('/home/user/info','Home\UserController@info');
+	Route::any('/home/user/infoupdate','Home\UserController@infoupdate');
+	//头像预加载
+	Route::any('/home/user/touxiang','Home\UserController@upload');
+	//修改头像
+	Route::any('/home/user/touxiangupdate','Home\UserController@touxiangupdate');
+	//修改密码
+	Route::any('/home/user/mimaupdate','Home\UserController@mimaupdate');
+	//修改背景图
+	Route::any('/home/user/backgroundupdate','Home\UserController@backgroundupdate');
+	
 	//发文章
 	Route::get('/home/tougao','Home\ArticleController@create');
 	Route::any('/home/article/store','Home\ArticleController@store');
 	//发专题
-	Route::get('/home/zhuanti/store','Home\ArticleController@zhuanti');
+	Route::any('/home/upload','Home\ArticleController@upload');
+	Route::any('/home/zhuanti/store','Home\ArticleController@zhuanti');
 	//发图文
-	Route::get('/home/tuwen/store ','Home\ArticleController@tuwen ');
+	Route::any('/home/huati/store','Home\ArticleController@huatistore');
 	
 	//赞文章
 	Route::any('/home/article/zan','Home\ArticleController@zan');

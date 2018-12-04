@@ -54,11 +54,11 @@
               <div class="menu-fix-box">
         <ul id="menu-navigation" class="menu">
                   <li class="current-menu-ancestor"><a href="/">首页</a></li>
-                   <li><a href="#">关注</a></li>
                     <li><a href="#">话题</a></li>
                     <li><a href="#">专题</a></li>
                     <li><a href="#">达人</a></li>
                      @if(!session('uid') == '')
+                     <li><a href="#">关注</a></li>
                     <li><a href="/home/user">个人中心</a></li>
                     
                  
@@ -132,7 +132,7 @@
                                 
                             </ul>
                         <br>
-                        <p class="good-tips marginB10"><a id="btnForgetpsw" class="fr"style="color:#353630; ">忘记密码？</a>还没有账号？<a href="javascript:;" id="btnRegister">立即注册</a></p>
+                        <p class="good-tips marginB10"><a id="btnForgetpsw" class="fr"style="color:#353630; ">忘记密码？</a>还没有账号？<a href="/home/zhuce" id="btnRegister">立即注册</a></p>
                           <div class="login-box marginB10">
                             {{csrf_field()}}
                             <button id="login_btn" class="btn btn-micv5 btn-block"value="登录" style="height:47px;background:#A5A593;border-color:#A5A593;color:#fff;font-size:16px;">登录</button>

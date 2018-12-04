@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Admin\Article;
+use App\Model\Admin\Cate;
+use App\Model\Subject;
 use DB;
 class ArticleController extends Controller
 {
@@ -31,35 +33,87 @@ class ArticleController extends Controller
 
         }catch(\Exception $e){
 
-            return back()->with('error','添加失败');
+            return back()->with('error','发布失败');
        
+        }
+    }
+    //图片预览
+     public function upload(Request $request)
+    {
+
+     
+        //判断文件是否有效
+        if($request->hasFile('images')){
+
+            $entension = $request->file('images')->getClientOriginalExtension();//上传文件的后缀名
+
+            $newName = date('YmdHis').mt_rand(1000,9999).'.'.$entension;
+             $a = $request->file('images')->move('./uploads/articleimages',$newName);
+			// return $a;
+            $filepath = '/uploads/articleimages/'.$newName;
+            //返回文件的路径
+            //
+            return  $filepath;
         }
     }
     //保存专题页面
     public function zhuanti(Request $request)
     {
-
-    	$res = $request->except('_token');
+    	$res = $request->except('_token','images');
+    	
     	$res['user_id'] = session('uid');
     	$res['user_name'] = session('uname');
       	$res['time'] = date('Y-m-d H:i:s',time());
 
+      	$rs = $request->except('_token','images');
+      	$rs['user_id'] = session('uid');
+      	if($request->hasFile('images')){
+            //自定义名字
+            $name = rand(111,999).time();
+            //获取后缀
+            $suffix = $request->file('images')->getClientOriginalExtension();
+
+            $request->file('images')->move('./uploads/articleimages',$name.'.'.$suffix);
+
+            $rs['images'] = '/uploads/articleimages/'.$name.'.'.$suffix;
+
+        }
+            // dd($rs);
+            $res['subject_id'] = Subject::create($rs)->value('id');
             $data = Article::create($res);
       try{ 
             if($data){
-                return redirect('/')->with('success','发布成功');
+                return redirect('/')->with('success','已提交，等待管理员审核');
             }
 
         
 
         }catch(\Exception $e){
 
-            return back()->with('error','添加失败');
+            return back()->with('error','提交失败');
        
         }
     }
+    //发布话题
+    public function huatistore(Request $request)
+    {
+    	
 
+    	$res = $request->except('_token');
+            $data = Cate::create($res);
+      try{ 
+            if($data){
+                return redirect('/')->with('success','话题发布成功');
+            }
 
+        
+
+        }catch(\Exception $e){
+
+            return back()->with('error','话题发布失败');
+       
+        }
+    }
 
 
     //查看文章页面

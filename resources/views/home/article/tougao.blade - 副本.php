@@ -8,7 +8,7 @@
     <form action="/home/article/store" method="post"enctype="multipart/form-data">
       <div class="textareawrap">
          <center>
-          <textarea type="text" class="title"name="title" id="title" placeholder="请填写标题" maxlength="32"style="height: 50px;display: block;width: 700px;margin:auto;outline: none;border:1px solid #ccc;color: #333;font-size: 30px;border-radius: 20px;"></textarea></br>
+          <textarea type="text" class="title"name="title" id="title" placeholder=" 请填写标题" maxlength="32"style="height: 50px;display: block;width: 700px;margin:auto;outline: none;border:1px solid #ccc;color: #333;font-size: 30px;border-radius: 20px;"></textarea></br>
         
             <textarea id="editor_id" name="content" style="width:700px;height:300px;margin-left:300px;border-radius: 10px;">&lt;strong&gt;请输入内容&lt;/strong&gt;
             </textarea>

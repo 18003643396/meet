@@ -291,14 +291,14 @@
                     </div>
            @php
 
-          $art = DB::table('article')->join('user','user_id','=','user.id')->get();
+          $art = DB::table('user')->join('article','user_id','=','user.id')->get();
           
          @endphp
         @foreach($art as $k => $v) 
             <div class="ajax-load-con content wow fadeInUp">
                       <div class="content-box posts-image-box">
                 <div class="posts-default-title">
-                          <h2><a href="#" title="vidorev视频的WordPress主题" target="_blank">{{$v->title}}</a></h2>
+                          <h2><a href="/home/xiangqing?id={{$v->id}}" title="vidorev视频的WordPress主题" target="_blank">{{$v->title}}</a></h2>
                         </div>
                 <div class="posts-default-content">
                           <div class="posts-text">{{strip_tags( str_limit($v->content,200) )}}&hellip;</div>

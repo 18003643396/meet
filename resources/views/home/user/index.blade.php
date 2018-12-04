@@ -16,7 +16,7 @@
 			 $user = DB::table('user')->where('id',session('uid'))->first();
 		@endphp
 		<div class="Yarn_Background" style="background-image: url({{$user->background}});"></div>
-		<form class="js-search search-form search-form--modal" method="get" action="/home/search" role="search">
+		<form class="js-search search-form search-form--modal" method="get" action="/home/user/search" role="search">
 			<div class="search-form__inner">
 				<div>
 					<div id="search-container" class="ajax_search">
@@ -46,31 +46,31 @@
 										<a href="/">首页</a>
 									</li>
 									<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78">
-										<a href="/home/guanzhu">关注</a>
+										<a href="/home/user/guanzhu">关注</a>
 									</li>
 									<li id="menu-item-252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-252">
 										<a href="">归档</a>
 										<ul class="sub-menu">
 											<li id="menu-item-165" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-165">
-												<a href="/home/huati">我的话题</a>
+												<a href="/home/user/huati">我的话题</a>
 											</li>
 											<li id="menu-item-163" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-163">
-												<a href="/home/zhuanti">我的专题</a>
+												<a href="/home/user/zhuanti">我的专题</a>
 											</li>
 											<li id="menu-item-924" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-924">
-												<a href="/home/dongtai">我的动态</a>
+												<a href="/home/user/dongtai">我的动态</a>
 											</li>
 											
 										</ul>
 									</li>
 
 									<li id="menu-item-173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
-										<a href="/home/shijianzhou">时间轴</a>
+										<a href="/home/user/shijianzhou">时间轴</a>
 									</li>
 									
 									
 									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
-										<a href="/home/liuyan">留言版</a>
+										<a href="/home/user/liuyan">留言版</a>
 									</li>
 									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
 										<a href="gustbook.html">个人设置</a>
@@ -116,11 +116,12 @@
 				</div>
 			</div>
 		</header>
-		  @section('content')
+		 
 
-      
+      @section('content')
 
-		<div id="main" class="content">
+		<div id="main" class="content"> 
+			
 			<div class="container">
 				<article itemscope="itemscope">
 					<div class="posts-list js-posts">

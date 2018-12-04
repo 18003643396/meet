@@ -77,6 +77,8 @@ Route::group(['middleware'=>'login'],function(){
 
 Route::any('/home/dologin','Home\LoginController@dologin');
 Route::any('/home/captcha','Home\LoginController@captcha');
+//查看文章
+Route::any('/home/xiangqing','Home\ArticleController@xiangqing');
 //注册
 Route::any('/home/zhuce','Home\LoginController@zhuce');
 Route::post('/home/dozhuce','Home\LoginController@dozhuce');
@@ -87,16 +89,25 @@ Route::group(['middleware'=>'qlogin'],function(){
 	Route::any('/home/logout','Home\LoginController@logout');
 	//个人中心主页
 	Route::get('/home/user','Home\UserController@index');
-	Route::get('/home/guanzhu','Home\UserController@guanzhu');
-	Route::get('/home/huati','Home\UserController@huati');
-	Route::get('/home/zhuanti','Home\UserController@zhuanti');
-	Route::get('/home/dongtai','Home\UserController@dongtai');
-	Route::get('/home/shijianzhou','Home\UserController@shijianzhou');
-	Route::get('/home/liuyan','Home\UserController@liuyan');
-	Route::get('/home/search','Home\UserController@search');
+	Route::get('/home/user/guanzhu','Home\UserController@guanzhu');
+	Route::get('/home/user/huati','Home\UserController@huati');
+	Route::get('/home/user/zhuanti','Home\UserController@zhuanti');
+	Route::get('/home/user/dongtai','Home\UserController@dongtai');
+	Route::get('/home/user/shijianzhou','Home\UserController@shijianzhou');
+	Route::get('/home/user/liuyan','Home\UserController@liuyan');
+	Route::get('/home/user/search','Home\UserController@search');
 	Route::get('/home/user/xiangqing','Home\UserController@xiangqing');
 	//发文章
 	Route::get('/home/tougao','Home\ArticleController@create');
 	Route::any('/home/article/store','Home\ArticleController@store');
+	//发专题
+	Route::get('/home/zhuanti/store','Home\ArticleController@zhuanti');
+	//发图文
+	Route::get('/home/tuwen/store ','Home\ArticleController@tuwen ');
+	
+	//赞文章
+	Route::any('/home/article/zan','Home\ArticleController@zan');
+	//收藏文章
+	Route::any('/home/article/collect','Home\ArticleController@collect');
 	
 });

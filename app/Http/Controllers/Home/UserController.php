@@ -16,7 +16,7 @@ class UserController extends Controller
     }
     public function xiangqing(Request $request)
     {
-        // dd($id);
+        
         $id = $request->get('id');
         // dd($id);
         $article = Article::where('user_id',session('uid'))->get();

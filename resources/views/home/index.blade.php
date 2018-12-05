@@ -88,12 +88,13 @@
                                   </div>
       </div>
               <button class="js-toggle-search"><i class=" icon-search"></i></button>
-              <a href="/home/tougao" class="toggle-tougao  hidden-xs">投稿</a> 
+               
               @if(session('uid') == '')
-
+              
               <a href="#" class="toggle-login hidden-xs a globalLoginBtn">登录</a> <span class="line  hidden-xs"></span>
               <a href="/home/zhuce" class="toggle-login hidden-xs">注册</a> 
               @else
+              <a href="/home/tougao" class="toggle-tougao  hidden-xs">投稿</a>
               <a href="#" class="toggle-login hidden-xs">{{session('uname')}}</a> 
               <span class="line  hidden-xs"></span>
               <a href="/home/logout" class="toggle-login hidden-xs">退出</a> 
@@ -107,7 +108,7 @@
             <div style="vertical-align:middle; display:table-cell;">
               <div class="modal-dialog modal-sm" style="width:540px;">
         <div class="modal-content" style="border: none;height:360px;">
-            <div class="col-left" style="height: 360px;background:url(homes/images/left.jpg)"></div>
+            <div class="col-left" style="height: 360px;background:url(homes/images/left5.jpg)"></div>
             <div class="col-right"style="height: 360px">
                 <div class="modal-header1">
                     <button type="button" id="login_close" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>

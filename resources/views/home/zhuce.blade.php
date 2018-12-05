@@ -291,7 +291,7 @@ background:url(../../images/v3/iphone.png) -25px -290px no-repeat;
 		
 		<div class="reg_login">
 			<p>已有帐号？</p>
-			<a class="btn2" href="login">登录</a>
+			<a class="btn2" href="/">登录</a>
 		</div>
 		<div class="bg"></div>
 	</div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Admin\Article;
 use App\Model\Admin\User;
+use App\Model\Admin\Follow;
 use App\Http\Requests\ConupdateRequest;
 use App\Http\Requests\PassRequest;
 use Session;
@@ -13,69 +14,108 @@ use DB;
 use Hash;
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-
-          $article = Article::where('user_id',session('uid'))->get();
-    	return view('home.user.index',['article'=>$article]);
+            $id = $request->get('id');
+          $article = Article::where('user_id',$id)->get();
+    	return view('home.user.index',['article'=>$article,'id'=>$id]);
     }
+    //文章详情
     public function xiangqing(Request $request)
     {
         
         $id = $request->get('id');
+        $uid = $request->get('uid');
         // dd($id);
-        $article = Article::where('user_id',session('uid'))->get();
+        $article = Article::where('user_id',$uid)->get();
         $articless = Article::where('id',$id)->first();
+       $comments = DB::table('user')->where('article_id',$id)->join('comment','comment.user_id','=','user.id')->latest('time')->get();
+       $replys = DB::table('user')->join('reply','reply.user_id','=','user.id')->get();
          // dd($article);
          // $article = Article::where('user_id',session('uid'))->get();
-         return view('home.user.xiangqing',['articless'=>$articless,'article'=>$article]);
+         return view('home.user.xiangqing',['articless'=>$articless,'article'=>$article,'id'=>$uid,'comment'=>$comments,'reply'=>$replys]);
         // return view('home.user.xiangqing');
     }
-    public function guanzhu()
+    //关注页面
+    public function guanzhu(Request $request)
     {
-        $article = Article::where('user_id',session('uid'))->get();
-    	return view('home.user.guanzhu',['article'=>$article]);
+        $id = $request->get('id');
+        $ginfo = DB::table('follow')->where('user_id',$id)->join('user','user.id','=','follow.followuser_id')->get();
+        // dd($ginfo);
+        $article = Article::where('user_id',$id)->get();
+    	return view('home.user.guanzhu',['article'=>$article,'id'=>$id,'ginfo'=>$ginfo]);
     }
-    public function huati()
+    //加关注
+    public function jiaguanzhu(Request $request)
     {
-        $article = Article::where('user_id',session('uid'))->get();
-    	return view('home.user.huati',['article'=>$article]);
+        $fid = $request->get('id');
+        $uid = session('uid');
+        $res = DB::table('follow')->where('user_id',$uid)->where('followuser_id',$fid)->first();
+        if($res){
+            $id = $res->id;
+            $rs = DB::table('follow')->where('id',$id)->delete();
+            if($rs){
+                return 3;
+            }else{
+                return 4;
+            }
+        }else{
+            $data = DB::table('follow')->insert(['user_id'=>$uid,'followuser_id'=>$fid]);
+            if($data){
+                return 1;
+            }else{
+                return 2;
+            }
+        }
+        
     }
-    public function zhuanti()
+    public function huati(Request $request)
     {
-        $article = Article::where('user_id',session('uid'))->get();
-        $zhuanti = Article::where('user_id',session('uid'))->where('subject_id','!=',null)->get();
-    	return view('home.user.zhuanti',['article'=>$article,'zhuanti'=>$zhuanti]);
+        $id = $request->get('id');
+        $article = Article::where('user_id',$id)->get();
+    	return view('home.user.huati',['article'=>$article,'id'=>$id]);
     }
-    public function dongtai()
+    public function zhuanti(Request $request)
     {
-        $article = Article::where('user_id',session('uid'))->get();
-        $dongtai = Article::where('user_id',session('uid'))->where('cate_id',null)->where('subject_id',null)->get();
+        $id = $request->get('id');
+        $article = Article::where('user_id',$id)->get();
+        $zhuanti = Article::where('user_id',$id)->where('subject_id','!=',null)->get();
+    	return view('home.user.zhuanti',['article'=>$article,'zhuanti'=>$zhuanti,'id'=>$id]);
+    }
+    public function dongtai(Request $request)
+    {
+        $id = $request->get('id');
+        $article = Article::where('user_id',$id)->get();
+        $dongtai = Article::where('user_id',$id)->where('cate_id',null)->where('subject_id',null)->get();
 
-    	return view('home.user.dongtai',['article'=>$article,'dongtai'=>$dongtai]);
+    	return view('home.user.dongtai',['article'=>$article,'dongtai'=>$dongtai,'id'=>$id]);
     }
-    public function shijianzhou()
+    public function shijianzhou(Request $request)
     {
-        $article = Article::where('user_id',session('uid'))->get();
-    	return view('home.user.shijianzhou',['article'=>$article]);
+        $id = $request->get('id');
+        $article = Article::where('user_id',$id)->get();
+    	return view('home.user.shijianzhou',['article'=>$article,'id'=>$id]);
     }
-    public function liuyan()
+    public function liuyan(Request $request)
     {
-        $article = Article::where('user_id',session('uid'))->get();
-    	return view('home.user.liuyan',['article'=>$article]);
+        $id = $request->get('id');
+        $article = Article::where('user_id',$id)->get();
+    	return view('home.user.liuyan',['article'=>$article,'id'=>$id]);
     }
     //搜索页面
-    public function search()
+    public function search(Request $request)
     {
-    	$article = Article::where('user_id',session('uid'))->get();
-        return view('home.user.search',['article'=>$article]);
+        $id = $request->get('id');
+    	$article = Article::where('user_id',$id)->get();
+        return view('home.user.search',['article'=>$article,'id'=>$id]);
     }
 
     //个人信息页面
     public function info()
     {
+
         $article = Article::where('user_id',session('uid'))->get();
-        return view('home.user.info',['article'=>$article]);
+        return view('home.user.info',['article'=>$article,'id'=>session('uid')]);
     }
     //修改个人信息
     public function infoupdate(ConupdateRequest $request)

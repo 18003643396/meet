@@ -4,15 +4,15 @@ namespace App\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Follow extends Model
 {
-    protected $table = 'user';
+    protected $table = 'follow';
 
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $guarded = [];
-    public function follows()
+    public function user()
     {
-    	return $this->hasMany('App\Model\Admin\User','followuser_id','id');
+        return $this->belongsTo('App\Model\Admin\User','followuser_id');
     }
 }

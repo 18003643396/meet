@@ -59,14 +59,14 @@
                     <li><a href="#">达人</a></li>
                      @if(!session('uid') == '')
                      <li><a href="#">关注</a></li>
-                    <li><a href="/home/user">个人中心</a></li>
+                    <li><a href="/home/user?id={{session('uid')}}">个人中心</a></li>
                     
                  
                   <li class="menu-item-has-children"><a>更多</a>
                     <ul class="sub-menu">
                       
                       <li><a href="#">寻找好友</a></li>
-                      <li><a href="#">退出</a></li>
+                      
                       @endif
                     </ul>
                   </li>
@@ -308,7 +308,7 @@
                           <ul>
                     <li class="post-author hidden-xs">
                               <div class="avatar"><img alt='maolai' src="{{$v->img}}" height='96' width='96' /></div>
-                              <a href="" target="_blank">{{$v->user_name}}</a></li>
+                              <a href="javascript:void(0)">{{$v->user_name}}</a></li>
                     <li class="ico-cat"><i class="icon-list-2"></i>
                     <a href="#">wordpress主题</a></li>
                     <li class="ico-time"><i class="icon-clock-1"></i> {{$v->time}}</li>

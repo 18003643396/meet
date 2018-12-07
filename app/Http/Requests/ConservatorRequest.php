@@ -24,7 +24,7 @@ class ConservatorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^\w{5,16}$/',
+            'name' => 'required|regex:/^\S{4,16}$/',
             'password' => 'required|regex:/^\S{5,12}$/',
             'repass'=>'same:password',
             'tel'=>'regex:/^1[3456789]\d{9}$/',

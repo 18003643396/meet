@@ -126,9 +126,12 @@ class ArticleController extends Controller
     	$data = Article::where('id',$id)->update(['count'=>$count]);
     	$res =  DB::table('zan')->where('article_id',$id) ->where('user_id',session('uid'))->first();
     	$rs =  DB::table('collect')->where('article_id',$id) ->where('user_id',session('uid'))->first();
+        // $czan = DB::table('commentzan')->get();
+        $comments = DB::table('user')->where('article_id',$id)->join('comment','comment.user_id','=','user.id')->latest('time')->get();
+        $replys = DB::table('user')->join('reply','reply.user_id','=','user.id')->get();
     	if($data){
     		$article = Article::where('id',$id)->first();
-    		return view("home.article.xiangqing",['article'=>$article,'res'=>$res,'rs'=>$rs]);
+    		return view("home.article.xiangqing",['article'=>$article,'res'=>$res,'rs'=>$rs,'comment'=>$comments,'reply'=>$replys]);
     	}
     	
     }
@@ -189,5 +192,105 @@ class ArticleController extends Controller
     			echo 3;
     		}
     	}
+    }
+
+    //文章评论
+    public function comment(Request $request)
+    {
+
+        $article_id = $request->article_id;
+        // return $article_id;
+        $content = $request->oSize;
+        $time = date('Y-m-d H:i:s',time());
+        $data = DB::table('comment')->insert(
+                ['article_id'=>$article_id,'user_id'=>session('uid'),'time'=>$time,'content'=>$content]);
+        if($data){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+
+    //评论回复
+    public function reply(Request $request)
+    {
+
+        $comment_id = $request->commentid;
+        // return $comment_id;
+        $content = $request->oHfVal;
+        $time = date('Y-m-d H:i:s',time());
+        $data = DB::table('reply')->insert(
+                ['comment_id'=>$comment_id,'user_id'=>session('uid'),'time'=>$time,'content'=>$content]);
+        if($data){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+    //评论点赞
+    public function commentzan(Request $request)
+    {
+        $id = $request->commentid;
+        $zan = $request->znum;
+        $res = DB::table('commentzan')->insert(
+                ['comment_id'=>$id,'user_id'=>session('uid')]);
+        if($res){
+            $data =  DB::table('comment')->where('id',$id)->update(['czan'=>$zan]);
+            if($data){
+                return 1;
+           }else{
+                return 2;
+           }
+        }
+        return 2;
+    }
+
+    //评论取消点赞
+    public function commentqzan(Request $request)
+    {
+        $comment_id = $request->commentid;
+        $zan = $request->znum;
+        $aa =  DB::table('commentzan')->where('comment_id',$comment_id)->where('user_id',session('uid'))->first();
+        $id = $aa->id;
+
+        $res = DB::table('commentzan')->where('id',$id)->delete();
+     
+        if($res){
+            $data =  DB::table('comment')->where('id',comment_id)->update(['czan'=>$zan]);
+                if($data){
+                    return 1;
+                }else{
+                    return 2;
+               }
+        }else{
+            return 2;
+        }
+       
+    }
+
+    //删除回复
+    public function rdelete(Request $request)
+    {
+        $reply_id = $request->reply_id;
+       
+        $data = DB::table('reply')->where('id',$reply_id)->delete();
+        if($data){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+    //删除评论
+    public function cdelete(Request $request)
+    {
+        $comment_id = $request->comment_id;
+        $data = DB::table('comment')->where('id',$comment_id)->delete();
+
+        $res = DB::table('reply')->where('comment_id',$comment_id)->delete();
+        if($data){
+            return 1;
+        }else{
+            return 2;
+        }
     }
 }

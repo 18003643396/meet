@@ -90,6 +90,7 @@ Route::group(['middleware'=>'qlogin'],function(){
 	//个人中心主页
 	Route::get('/home/user','Home\UserController@index');
 	Route::get('/home/user/guanzhu','Home\UserController@guanzhu');
+	Route::get('/home/user/jiaguanzhu','Home\UserController@jiaguanzhu');
 	Route::get('/home/user/huati','Home\UserController@huati');
 	Route::get('/home/user/zhuanti','Home\UserController@zhuanti');
 	Route::get('/home/user/dongtai','Home\UserController@dongtai');
@@ -121,5 +122,18 @@ Route::group(['middleware'=>'qlogin'],function(){
 	Route::any('/home/article/zan','Home\ArticleController@zan');
 	//收藏文章
 	Route::any('/home/article/collect','Home\ArticleController@collect');
-	
+	//评论
+	Route::any('/home/article/comment','Home\ArticleController@comment');
+    //删除回复     
+	Route::any('/home/article/rdelete','Home\ArticleController@rdelete');
+	//删除评论
+	Route::any('/home/article/cdelete','Home\ArticleController@cdelete');
+	//评论回复
+	Route::any('/home/article/reply','Home\ArticleController@reply');
+	//取消回复赞
+	Route::any('/home/article/comment/qzan','Home\ArticleController@commentqzan');
+	//回复赞
+	Route::any('/home/article/comment/zan','Home\ArticleController@commentzan');
+
+
 });

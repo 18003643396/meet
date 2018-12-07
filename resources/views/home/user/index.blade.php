@@ -7,7 +7,7 @@
 		<title>个人中心</title>
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
-		<link rel="stylesheet" type="text/css" href="/homes/statics/css/index.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="/homes/statics/css/index.css" media="all" /><script type='text/javascript' src='/homes/statics/js/jquery.min.js'></script>
 		
 		
 
@@ -15,10 +15,10 @@
 
 	<body class="home blog custom-background round-avatars">
 		@php 
-			 $user = DB::table('user')->where('id',session('uid'))->first();
+			 $user = DB::table('user')->where('id',$id)->first();
 		@endphp
 		<div class="Yarn_Background" style="background-image: url({{$user->background}});"></div>
-		<form class="js-search search-form search-form--modal" method="get" action="/home/user/search" role="search">
+		<form class="js-search search-form search-form--modal" method="get" action="/home/user/search?id={{$user->id}}" role="search">
 			<div class="search-form__inner">
 				<div>
 					<div id="search-container" class="ajax_search">
@@ -47,36 +47,47 @@
 									<li id="menu-item-17" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-17">
 										<a href="/">首页</a>
 									</li>
+									
 									<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78">
-										<a href="/home/user/guanzhu">关注</a>
+										<a href="/home/user/guanzhu?id={{$user->id}}">
+										@if($id == session('uid'))	
+										关注
+										@else
+										他的关注
+										@endif
+										</a>
 									</li>
+									
+
 									<li id="menu-item-252" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-252">
 										<a href="">归档</a>
 										<ul class="sub-menu">
 											<li id="menu-item-165" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-165">
-												<a href="/home/user/huati">我的话题</a>
+												<a href="/home/user/huati?id={{$user->id}}">我的话题</a>
 											</li>
 											<li id="menu-item-163" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-163">
-												<a href="/home/user/zhuanti">我的专题</a>
+												<a href="/home/user/zhuanti?id={{$user->id}}">我的专题</a>
 											</li>
 											<li id="menu-item-924" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-924">
-												<a href="/home/user/dongtai">我的动态</a>
+												<a href="/home/user/dongtai?id={{$user->id}}">我的动态</a>
 											</li>
 											
 										</ul>
 									</li>
 
 									<li id="menu-item-173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
-										<a href="/home/user/shijianzhou">时间轴</a>
+										<a href="/home/user/shijianzhou?id={{$user->id}}">时间轴</a>
 									</li>
 									
 									
 									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
-										<a href="/home/user/liuyan">留言版</a>
+										<a href="/home/user/liuyan?id={{$user->id}}">留言版</a>
 									</li>
+									@if($id == session('uid'))
 									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
 										<a href="/home/user/info">个人设置</a>
 									</li>
+									@endif
 								</ul>
 							</div>
 						</div>
@@ -90,14 +101,56 @@
 			<i class=" js-toggle-search iconfont">&#xe60e;</i>
 		</div>
 		<header id="masthead" class="overlay animated from-bottom" itemprop="brand">
-			<div class="site-branding text-center">
+			<div class="site-branding text-center"style="padding-top: 80px;">
 				<a href="">
 					<figure>
 						<img class="custom-logo avatar" src="{{$user->img}}" />
 					</figure>
 				</a>
-				<h3 class="blog-description"style="margin-bottom:5px; "><p>{{$user->name}}</p></h3>
-				<h4 class="blog-description"style="margin-top:5px; "><p>关注： 0&nbsp;    粉丝：0</p></h4>
+				<h3 class="blog-description"style="margin-bottom:5px; "><p>{{$user->name}}</p>@if($id != session('uid'))
+				@php
+					$res = DB::table('follow')->where('user_id',session('uid'))->where('followuser_id',$id)->first();
+				@endphp
+				<button id="guanzhu"style="cursor: pointer;background: url(/homes/statics/images/operatenew24.png) no-repeat;
+				@if($res)
+				background-position: -2px -544px;
+				@else
+				background-position: 0 -121px;
+				@endif
+				width: 70px; "name="{{$id}}"><p style="color: #fff;margin-left: 10px;font-size:14px;"id='wenzi'>
+				
+				@if($res)
+				  已关注
+				 @else
+				 关&nbsp;注
+				 @endif
+				</p></button>
+				<script type="text/javascript">
+					$('#guanzhu').click(function(){
+						var id = $(this).attr('name');
+						$.get('/home/user/jiaguanzhu',{id:id},function(data){
+							console.log(data);
+							if(data == 1){
+								$('#wenzi').text('已关注');
+								$('#guanzhu').css('background-position','-2px -544px');
+							}else if(data == 3){
+								$('#wenzi').html('关&nbsp;注');
+								$('#guanzhu').css('background-position','0 -121px');
+							}else if(data == 2){
+								alert('关注失败!');
+							}else{
+								alert('取消关注失败！');
+							}
+						})
+					})
+				</script>
+				@endif</h3>
+				@php
+					$guan = DB::table('follow')->where('user_id',$id)->count();
+					$fen = DB::table('follow')->where('followuser_id',$id)->count();
+				@endphp
+				<h4 class="blog-description"style="margin-top:5px; "><p>关注：{{$guan}}&nbsp;    粉丝：{{$fen}}</p></h4>
+				
 			</div>
 			<!-- .site-branding -->
 			<div class="decor-part">
@@ -132,7 +185,7 @@
 							<div class="status_list_item icon_kyubo">
 								<div class="status_user" style="background-image: url(/homes/statics/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
 									<div class="status_section">
-										<a href="/home/user/xiangqing?id={{$v->id}}" class="status_btn">{{$v->title}}</a>
+										<a href="/home/user/xiangqing?id={{$v->id}}&uid={{$user->id}}" class="status_btn">{{$v->title}}</a>
 										<p class="section_p">{{strip_tags( str_limit($v->content,200) )}}&hellip;</p>
 									</div>
 								</div>
@@ -266,7 +319,7 @@
 				</li>
 				<li class="wechat">
 					<a class="socialicon"><i class="iconfont">&#xe609;</i></a>
-					<div class="wechatimg"><img src="statics/images/49D3746D-7519-B709-83E4-65BD1927C4E7.jpg"></div>
+					<div class="wechatimg"><img src=""></div>
 				</li>
 				<li>
 					<a title="QQ" class="socialicon" href="" target="_blank"><i class="iconfont" aria-hidden="true">&#xe616;</i></a>
@@ -276,7 +329,7 @@
 				Copyright&copy;2018. Design by
 				<a href="">17sucai</a>
 			</div>
-			<script type='text/javascript' src='/homes/statics/js/jquery.min.js'></script>
+			
 			<script type='text/javascript' src='/homes/statics/js/plugins.js'></script>
 			<script type='text/javascript' src='/homes/statics/js/script.js'></script>
 			<script type='text/javascript' src='/homes/statics/js/particles.js'></script>

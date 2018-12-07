@@ -292,7 +292,7 @@
                     </div>
            @php
 
-          $art = DB::table('user')->join('article','user_id','=','user.id')->get();
+          $art = DB::table('user')->join('article','user_id','=','user.id')->offset(0)->limit(5)->get();
           
          @endphp
         @foreach($art as $k => $v) 

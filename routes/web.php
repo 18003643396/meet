@@ -95,9 +95,18 @@ Route::group(['middleware'=>'qlogin'],function(){
 	Route::get('/home/user/zhuanti','Home\UserController@zhuanti');
 	Route::get('/home/user/dongtai','Home\UserController@dongtai');
 	Route::get('/home/user/shijianzhou','Home\UserController@shijianzhou');
-	Route::get('/home/user/liuyan','Home\UserController@liuyan');
+	//留言
+	Route::get('/home/user/liuyan/{id}','Home\UserController@liuyan');
+	//发布留言
+	Route::any('/home/user/message','Home\UserController@message');
+
 	Route::get('/home/user/search','Home\UserController@search');
-	Route::get('/home/user/xiangqing','Home\UserController@xiangqing');
+
+	Route::any('/home/user/xiangqing','Home\UserController@xiangqing');
+	Route::any('/home/user/xiangqing','Home\UserController@xiangqing');
+	Route::any('/home/user/usercomment','Home\UserController@usercomment');
+	Route::any('/home/user/userreply','Home\UserController@userreply');
+
 	Route::get('/home/user/info','Home\UserController@info');
 	Route::any('/home/user/infoupdate','Home\UserController@infoupdate');
 	//头像预加载

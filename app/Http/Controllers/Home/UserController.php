@@ -31,10 +31,45 @@ class UserController extends Controller
         $articless = Article::where('id',$id)->first();
        $comments = DB::table('user')->where('article_id',$id)->join('comment','comment.user_id','=','user.id')->latest('time')->get();
        $replys = DB::table('user')->join('reply','reply.user_id','=','user.id')->get();
-         // dd($article);
-         // $article = Article::where('user_id',session('uid'))->get();
-         return view('home.user.xiangqing',['articless'=>$articless,'article'=>$article,'id'=>$uid,'comment'=>$comments,'reply'=>$replys]);
+         $user = DB::table('user')->where('id',$uid)->get();
+         return view('home.user.xiangqing',['articless'=>$articless,'article'=>$article,'id'=>$uid,'comment'=>$comments,'reply'=>$replys,'user'=>$user]);
         // return view('home.user.xiangqing');
+    }
+    //文章详情页评论
+    public function usercomment(Request $request)
+    {
+
+        $res= $request->except('_token','submit');
+         // dd($res);
+        // return $article_id;
+        // $content = $request->content;
+
+        $time = date('Y-m-d H:i:s',time());
+        $data = DB::table('comment')->insert(
+                ['article_id'=>$res['aid'],'user_id'=>session('uid'),'time'=>$time,'content'=>$res['content']]);
+        if($data){
+                    return back()->with('success','评论成功');
+                }else{
+                     return back()->with('error','评论失败');
+                }
+    }
+    //文章详情页评论
+    public function userreply(Request $request)
+    {
+
+        $res= $request->except('_token','submit');
+         // dd($res);
+        // return $article_id;
+        // $content = $request->content;
+
+        $time = date('Y-m-d H:i:s',time());
+        $data = DB::table('reply')->insert(
+                ['comment_id'=>$res['cid'],'user_id'=>session('uid'),'time'=>$time,'content'=>$res['content']]);
+        if($data){
+                    return back()->with('success','回复成功');
+                }else{
+                     return back()->with('error','回复失败');
+                }
     }
     //关注页面
     public function guanzhu(Request $request)
@@ -96,12 +131,29 @@ class UserController extends Controller
         $article = Article::where('user_id',$id)->get();
     	return view('home.user.shijianzhou',['article'=>$article,'id'=>$id]);
     }
-    public function liuyan(Request $request)
+    //留言
+    public function liuyan(Request $request,$id)
     {
-        $id = $request->get('id');
+        // $id = $request->get('id');
         $article = Article::where('user_id',$id)->get();
-    	return view('home.user.liuyan',['article'=>$article,'id'=>$id]);
+        $message = DB::table('message')->where('user_id',$id)->join('user','message.messageuser_id','=','user.id')->paginate(2);
+    	return view('home.user.liuyan',['article'=>$article,'id'=>$id,'message'=>$message]);
     }
+
+    public function message(Request $request)
+    {
+        $res= $request->except('_token','submit');
+        // dd($res);
+        $time = date('Y-m-d H:i:s',time());
+        $data = DB::table('message')->insert(
+                ['messageuser_id'=>session('uid'),'user_id'=>$res['uid'],'time'=>$time,'content'=>$res['content']]);
+        if($data){
+                    return back()->with('success','留言成功');
+                }else{
+                     return back()->with('error','留言失败');
+                }
+    }
+
     //搜索页面
     public function search(Request $request)
     {

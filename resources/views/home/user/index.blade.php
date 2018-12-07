@@ -47,6 +47,9 @@
 									<li id="menu-item-17" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-17">
 										<a href="/">首页</a>
 									</li>
+									<li id="menu-item-173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
+										<a href="/home/user?id={{$user->id}}">主页</a>
+									</li>
 									
 									<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78">
 										<a href="/home/user/guanzhu?id={{$user->id}}">
@@ -63,13 +66,13 @@
 										<a href="">归档</a>
 										<ul class="sub-menu">
 											<li id="menu-item-165" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-165">
-												<a href="/home/user/huati?id={{$user->id}}">我的话题</a>
+												<a href="/home/user/huati?id={{$user->id}}">话题</a>
 											</li>
 											<li id="menu-item-163" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-163">
-												<a href="/home/user/zhuanti?id={{$user->id}}">我的专题</a>
+												<a href="/home/user/zhuanti?id={{$user->id}}">专题</a>
 											</li>
 											<li id="menu-item-924" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-924">
-												<a href="/home/user/dongtai?id={{$user->id}}">我的动态</a>
+												<a href="/home/user/dongtai?id={{$user->id}}">动态</a>
 											</li>
 											
 										</ul>
@@ -81,7 +84,7 @@
 									
 									
 									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
-										<a href="/home/user/liuyan?id={{$user->id}}">留言版</a>
+										<a href="/home/user/liuyan/{{$user->id}}">留言版</a>
 									</li>
 									@if($id == session('uid'))
 									<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
@@ -336,8 +339,8 @@
 			<script type='text/javascript' src='/homes/statics/js/aos.js'></script>
 			<script type='text/javascript' src='/homes/statics/js/prism.js'></script>
 			<script type='text/javascript' src='/homes/statics/js/gravatar.js'></script>
-			<script type='text/javascript' src='/homes/statics/js/comments-ajax.js'></script>
-			<script type='text/javascript' src='/homes/statics/js/form.js'></script>
+			<!-- <script type='text/javascript' src='/homes/statics/js/comments-ajax.js'></script> -->
+			<!-- <script type='text/javascript' src='/homes/statics/js/form.js'></script> -->
 
 	</body>
 

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Admin\Article;
 use App\Model\Admin\User;
 use App\Model\Admin\Follow;
-use App\Http\Requests\ConupdateRequest;
+use App\Http\Requests\UserupdateRequest;
 use App\Http\Requests\PassRequest;
 use Session;
 use DB;
@@ -170,21 +170,27 @@ class UserController extends Controller
         return view('home.user.info',['article'=>$article,'id'=>session('uid')]);
     }
     //修改个人信息
-    public function infoupdate(ConupdateRequest $request)
+    public function infoupdate(UserupdateRequest $request)
     {
         $res =$request->except('_token','_method');
-            try{
+        $data = User::where('id','!=',$res['id'])->where('tel',$res['tel'])->first();
+            if($data){
+                
+                return back()->with('error','该手机号已被注册');
+            }else{
+                try{
 
-                $data = User::where('id',$res['id'])->update($res);
-                if($data){
-                    return back()->with('success','修改成功');
-                }else{
-                     return back()->with('success','修改成功');
+                    $data = User::where('id',$res['id'])->update($res);
+                    if($data){
+                        return back()->with('success','修改成功');
+                    }else{
+                         return back()->with('success','修改成功');
+                    }
+
+                }catch(\Exception $e){
+
+                    return back()->with('error','修改失败');
                 }
-
-            }catch(\Exception $e){
-
-                return back()->with('error','修改失败');
             }
         
     }

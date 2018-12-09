@@ -19,6 +19,11 @@
               </div>
             
             @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible">
+                    <li style='list-style:none;font-size:14px'><i class="icon fa fa-warning"></i>{{session('error')}}</li>
+                </div>
+            @endif
             
             <form action="/admin/user/{{$res->id}}"method="post"id="myform"enctype="multipart/form-data">
                 <table class="insert-tab" width="100%">

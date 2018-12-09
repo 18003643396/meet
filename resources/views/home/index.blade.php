@@ -36,8 +36,10 @@
 #header .toggle-tougao:hover {
 	background-color: #FFF;
 }
-#btnForgetpsw::hover{color:#6A6A5F
+#btnForgetpsw:hover{color:#6A6A5F
 }
+#login_btn{background:#A5A593;border-color:#A5A593;}
+#login_btn:hover{background:#464D57;}
 </style>
         </head>
         <body class="home blog off-canvas-nav-left">
@@ -119,7 +121,7 @@
                         
                             <ul>
                               <div class="error"style="margin-left:80px;"></div>
-                                <li class="form-group"><input class="form-control name" id="id_account_l" maxlength="50" name="name" placeholder="请输入邮箱账号/手机号" type="text"style="border: 1px solid #ccc">
+                                <li class="form-group"><input class="form-control name" id="id_account_l" maxlength="50" name="tel" placeholder="请输入手机号" type="text"style="border: 1px solid #ccc">
                                   <div style="float:right"></div></li>
                                 <li class="form-group"><input class="form-control password" id="id_password_l" name="password" placeholder="请输入密码" type="password">
                                   <div style="float:right"></div></li>
@@ -133,11 +135,11 @@
                                 
                             </ul>
                         <br>
-                        <p class="good-tips marginB10"><a id="btnForgetpsw" class="fr"style="color:#353630; ">忘记密码？</a>还没有账号？<a href="/home/zhuce" id="btnRegister">立即注册</a></p>
+                        <p class="good-tips marginB10"><a href="/home/wjmm" id="btnForgetpsw" class="fr"style="color:#353630; ">忘记密码？</a>还没有账号？<a href="/home/zhuce" id="btnRegister">立即注册</a></p>
                           <div class="login-box marginB10">
                             {{csrf_field()}}
-                            <button id="login_btn" class="btn btn-micv5 btn-block"value="登录" style="height:47px;background:#A5A593;border-color:#A5A593;color:#fff;font-size:16px;">登录</button>
-                            
+                            <button id="login_btn" class="btn btn-micv5 btn-block"value="登录" style="height:47px;color:#fff;font-size:16px;">登录</button>
+                          
                         </div>
 
                         </form>
@@ -150,7 +152,8 @@
       </div>
     </div>
 
-    </div></div>
+    </div>
+	</div>
 
   <script type="text/javascript" src="/homes/js/jquery2.2.2.min.js"></script>
   <script type="text/javascript" src="/homes/js/bootstrap.min.js"></script>
@@ -165,7 +168,7 @@
 
             if (name == "") {
                 $(".name").css('border','1px solid #e53e41');
-                $('.name').next().text(' *用户名不能为空').css('color','#e53e41')
+                $('.name').next().text(' *账号不能为空').css('color','#e53e41')
                 return;
             }else{
                 $(".name").css('border','1px solid #ccc');
@@ -311,46 +314,42 @@
                     </ul>
           </div>
                   <div class="widget widget_suxingme_postlist">
-            <h3><span>最新文章</span></h3>
+            <h3><span>推荐文章</span></h3>
             <ul class="recent-posts-widget">
-                      <li class="one"> <a href="#" title="响应式个人杂志WordPress博客主题">
+
+                      <li class="one"> <a href="#" title="{{$artone->user_name}}">
                         <div class="overlay"></div>
-                        <img class="lazy" src="/homes/images/18.jpg" alt="响应式个人杂志WordPress博客主题" />
-                        <div class="title"> <span>2017-10-25</span>
-                        <h4>响应式个人杂志WordPress博客主题</h4>
+                        <img class="lazy" src="/homes/images/18.jpg" />
+                        @php
+                           $time = substr($artone->time,0,10);
+                        @endphp
+                        <div class="title"> <span>{{$time}}</span>
+                        <h4>{{$artone->title}}</h4>
                       </div>
-                        </a> </li>
+                        </a>
+                     </li>
+                     @foreach($articles as $k => $v)
                       <li class="others">
-                <div class="image"><a href="#" title="Magneto响应WordPress杂志和博客主题"> <img class="lazy" src="/homes/images/9.jpg" alt="Magneto响应WordPress杂志和博客主题" /> </a></div>
+                <div class="image"><a href="#" title="{{$v->user_name}}"> <img class="lazy" src="/homes/images/9.jpg" alt="{{$v->user_name}}" /> </a></div>
                 <div class="title">
-                          <h4><a href="#" title="Magneto响应WordPress杂志和博客主题">Magneto响应WordPress杂志和博客主题</a></h4>
-                          <span>2017-10-25</span> </div>
+                          <h4><a href="#" title="{{$v->title}}">{{$v->title}}</a></h4>
+                           @php
+                           $times = substr($v->time,0,10);
+                        @endphp
+                          <span>{{$times}}</span> </div>
               </li>
-                      <li class="others">
-                <div class="image"><a href="#" title="Linx - WordPress博客和杂志的主题"> <img class="lazy" src="/homes/images/10.jpg" alt="Linx - WordPress博客和杂志的主题" /> </a></div>
-                <div class="title">
-                          <h4><a href="#" title="Linx - WordPress博客和杂志的主题">Linx - WordPress博客和杂志的主题</a></h4>
-                          <span>2017-10-25</span> </div>
-              </li>
-                      <li class="others">
-                <div class="image"><a href="#" title="个人生活博客和杂志的WordPress主题"> <img class="lazy" src="/homes/images/11.jpg" alt="个人生活博客和杂志的WordPress主题" /> </a></div>
-                <div class="title">
-                          <h4><a href="#" title="个人生活博客和杂志的WordPress主题">个人生活博客和杂志的WordPress主题</a></h4>
-                          <span>2017-10-25</span> </div>
-              </li>
-                      <li class="others">
-                <div class="image"><a href="#" title="Penta响应博客的WordPress主题"> <img class="lazy" src="/homes/images/12.jpg" alt="Penta响应博客的WordPress主题" /> </a></div>
-                <div class="title">
-                          <h4><a href="#" title="Penta响应博客的WordPress主题">Penta响应博客的WordPress主题泄漏</a></h4>
-                          <span>2017-10-25</span> </div>
-              </li>
+              @endforeach
+                
                     </ul>
           </div>
                   <div class="widget suxingme_social">
             <h3><span>关注我们 么么哒！</span></h3>
             <div class="attentionus">
                 <ul class="items clearfix">
-                <span class="social-widget-link social-link-weibo"> <span class="social-widget-link-count"><i class="icon-weibo"></i>maolai博客</span> <span class="social-widget-link-title">新浪微博</span> <a href="http://www.lmlblog.com" target="_blank" rel="nofollow" ></a></span> <span class="social-widget-link social-link-tencent-weibo"> <span class="social-widget-link-count"><i class="icon-tencent-weibo"></i>maolai博客</span> <span class="social-widget-link-title">腾讯微博</span> <a href="http://www.lmlblog.com" target="_blank" rel="nofollow" ></a> </span> <span class="social-widget-link social-link-qq"> <span class="social-widget-link-count"><i class="icon-qq"></i>2195335317</span> <span class="social-widget-link-title">QQ号</span> <a href="http://wpa.qq.com/msgrd?v=3&uin=2195335317&site=qq&menu=yes" rel="nofollow" ></a> </span> <span class="social-widget-link social-link-email"> <span class="social-widget-link-count"><i class="icon-mail"></i>lmlblog@qq.com</span> <span class="social-widget-link-title">QQ邮箱</span> <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=lmlblog@qq.com" target="_blank" rel="nofollow" ></a> </span> <span class="social-widget-link social-link-wechat"> <span class="social-widget-link-count"><i class="icon-wechat"></i>lmlblog</span> <span class="social-widget-link-title">微信公众号</span> <a id="tooltip-s-weixin" href="javascript:void(0);"></a> </span>
+                <span class="social-widget-link social-link-weibo"> <span class="social-widget-link-count"><i class="icon-weibo"></i>伱好甜丫</span> <span class="social-widget-link-title">新浪微博</span> <a href="http://www.lmlblog.com" target="_blank" rel="nofollow" ></a></span>
+                 <span class="social-widget-link social-link-qq"> <span class="social-widget-link-count"><i class="icon-qq"></i>1597855517</span> <span class="social-widget-link-title">QQ号</span> <a href="http://wpa.qq.com/msgrd?v=3&uin=1597855517&site=qq&menu=yes" rel="nofollow" ></a> </span> <span class="social-widget-link social-link-email"> <span class="social-widget-link-count"><i class="icon-mail"></i>1597855517@qq.com</span> <span class="social-widget-link-title">QQ邮箱</span> <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1597855517@qq.com" target="_blank" rel="nofollow" ></a> </span> 
+                 <span class="social-widget-link social-link-email"> <span class="social-widget-link-count"><i class="icon-mail"></i>haotian970520@163.com</span> <span class="social-widget-link-title">163邮箱</span> <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=lmlblog@qq.com" target="_blank" rel="nofollow" ></a> </span> 
+                 <span class="social-widget-link social-link-wechat"> <span class="social-widget-link-count"><i class="icon-wechat"></i>lmlblog</span> <span class="social-widget-link-title">微信公众号</span> <a id="tooltip-s-weixin" href="javascript:void(0);"></a> </span>
               </ul>
                     </div>
           </div>
@@ -381,7 +380,7 @@
     function getData(offset,size){
       $.get('/more',{offset:offset},function(data){
         var a = eval(data);
-        console.log(a);
+        // console.log(a);
         var data = a.list;
             var sum = a.length;
         
@@ -393,8 +392,8 @@
             }
              
             /*使用for循环模拟SQL里的limit(offset,size)*/
-            console.log(offset);
-            console.log(sum);
+            // console.log(offset);
+            // console.log(sum);
             for(var i=offset; i< (offset+size); i++){
               var content = a[i].content.replace(/<\/?.+?>/g, "").substr(0,200);
               result +='<div class="ajax-load-con content wow fadeInUp"><div class="content-box posts-image-box"><div class="posts-default-title"><h2><a href="/home/xiangqing?id='+a[i].id+'" title="vidorev视频的WordPress主题" target="_blank">'+ a[i].title +'</a></h2></div><div class="posts-default-content"><div class="posts-text">'+content+'&hellip;</div></div><div class="posts-default-info"><ul><li class="post-author hidden-xs"><div class="avatar"><img alt="maolai" src="'+ a[i].img+'" height="96" width="96"/></div><a href="javascript:void(0)">'+ a[i].name+'</a></li><li class="ico-cat"><i class="icon-list-2"></i><a href="#">wordpress主题</a></li><li class="ico-time"><i class="icon-clock-1"></i>'+ a[i].time +'</li><li class="ico-eye hidden-xs"><i class="icon-eye-4"></i> '+ a[i].count +'</li><li class="ico-like hidden-xs"><i class="icon-thumbs-up"></i> '+ a[i].zan +'</li></ul></div></div></div></div>';

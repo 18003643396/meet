@@ -76,6 +76,13 @@ Route::group(['middleware'=>'login'],function(){
 
 Route::any('/home/dologin','Home\LoginController@dologin');
 Route::any('/home/captcha','Home\LoginController@captcha');
+Route::any('/home/wjmm','Home\LoginController@wjmm');
+Route::any('/home/sxmm','Home\LoginController@sxmm');
+Route::any('/home/xiugaimm','Home\LoginController@xiugaimm');
+Route::any('/home/yanzheng','Home\LoginController@yanzheng');
+Route::any('/home/chenggong',function(){
+	return view('home.chenggong');
+});
 //查看文章
 Route::any('/home/xiangqing','Home\ArticleController@xiangqing');
 //注册

@@ -119,8 +119,9 @@ class LoginController extends Controller
 		if($code != $request->code){
 		    echo 1;
 		}else {
-	    	//判断用户名
-	    	$rs = DB::table('user')->where('name',$request->name)->first();
+	    	//判断手机号
+        // dd($request->tel);
+	    	$rs = DB::table('user')->where('tel',$request->name)->first();
 
 
 	    	if(!$rs){
@@ -184,6 +185,45 @@ class LoginController extends Controller
     {
         return view("home.zhuce",['title'=>"用户注册"]);
     }
+    //忘记密码
+    public function wjmm()
+    {
+        return view ('home.wjmm',['title'=>'忘记密码']);
+    }
+    //验证
+    public function yanzheng(Request $request)
+    {
+        $rs = $request->code;
+        if($rs == session('dxcode')){
+            $tel = $request->tel;
+            $data = User::where('tel',$tel)->first();
+            if($data){
+                return view('home/sxmm',['tel'=>$tel]);
+            }else{
+                return back()->with('error','该手机号没有被注册过');
+            }
+            
+        }else{
+            return back()->with('error','验证码错误');
+        }
+    }
+    public function sxmm()
+    {
+        return view('home.sxmm');
+    }
+    public function xiugaimm(Request $request)
+    {
+       $res = $request->except('_token','repass');
+       $res['password'] = Hash::make($request->password);
+       $data = User::where('tel',$res['tel'])->update(['password'=>$res['password']]);
+       if($data){
+            return view('/home/chenggong');
+       }else{
+            return view('/home/chenggong');
+       }
+       
+    }
+
 
 
 

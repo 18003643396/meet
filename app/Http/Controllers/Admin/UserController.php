@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ConservatorRequest;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserupdateRequest;
 use App\Http\Requests\ConupdateRequest;
 use Hash;
 use App\Model\Admin\User;
@@ -70,7 +71,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ConservatorRequest $request)
+    public function store(UserRequest $request)
     {
         $res =$request->except('_token','img','repass');
         // dump($res);
@@ -126,10 +127,12 @@ class UserController extends Controller
     public function edit($id)
     {
          $res = User::find($id);
+         
 
          return view('admin.user.edit',[
             'title'=>'用户的修改页面',
             'res'=>$res
+           
         ]);
     }
 
@@ -140,36 +143,42 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ConupdateRequest $request, $id)
+    public function update(UserupdateRequest $request, $id)
     {
         $res =$request->except('_token','img','_method');
-      
-            
-            if($request->hasFile('img')){
-                //自定义名字
-                $name = rand(111,999).time();
-                //获取后缀
-                $suffix = $request->file('img')->getClientOriginalExtension();
 
-                $request->file('img')->move('./uploads/user',$name.'.'.$suffix);
+            $data = User::where('id','!=',$id)->where('tel',$res['tel'])->first();
+            if($data){
+                
+                return back()->with('error','改手机号已被注册');
+            }else{
 
-                $res['img'] = '/uploads/user/'.$name.'.'.$suffix;
+                if($request->hasFile('img')){
+                    //自定义名字
+                    $name = rand(111,999).time();
+                    //获取后缀
+                    $suffix = $request->file('img')->getClientOriginalExtension();
 
-            }
+                    $request->file('img')->move('./uploads/user',$name.'.'.$suffix);
 
-            // dump($res);
-            try{
+                    $res['img'] = '/uploads/user/'.$name.'.'.$suffix;
 
-                $data = User::where('id',$id)->update($res);
-                if($data){
-                    return redirect('/admin/user')->with('success','修改成功');
-                }else{
-                     return redirect('/admin/user')->with('success','修改成功');
                 }
 
-            }catch(\Exception $e){
+                // dump($res);
+                try{
 
-                return back()->with('error','修改失败');
+                    $data = User::where('id',$id)->update($res);
+                    if($data){
+                        return redirect('/admin/user')->with('success','修改成功');
+                    }else{
+                         return redirect('/admin/user')->with('success','修改成功');
+                    }
+
+                }catch(\Exception $e){
+
+                    return back()->with('error','修改失败');
+                }
             }
         
     }

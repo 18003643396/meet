@@ -10,8 +10,10 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $artone = Article::where('cate_id',null)->where('subject_id',null)->orderBy('zan','desc')->first();
+        $articles = Article::where('cate_id',null)->where('subject_id',null)->orderBy('zan','desc')->offset(1)->limit(4)->get();
         
-    	return view('home.index');
+    	return view('home.index',['artone'=>$artone,'articles'=>$articles]);
     }
     public function loadMore(Request $request)
     {

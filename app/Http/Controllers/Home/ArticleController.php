@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ArticleRequest;
 use App\Model\Admin\Article;
 use App\Model\Admin\Cate;
 use App\Model\Subject;
@@ -16,7 +17,7 @@ class ArticleController extends Controller
         return view('home.article.tougao');
     }
     //保存文章页面
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
 
     	$res = $request->except('_token');
@@ -95,7 +96,7 @@ class ArticleController extends Controller
         }
     }
     //发布话题
-    public function huatistore(Request $request)
+    public function huatistore(ArticleRequest $request)
     {
     	
 
@@ -120,7 +121,8 @@ class ArticleController extends Controller
     public function xiangqing(Request $request)
     {
     	$id = $request->get('id');
-
+        $artone = Article::where('cate_id',null)->where('subject_id',null)->orderBy('zan','desc')->first();
+        $articles = Article::where('cate_id',null)->where('subject_id',null)->orderBy('zan','desc')->offset(1)->limit(4)->get();
     	$article = Article::where('id',$id)->first();
     	$count = $article['count'] + 1;
     	$data = Article::where('id',$id)->update(['count'=>$count]);
@@ -131,7 +133,7 @@ class ArticleController extends Controller
         $replys = DB::table('user')->join('reply','reply.user_id','=','user.id')->get();
     	if($data){
     		$article = Article::where('id',$id)->first();
-    		return view("home.article.xiangqing",['article'=>$article,'res'=>$res,'rs'=>$rs,'comment'=>$comments,'reply'=>$replys]);
+    		return view("home.article.xiangqing",['article'=>$article,'res'=>$res,'rs'=>$rs,'comment'=>$comments,'reply'=>$replys,'artone'=>$artone,'articles'=>$articles]);
     	}
     	
     }

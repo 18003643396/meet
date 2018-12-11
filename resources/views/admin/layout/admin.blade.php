@@ -311,7 +311,7 @@ desired effect
         <li class="header">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-smile-o"></i> Meet a goog left <i class="fa fa-smile-o"></i></li>
         <hr>
         <!-- Optionally, you can add icons to the links -->
-      
+        <li><a href="/admin/configure"style='color: #000'><i class="fa fa-gear"></i> <span>系统设置</span></a></li>
         <li class="treeview">
           <a href="#"style='color: #000'><i class="fa fa-user-secret"></i> <span>管理员管理</span>
             <span class="pull-right-container">
@@ -324,25 +324,25 @@ desired effect
           </ul>
         </li>
         <li class="treeview">
-          <a href="#"style='color: #000'><i class="fa fa-user-secret"></i> <span>角色管理</span>
+          <a href="#"style='color: #000'><i class="fa fa-key"></i> <span>角色管理</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin/role/create"style='color: #000'><i class="fa fa-user-plus"></i>角色添加</a></li>
-            <li><a href="/admin/role"style='color: #000'><i class="fa fa-users"></i>角色列表</a></li>
+            <li><a href="/admin/role/create"style='color: #000'><i class="fa fa-plus"></i>角色添加</a></li>
+            <li><a href="/admin/role"style='color: #000'><i class="fa  fa-bars"></i>角色列表</a></li>
           </ul>
         </li>
         <li class="treeview">
-          <a href="#"style='color: #000'><i class="fa fa-user-secret"></i> <span>权限管理</span>
+          <a href="#"style='color: #000'><i class="fa  fa-check-square-o"></i> <span>权限管理</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/admin/permission/create"style='color: #000'><i class="fa fa-user-plus"></i>权限添加</a></li>
-            <li><a href="/admin/permission"style='color: #000'><i class="fa fa-users"></i>权限列表</a></li>
+            <li><a href="/admin/permission/create"style='color: #000'><i class="fa fa-plus"></i>权限添加</a></li>
+            <li><a href="/admin/permission"style='color: #000'><i class="fa  fa-bars"></i>权限列表</a></li>
           </ul>
         </li>
          <li class="treeview">

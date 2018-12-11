@@ -27,12 +27,17 @@
                             <tbody>
                            
                             <tr>
-                                <th><i class="require-red">*</i>类别名：</th>
+                                <th><i class="require-red">*</i>话题主题：</th>
                                 <td>
                                     <input class="common-text required" id="title" name="cate" size="16" value="" type="text">
                                 </td>
                             </tr>
-                            
+                            <tr>
+                                <th><i class="require-red">*</i>话题描述：</th>
+                                <td>
+                                    <input class="common-text required" id="title" name="descript" size="16" value="" type="text">
+                                </td>
+                            </tr>
         
                             </tbody>    
                         </div>

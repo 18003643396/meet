@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CateRequest extends FormRequest
+class CateupdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +21,10 @@ class CateRequest extends FormRequest
      *
      * @return array
      */
-   public function rules()
+    public function rules()
     {
         return [
-            'cate' => 'required',
-            'descript'=>'required'
+            'cate' => 'required'
             
            
             
@@ -35,8 +34,8 @@ class CateRequest extends FormRequest
      public function messages()
     {
         return [
-            'cate.required' => '话题主题不能为空',
-            'descript.required'=>'话题描述不能为空'
+            'cate.required' => '话题主题不能为空'
+            
         ];
     }
 }

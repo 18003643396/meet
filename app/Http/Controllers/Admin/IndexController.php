@@ -11,7 +11,7 @@ class IndexController extends Controller
     //显示后台页面
     public function index()
     {
-    	$res = DB::table('configure')->first();
-    	return view ('admin.index',['title'=>'遇见后台','res'=>$res]);
+    	
+    	return view ('admin.index',['title'=>'遇见后台']);
     }
 }

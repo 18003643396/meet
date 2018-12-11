@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CateRequest;
+use App\Http\Requests\CateupdateRequest;
 use App\Model\Admin\Cate;
 class CateController extends Controller
 {
@@ -101,7 +102,7 @@ class CateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CateRequest $request, $id)
+    public function update(CateupdateRequest $request, $id)
     {
         $res =$request->except('_token','_method');
       

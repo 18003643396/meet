@@ -1,11 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@php
+  $configure = DB::table('configure')->first();
+@endphp
+<!DOCTYPE html>
+
 <html>
+
         <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
         <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE;chrome=1">
-        <title>遇见博客</title>
-        <meta name="keywords" content="个人博客网站,lmlblog,Grace主题,wordpress主题">
+        <title>{{$configure->name}}</title>
+        <meta name="keywords" content="{{$configure->keywords}}">
+         <meta content="{{$configure->content}}" name="viewport">
         <link rel='stylesheet' href='/homes/css/owl.carousel.min.css' type='text/css' media='all' />
         <link rel='stylesheet' href='/homes/css/fontello.css' type='text/css' media='all' />
         <link rel='stylesheet' href='/homes/css/nicetheme.css' type='text/css' media='all' />
@@ -42,7 +48,28 @@
 #login_btn:hover{background:#464D57;}
 </style>
         </head>
-        <body class="home blog off-canvas-nav-left">
+
+@if($configure->status == 2)
+<body>
+        <div class="flex-center position-ref full-height"style="align-items: center;
+    display: flex;
+    justify-content: center;
+
+    height: 100vh;">
+            <div class="content">
+                <div class="title">
+                  <font style="vertical-align: inherit;font-size: 36px;padding: 20px;">
+                    <font style="vertical-align: inherit;">
+                        网站正在维护中,请稍候重试。
+                    </font>
+                </font>
+            </div>
+        </div>
+    
+
+</body>
+@else
+<body class="home blog off-canvas-nav-left">
 <div class="loader-mask">
           <div class="loader">
     <div></div>
@@ -428,7 +455,7 @@
               <div class="social-footer"> <a id="tooltip-f-weixin" class="wxii" href="javascript:void(0);"><i class="icon-wechat"></i></a> </div>
               <div class="nav-footer"> <a>首页</a> <a href="#">wordpress专题</a> <a href="#">域名主机</a> <a href="#">wordpress主题</a> <a>页面模版</a> <a href="http://www.lmlblog.com/2656.html">模板下载</a> </div>
               <div class="copyright-footer">
-        <p>Copyright © 2018 <a class="site-link" href="#" title="lmlblog" rel="home">lmlblog</a> · Powered By WordPress · Grace Theme By <a href="http://www.lmlblog.com" target="_blank">maolai</a></p>
+        <p>{{$configure->banquan}}</p>
       </div>
         @php
 
@@ -479,4 +506,5 @@ var suxingme_url = {"slidestyle":"index_slide_sytle_2","wow":"1","sideroll":"1",
 <script type='text/javascript' src='/homes/js/owl.carousel.min.js'></script> 
 <script type='text/javascript' src='/homes/js/wow.min.js'></script>
 </body>
+@endif
 </html>

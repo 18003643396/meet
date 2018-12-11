@@ -57,7 +57,8 @@
 					<tr>
 						<th class="tc" width="5%"></th>
 						<th>ID</th>
-						<th>类别名</th>
+						<th>话题</th>
+						
 						<th>操作</th>
 					</tr>
 					@foreach($res as $k => $v)
@@ -66,6 +67,7 @@
 						<td class="tc"><input name="subChk" value="{{$v->id}}" type="checkbox"></td>
 						<td>{{$v->id}}</td>
 						<td class='name'>{{$v->cate}}</td>
+						
 						
 						<td>
 							<a href="/admin/cate/{{$v->id}}/edit"class='btn btn-block btn-default btn-xs'style='width: 50px;'><i class='fa fa-pencil-square-o'></i></a>&nbsp;

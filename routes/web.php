@@ -174,6 +174,10 @@ Route::group(['middleware'=>'login'],function(){
 		Route::any('/admin/subject/butongguo/{id}','Admin\ArticleController@butongguo');
 		//专题删除
 		Route::any('/admin/subject/delete/{id}','Admin\ArticleController@delete');
+		//系统配置
+		Route::any('/admin/configure','Admin\ConfigureController@index');
+		//更改系统配置
+		Route::any('/admin/configure/edit','Admin\ConfigureController@edit');
 		
 
 	});

@@ -27,11 +27,12 @@
                             <tbody>
                            
                             <tr>
-                                <th><i class="require-red">*</i>类别名：</th>
+                                <th><i class="require-red">*</i>话题：</th>
                                 <td>
                                     <input class="common-text required" id="title" name="cate" size="20" value="{{$res->cate}}" type="text">
                                 </td>
                             </tr>
+                           
                             
                             
                            

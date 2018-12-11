@@ -56,9 +56,9 @@
               <div class="menu-fix-box">
         <ul id="menu-navigation" class="menu">
                   <li class="current-menu-ancestor"><a href="/">首页</a></li>
-                    <li><a href="#">话题</a></li>
-                    <li><a href="#">专题</a></li>
-                    <li><a href="#">达人</a></li>
+                    <li><a href="/home/huati">话题</a></li>
+                    <li><a href="/home/subject">专题</a></li>
+                   
                      @if(!session('uid') == '')
                      <li><a href="#">关注</a></li>
                     <li><a href="/home/user?id={{session('uid')}}">个人中心</a></li>
@@ -110,7 +110,7 @@
             <div style="vertical-align:middle; display:table-cell;">
               <div class="modal-dialog modal-sm" style="width:540px;">
         <div class="modal-content" style="border: none;height:360px;">
-            <div class="col-left" style="height: 360px;background:url(homes/images/left5.jpg)"></div>
+            <div class="col-left" style="height: 360px;"></div>
             <div class="col-right"style="height: 360px">
                 <div class="modal-header1">
                     <button type="button" id="login_close" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -135,7 +135,7 @@
                                 
                             </ul>
                         <br>
-                        <p class="good-tips marginB10"><a href="/home/wjmm" id="btnForgetpsw" class="fr"style="color:#353630; ">忘记密码？</a>还没有账号？<a href="/home/zhuce" id="btnRegister">立即注册</a></p>
+                        <p class="good-tips marginB10" style="font-size: 12px;"><a href="/home/wjmm" id="btnForgetpsw" class="fr"style="color:#353630;font-size: 12px; ">忘记密码？</a>还没有账号？<a href="/home/zhuce" id="btnRegister">立即注册</a></p>
                           <div class="login-box marginB10">
                             {{csrf_field()}}
                             <button id="login_btn" class="btn btn-micv5 btn-block"value="登录" style="height:47px;color:#fff;font-size:16px;">登录</button>
@@ -143,7 +143,7 @@
                         </div>
 
                         </form>
-                        <div class="threeLogin" style="margin-top:10px;bottom: 7px; ">其他方式登录<a class="nqq" href="javascript:;"></a><a class="nwx" href="javascript:;"></a><!--<a class="nwb"></a>--></div>
+                        <div class="threeLogin" style="margin-top:10px;bottom: 7px;font-size: 12px; ">其他方式登录<a class="nqq" href="javascript:;"></a><a class="nwx" href="javascript:;"></a><!--<a class="nwb"></a>--></div>
                         
                     </section><br>
                 </div>

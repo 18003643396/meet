@@ -12,7 +12,100 @@
 */
 //前台
 Route::get('/','Home\HomeController@index');
+//加载更多
 Route::get('/more', 'Home\HomeController@loadMore');
+//前台登录
+
+Route::any('/home/dologin','Home\LoginController@dologin');
+Route::any('/home/captcha','Home\LoginController@captcha');
+Route::any('/home/wjmm','Home\LoginController@wjmm');
+Route::any('/home/sxmm','Home\LoginController@sxmm');
+Route::any('/home/xiugaimm','Home\LoginController@xiugaimm');
+Route::any('/home/yanzheng','Home\LoginController@yanzheng');
+Route::any('/home/chenggong',function(){
+	return view('home.chenggong');
+});
+//话题列表
+Route::any('/home/huati','Home\HuatiController@index');
+
+Route::any('/home/huati/list/{id}','Home\HuatiController@list');
+//专题列表
+Route::any('/home/subject','Home\SubjectController@index');
+//查看文章
+Route::any('/home/xiangqing','Home\ArticleController@xiangqing');
+//注册
+Route::any('/home/zhuce','Home\LoginController@zhuce');
+Route::post('/home/dozhuce','Home\LoginController@dozhuce');
+Route::any('/home/duanxin','Home\LoginController@duanxin');
+
+Route::group(['middleware'=>'qlogin'],function(){
+	//退出
+	Route::any('/home/logout','Home\LoginController@logout');
+	//个人中心主页
+	Route::get('/home/user','Home\UserController@index');
+	Route::get('/home/user/guanzhu','Home\UserController@guanzhu');
+	Route::get('/home/user/jiaguanzhu','Home\UserController@jiaguanzhu');
+	Route::get('/home/user/huati','Home\UserController@huati');
+	Route::get('/home/user/zhuanti','Home\UserController@zhuanti');
+	Route::get('/home/user/dongtai','Home\UserController@dongtai');
+	Route::get('/home/user/shijianzhou','Home\UserController@shijianzhou');
+	//留言
+	Route::get('/home/user/liuyan/{id}','Home\UserController@liuyan');
+	//发布留言
+	Route::any('/home/user/message','Home\UserController@message');
+
+	Route::get('/home/user/search','Home\UserController@search');
+
+	Route::any('/home/user/xiangqing','Home\UserController@xiangqing');
+	Route::any('/home/user/xiangqing','Home\UserController@xiangqing');
+	Route::any('/home/user/usercomment','Home\UserController@usercomment');
+	Route::any('/home/user/userreply','Home\UserController@userreply');
+
+	Route::get('/home/user/info','Home\UserController@info');
+	Route::any('/home/user/infoupdate','Home\UserController@infoupdate');
+	//头像预加载
+	Route::any('/home/user/touxiang','Home\UserController@upload');
+	//修改头像
+	Route::any('/home/user/touxiangupdate','Home\UserController@touxiangupdate');
+	//修改密码
+	Route::any('/home/user/mimaupdate','Home\UserController@mimaupdate');
+	//修改背景图
+	Route::any('/home/user/backgroundupdate','Home\UserController@backgroundupdate');
+	
+	//发文章
+	Route::get('/home/tougao','Home\ArticleController@create');
+	Route::any('/home/article/store','Home\ArticleController@store');
+	//发专题
+	Route::any('/home/upload','Home\ArticleController@upload');
+	Route::any('/home/zhuanti/store','Home\ArticleController@zhuanti');
+	//发话题
+	Route::any('/home/huati/store','Home\ArticleController@huatistore');
+	//发话题回复
+	Route::any('/home/cate/store','Home\HuatiController@huatireply');
+	
+	//赞文章
+	Route::any('/home/article/zan','Home\ArticleController@zan');
+	//收藏文章
+	Route::any('/home/article/collect','Home\ArticleController@collect');
+	//评论
+	Route::any('/home/article/comment','Home\ArticleController@comment');
+    //删除回复     
+	Route::any('/home/article/rdelete','Home\ArticleController@rdelete');
+	//删除评论
+	Route::any('/home/article/cdelete','Home\ArticleController@cdelete');
+	//评论回复
+	Route::any('/home/article/reply','Home\ArticleController@reply');
+	//取消回复赞
+	Route::any('/home/article/comment/qzan','Home\ArticleController@commentqzan');
+	//回复赞
+	Route::any('/home/article/comment/zan','Home\ArticleController@commentzan');
+
+
+});
+
+
+
+
 //后台登录
 Route::any('/admin/login','Admin\LoginController@login');
 Route::any('/admin/dologin','Admin\LoginController@dologin');
@@ -67,88 +160,24 @@ Route::group(['middleware'=>'login'],function(){
 		Route::resource('/admin/permission','Admin\PerController');
 		Route::get('admin/perdeleteajax',"Admin\PerController@alldelete");
 
+		//文章管理
+		Route::any('/admin/article','Admin\ArticleController@index');
+		Route::any('/admin/article/look/{id}','Admin\ArticleController@look');
+		Route::any('/admin/article/delete/{id}','Admin\ArticleController@destroy');
+		//专题管理
+		Route::any('/admin/subject','Admin\ArticleController@subindex');
+		Route::any('/admin/subject/shenhe/{id}','Admin\ArticleController@shenhe');
+		//审核通过
+		Route::any('/admin/subject/tongguo/{id}','Admin\ArticleController@tongguo');
+		
+		//审核不通过
+		Route::any('/admin/subject/butongguo/{id}','Admin\ArticleController@butongguo');
+		//专题删除
+		Route::any('/admin/subject/delete/{id}','Admin\ArticleController@delete');
+		
+
 	});
 	
 
 });
 
-//前台登录
-
-Route::any('/home/dologin','Home\LoginController@dologin');
-Route::any('/home/captcha','Home\LoginController@captcha');
-Route::any('/home/wjmm','Home\LoginController@wjmm');
-Route::any('/home/sxmm','Home\LoginController@sxmm');
-Route::any('/home/xiugaimm','Home\LoginController@xiugaimm');
-Route::any('/home/yanzheng','Home\LoginController@yanzheng');
-Route::any('/home/chenggong',function(){
-	return view('home.chenggong');
-});
-//查看文章
-Route::any('/home/xiangqing','Home\ArticleController@xiangqing');
-//注册
-Route::any('/home/zhuce','Home\LoginController@zhuce');
-Route::post('/home/dozhuce','Home\LoginController@dozhuce');
-Route::any('/home/duanxin','Home\LoginController@duanxin');
-
-Route::group(['middleware'=>'qlogin'],function(){
-	//退出
-	Route::any('/home/logout','Home\LoginController@logout');
-	//个人中心主页
-	Route::get('/home/user','Home\UserController@index');
-	Route::get('/home/user/guanzhu','Home\UserController@guanzhu');
-	Route::get('/home/user/jiaguanzhu','Home\UserController@jiaguanzhu');
-	Route::get('/home/user/huati','Home\UserController@huati');
-	Route::get('/home/user/zhuanti','Home\UserController@zhuanti');
-	Route::get('/home/user/dongtai','Home\UserController@dongtai');
-	Route::get('/home/user/shijianzhou','Home\UserController@shijianzhou');
-	//留言
-	Route::get('/home/user/liuyan/{id}','Home\UserController@liuyan');
-	//发布留言
-	Route::any('/home/user/message','Home\UserController@message');
-
-	Route::get('/home/user/search','Home\UserController@search');
-
-	Route::any('/home/user/xiangqing','Home\UserController@xiangqing');
-	Route::any('/home/user/xiangqing','Home\UserController@xiangqing');
-	Route::any('/home/user/usercomment','Home\UserController@usercomment');
-	Route::any('/home/user/userreply','Home\UserController@userreply');
-
-	Route::get('/home/user/info','Home\UserController@info');
-	Route::any('/home/user/infoupdate','Home\UserController@infoupdate');
-	//头像预加载
-	Route::any('/home/user/touxiang','Home\UserController@upload');
-	//修改头像
-	Route::any('/home/user/touxiangupdate','Home\UserController@touxiangupdate');
-	//修改密码
-	Route::any('/home/user/mimaupdate','Home\UserController@mimaupdate');
-	//修改背景图
-	Route::any('/home/user/backgroundupdate','Home\UserController@backgroundupdate');
-	
-	//发文章
-	Route::get('/home/tougao','Home\ArticleController@create');
-	Route::any('/home/article/store','Home\ArticleController@store');
-	//发专题
-	Route::any('/home/upload','Home\ArticleController@upload');
-	Route::any('/home/zhuanti/store','Home\ArticleController@zhuanti');
-	//发图文
-	Route::any('/home/huati/store','Home\ArticleController@huatistore');
-	
-	//赞文章
-	Route::any('/home/article/zan','Home\ArticleController@zan');
-	//收藏文章
-	Route::any('/home/article/collect','Home\ArticleController@collect');
-	//评论
-	Route::any('/home/article/comment','Home\ArticleController@comment');
-    //删除回复     
-	Route::any('/home/article/rdelete','Home\ArticleController@rdelete');
-	//删除评论
-	Route::any('/home/article/cdelete','Home\ArticleController@cdelete');
-	//评论回复
-	Route::any('/home/article/reply','Home\ArticleController@reply');
-	//取消回复赞
-	Route::any('/home/article/comment/qzan','Home\ArticleController@commentqzan');
-	//回复赞
-	Route::any('/home/article/comment/zan','Home\ArticleController@commentzan');
-
-
-});

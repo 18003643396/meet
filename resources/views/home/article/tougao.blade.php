@@ -41,7 +41,7 @@
   }
 </style>
          <a class="banner f-trans " id="banner"style="display: block;width: 700px;height: 120px;line-height: 90px;color: #ccc;font-size: 18px;text-align: center; border:1px solid #ccc;border-radius: 20px;margin-bottom:20px; margin-left:25px;">
-             <input type="file" name="images" class="ac_file"id="file_upload"/>
+             <input type="file" name="images" class="ac_file"id="file_upload"style="width:400px;"/>
              <p><img id="img1"src="" style="max-width:450px;max-height:120px;" /></p>
             <span id="dragContainer" class="dragContainer hovertip">点击添加封面图
            </span>

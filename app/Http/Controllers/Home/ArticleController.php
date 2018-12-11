@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\HuatiRequest;
 use App\Model\Admin\Article;
 use App\Model\Admin\Cate;
 use App\Model\Subject;
@@ -14,7 +15,9 @@ class ArticleController extends Controller
 	//发文章页面
     public function create()
     {
-        return view('home.article.tougao');
+        $artone = Article::where('cate_id',null)->where('subject_id',null)->orderBy('zan','desc')->first();
+        $articles = Article::where('cate_id',null)->where('subject_id',null)->orderBy('zan','desc')->offset(1)->limit(4)->get();
+        return view('home.article.tougao',['artone'=>$artone,'articles'=>$articles]);
     }
     //保存文章页面
     public function store(ArticleRequest $request)
@@ -79,12 +82,16 @@ class ArticleController extends Controller
             $rs['images'] = '/uploads/articleimages/'.$name.'.'.$suffix;
 
         }
-            // dd($rs);
-            $res['subject_id'] = Subject::create($rs)->value('id');
+            $res['subject_id'] = DB::table('subject')->insertGetId(
+                ['title' => $rs['title'],'content'=>$rs['content'],'user_id'=>session('uid'),'images'=>$rs['images']]
+            ); 
+           
+    
             $data = Article::create($res);
+
       try{ 
             if($data){
-                return redirect('/')->with('success','已提交，等待管理员审核');
+                return redirect('/home/subject')->with('success','已提交，等待管理员审核');
             }
 
         
@@ -96,7 +103,7 @@ class ArticleController extends Controller
         }
     }
     //发布话题
-    public function huatistore(ArticleRequest $request)
+    public function huatistore(HuatiRequest $request)
     {
     	
 
@@ -104,7 +111,7 @@ class ArticleController extends Controller
             $data = Cate::create($res);
       try{ 
             if($data){
-                return redirect('/')->with('success','话题发布成功');
+                return redirect('/home/huati');
             }
 
         

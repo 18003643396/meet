@@ -1,0 +1,116 @@
+   @extends('admin.layout.admin')
+   @section('title',$title)
+   @section('content')
+<!--  {{$search = empty($_GET['search'])?null:$_GET['search']}} -->
+<!--  {{$keywords = empty($_GET['keywords'])?null:$_GET['keywords']}} -->
+<div class="content-wrapper"style='margin-left:10px'><br>
+	
+
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible">
+                    <li style='list-style:none;font-size:14px'><i class="icon fa fa-warning"></i>{{session('error')}}</li>
+                </div>
+            @endif
+	<div class="col-xs-12">
+		<div class="box">
+
+			<div class="box-header">
+			<h3 class="box-title">专题列表</h3>
+				<div class="search-content" style="float:right">
+					<form action="/admin/subject" method="get">
+						<table class="search-tab">
+							<tbody>
+								<tr>
+									
+									
+									<td><input class="common-text" 
+										@if ($keywords == null)
+											placeholder="请输入关键字"
+										@else 
+											placeholder="{{$keywords}}"
+										@endif
+
+
+										 name="keywords" value="" id="" type="text"></td>
+									<td>
+										<button class='btn btn-block btn-default btn-xs' ><i class='fa  fa-search'></i></button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			<!--<div class="result-title">-->
+				<div class="result-list"style="margin-top:20px;">
+				
+				</div>
+		
+            
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+				<table class="table table-hover">
+					<tr>
+						
+						<th>ID</th>
+						<th>标题</th>
+						<th>作者</th>
+						<th>时间</th>
+						<th>审核</th>
+						<th>操作</th>
+					</tr>
+					@foreach($res as $k => $v)
+					<tr>
+						
+						<td>{{$v->id}}</td>
+						<td>{{$v->title}}</td>
+						<td>{{$v->user_name}}</td>
+						<td>{{$v->time}}</td>
+
+						<td>@if($v->status== 1)
+
+                        		已通过
+                        	@elseif($v->status== 0)
+                        		未审核
+                        	@else
+                        		未通过
+                        	@endif
+
+              
+                        </td>
+						<td>	
+							<a href="/admin/subject/shenhe/{{$v->id}}"class='btn btn-block btn-default btn-xs'style='width: 50px;'>审核</a>&nbsp;
+							<form action="/admin/subject/delete/{{$v->id}}" method='post' style='display:inline'>
+                            	{{csrf_field()}}
+
+                            	{{method_field("DELETE")}}
+                            	<button class='btn btn-block btn-default btn-xs' style='width: 50px;margin-left:20px;'><i class='fa fa-remove'></i></button>
+
+                            </form>
+                        </td>
+
+					</tr>
+					@endforeach
+				</table>
+				
+            </div>
+			<center>
+			
+			{{$res->links()}}
+			
+			</center>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+
+	</div>
+	{{session('error')}}
+ @stop
+  @section('js')
+<script>
+    $('.alert-dismissible').delay(2000).fadeOut(2000);
+
+
+
+</script>
+@stop

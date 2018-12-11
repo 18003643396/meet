@@ -397,7 +397,8 @@ desired effect
           </a>
           <ul class="treeview-menu">
             
-            <li><a href="#"style='color: #000'><i class="fa fa-newspaper-o"></i>文章列表</a></li>
+            <li><a href="/admin/article"style='color: #000'><i class="fa fa-newspaper-o"></i>文章列表</a></li>
+            <li><a href="/admin/subject"style='color: #000'><i class="fa fa-newspaper-o"></i>专题列表</a></li>
           </ul>
         </li>
       </ul>

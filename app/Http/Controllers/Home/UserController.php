@@ -136,7 +136,7 @@ class UserController extends Controller
     {
         // $id = $request->get('id');
         $article = Article::where('user_id',$id)->get();
-        $message = DB::table('message')->where('user_id',$id)->join('user','message.messageuser_id','=','user.id')->paginate(2);
+        $message = DB::table('message')->where('user_id',$id)->join('user','message.messageuser_id','=','user.id')->paginate(5);
     	return view('home.user.liuyan',['article'=>$article,'id'=>$id,'message'=>$message]);
     }
 

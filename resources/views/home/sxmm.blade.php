@@ -101,7 +101,7 @@ background:url(../../images/v3/iphone.png) -25px -290px no-repeat;
 	<div id="header" style="height:80px;background:#000;">
 		
 	</div>
-		<a class="png_bg" href="">返回主页</a>
+		<a class="png_bg" href="/">返回主页</a>
 	<div class="register_content">
 	
 		<ul class="step_ul step1 clear">

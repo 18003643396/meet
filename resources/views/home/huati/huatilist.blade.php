@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/homes/kindeditor/themes/default/default.css" />
 <link rel="stylesheet" href="/homes/kindeditor/themes/simple/simple.css" />
  <article style="margin-top:10px;">
-  <h1 class="t_nav"><span>您现在的位置是：首页 > 话题 </span><a href="/" class="n1">网站首页</a><a href="/home/huati" class="n2">话题</a></h1>
+  <h1 class="t_nav"><span>您现在的位置是：首页 > 话题 >{{$cate->cate}}</span><a href="/" class="n1">网站首页</a><a href="/home/huati" class="n2">话题</a></h1>
   
    <div class="blogsbox"style="width: 70%; ">
    	<div class="blogs" data-scroll-reveal="enter bottom over 1s" >
@@ -41,7 +41,7 @@
 	         <center>
 	          <textarea type="text" class="title"name="title" id="title" placeholder=" 请填写标题" maxlength="32"style="height: 50px;display: block;width: 700px;margin:auto;outline: none;border:1px solid #ccc;color: #333;font-size: 30px;border-radius: 20px;"></textarea></br>
 	        
-	            <textarea id="editor_id" name="content" style="width:700px;height:300px;margin-left:300px;border-radius: 10px;">&lt;strong&gt;请输入内容&lt;/strong&gt;
+	            <textarea id="editor_id" name="content" style="width:700px;height:300px;margin-left:300px;border-radius: 10px;">
 	            </textarea>
 	            <input type="hidden" name="cate_id"value="{{$cate->id}}">
 	              {{csrf_field()}}
@@ -56,7 +56,7 @@
 	   <div class="content-box"> 
 	    <div class="posts-default-box"> 
 	     <div class="posts-default-title"> 
-	      <h2><a href="#" title="trendion |个人生活博客和杂志的WordPress主题" target="_blank">{{$v->title}}</a></h2> 
+	      <h2><a>{{$v->title}}</a></h2> 
 	     </div> 
 	     <div class="posts-default-content"> 
 	      <div class="posts-text">
@@ -77,6 +77,7 @@
 	  @endforeach
 	 </div>
 	</article>
+
 
 	
 

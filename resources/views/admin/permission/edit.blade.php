@@ -29,14 +29,14 @@
                             <tr>
                                 <th><i class="require-red">*</i>名称：</th>
                                 <td>
-                                    <input class="common-text required" id="title" name="name" size="20" value="{{$res->per_name}}" type="text">
+                                    <input class="common-text required" id="title" name="per_name" size="20" value="{{$res->per_name}}" type="text">
                                 </td>
                             </tr>
                             
                              <tr>
                                 <th><i class="require-red">*</i>权限路由：</th>
                                 <td>
-                                    <input class="common-text required" id="title" name="url" size="20" value="{{$res->per_url}}" type="text">
+                                    <input class="common-text required" id="title" name="per_url" size="20" value="{{$res->per_url}}" type="text">
                                 </td>
                             </tr>
                            

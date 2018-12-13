@@ -91,7 +91,7 @@ class ArticleController extends Controller
 
       try{ 
             if($data){
-                return redirect('/home/subject')->with('success','已提交，等待管理员审核');
+                return back()->with('success','已提交，等待管理员审核');
             }
 
         
@@ -158,9 +158,9 @@ class ArticleController extends Controller
     		if($res){
     			$zan -= 1;
     			Article::where('id',$article_id)->update(['zan'=>$zan]);
-    			 echo 1;
+    			 return 1;
     		}else{
-    			echo 4;
+    			return 4;
     		}
     		
     	}else{
@@ -170,9 +170,9 @@ class ArticleController extends Controller
     		$zan += 1; 
     		Article::where('id',$article_id)->update(['zan'=>$zan]);
     		if($rs){
-    			echo 2;
+    			return 2;
     		}else{
-    			echo 3;
+    			return 3;
     		}
     	}
     }
@@ -187,18 +187,18 @@ class ArticleController extends Controller
     		 $res = DB::table('collect')->where('id',$id)->delete();
     		
     		if($res){
-    			 echo 1;
+    			 return 1;
     		}else{
-    			echo 4;
+    			return 4;
     		}
     		
     	}else{
     		$rs = DB::table('collect')->insert(
     			['article_id'=>$article_id,'user_id'=>session('uid')]);
     		if($rs){
-    			echo 2;
+    			return 2;
     		}else{
-    			echo 3;
+    			return 3;
     		}
     	}
     }

@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="keywords" content="">
 <meta name="description" content="">
+<link rel="shortcut icon" type="image/x-icon" href="/homes/images/biao.png">
 <link type="text/css" href="/homes/themes/css/v3/reset.css" rel="stylesheet">
 <link type="text/css" href="/homes/themes/css/v3/public.css" rel="stylesheet">
 <link type="text/css" href="/homes/themes/css/v3/register.css" rel="stylesheet">
@@ -214,7 +215,9 @@ background:url(../../images/v3/iphone.png) -25px -290px no-repeat;
 </head>
 <body>
 	<div id="header" style="height:80px;background:#000;">
-		
+		<center>
+			<img src="/homes/images/logo.png"style="margin-top:20px;">
+		</center>
 	</div>
 		<a class="png_bg" href="/">返回主页</a>
 	<div class="register_content">
@@ -303,11 +306,10 @@ background:url(../../images/v3/iphone.png) -25px -290px no-repeat;
               <div class="social-footer"> 
 	              <div class="nav-footer" style="text-align: center;margin-top: 20px;margin-bottom: 15px;">
 	               <a href="/"style="display: inline-block;font-size: 14px;color: #e0e0e0;margin-right: 10px;">首页</a>
-			     <a style="display: inline-block;font-size: 14px;color: #e0e0e0;margin-right: 10px;">wordpress专题</a>
+			     <a style="display: inline-block;font-size: 14px;color: #e0e0e0;margin-right: 10px;">关于我们</a>
 			      <a style="display: inline-block;font-size: 14px;color: #e0e0e0;margin-right: 10px;">域名主机</a>
-			       <a style="display: inline-block;font-size: 14px;color: #e0e0e0;margin-right: 10px;">wordpress主题</a>
-			        <a style="display: inline-block;font-size: 14px;color: #e0e0e0;margin-right: 10px;">页面模版</a>
-			        <a style="display: inline-block;font-size: 14px;color: #e0e0e0;margin-right: 10px;">模板下载</a> 
+			       <a style="display: inline-block;font-size: 14px;color: #e0e0e0;margin-right: 10px;">联系我们</a>
+			       
     </div>
              
         @php

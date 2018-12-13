@@ -27,10 +27,16 @@ Route::any('/home/chenggong',function(){
 });
 //话题列表
 Route::any('/home/huati','Home\HuatiController@index');
+//关注列表
+Route::any('/home/guanzhu','Home\FollowController@index');
+//搜索
+Route::any('/home/search','Home\HomeController@search');
 
 Route::any('/home/huati/list/{id}','Home\HuatiController@list');
 //专题列表
 Route::any('/home/subject','Home\SubjectController@index');
+//查看专题
+Route::any('/home/subject/xiangqing/{id}','Home\SubjectController@xiangqing');
 //查看文章
 Route::any('/home/xiangqing','Home\ArticleController@xiangqing');
 //注册
@@ -49,15 +55,19 @@ Route::group(['middleware'=>'qlogin'],function(){
 	Route::get('/home/user/zhuanti','Home\UserController@zhuanti');
 	Route::get('/home/user/dongtai','Home\UserController@dongtai');
 	Route::get('/home/user/shijianzhou','Home\UserController@shijianzhou');
+	Route::get('/home/user/collect','Home\UserController@collect');
+	//删除文章
+	Route::get('/home/user/delete','Home\UserController@delete');
+	
 	//留言
 	Route::get('/home/user/liuyan/{id}','Home\UserController@liuyan');
 	//发布留言
 	Route::any('/home/user/message','Home\UserController@message');
 
-	Route::get('/home/user/search','Home\UserController@search');
+	Route::post('/home/user/search','Home\UserController@search');
 
 	Route::any('/home/user/xiangqing','Home\UserController@xiangqing');
-	Route::any('/home/user/xiangqing','Home\UserController@xiangqing');
+	Route::any('/home/user/cxiangqing','Home\UserController@cxiangqing');
 	Route::any('/home/user/usercomment','Home\UserController@usercomment');
 	Route::any('/home/user/userreply','Home\UserController@userreply');
 
@@ -99,6 +109,9 @@ Route::group(['middleware'=>'qlogin'],function(){
 	Route::any('/home/article/comment/qzan','Home\ArticleController@commentqzan');
 	//回复赞
 	Route::any('/home/article/comment/zan','Home\ArticleController@commentzan');
+	//关注列表加载
+	Route::get('/guanmore', 'Home\FollowController@guanloadMore');
+
 
 
 });

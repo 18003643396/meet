@@ -27,7 +27,7 @@ class PerController extends Controller
              
         }
         return view('admin.permission.index',[
-            'title'=>'角色的列表页面',
+            'title'=>'权限的列表页面',
             'res'=>$res
 
         ]);
@@ -104,20 +104,18 @@ class PerController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $res = $request->only('url_name','url');
+        $res = $request->only('per_name','per_url');
 
-        try{
-
+       
             $data = Permission::where('id',$id)->update($res);
             
             if($data){
                 return redirect('/admin/permission')->with('success','修改成功');
             }
 
-        }catch(\Exception $e){
-
+       
             return back()->with('error','修改失败');
-        }
+        
 
 
     }

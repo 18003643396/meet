@@ -1,6 +1,9 @@
 @extends('home.user.index')
 
 @section('content')
+		@php 
+			 $user = DB::table('user')->where('id',$id)->first();
+		@endphp
 		<div id="main" class="content">
 			<div class="container">
 				<style>
@@ -20,7 +23,7 @@
 						<ul>
 							@foreach($article as $k=>$v)
 							<li>
-								<div><a href="/home/user/xiangqing?id={{$v->id}}"style="color:#999;">{{$v->title}}</a><br /><span class="time-ago">{{$v->time}}</span></div>
+								<div><a href="/home/user/xiangqing?id={{$v->id}}&uid={{$user->id}}"style="color:#999;">{{$v->title}}</a><br /><span class="time-ago">{{$v->time}}</span></div>
 							</li>
 							@endforeach
 							

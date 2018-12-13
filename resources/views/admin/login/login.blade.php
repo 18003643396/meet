@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{$title}}</title>
+      <link rel="shortcut icon" type="image/x-icon" href="/homes/images/biao.png">
     <link href="/admins/css/admin_login.css" rel="stylesheet" type="text/css" />
       <link rel="stylesheet" href="/admins/dist/css/AdminLTE.min.css">
        <link rel="stylesheet" href="/admins/bower_components/Ionicons/css/ionicons.min.css">

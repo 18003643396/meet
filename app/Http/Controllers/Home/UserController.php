@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Home;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Admin\Article;
-use App\Model\Admin\User;
-use App\Model\Admin\Follow;
-use App\Http\Requests\UserupdateRequest;
 use App\Http\Requests\PassRequest;
-use Session;
+use App\Http\Requests\UserupdateRequest;
+use App\Model\Admin\Article;
+use App\Model\Admin\Follow;
+use App\Model\Admin\User;
 use DB;
 use Hash;
+use Illuminate\Http\Request;
+use Session;
 class UserController extends Controller
 {
     public function index(Request $request)
@@ -33,6 +33,48 @@ class UserController extends Controller
        $replys = DB::table('user')->join('reply','reply.user_id','=','user.id')->get();
          $user = DB::table('user')->where('id',$uid)->get();
          return view('home.user.xiangqing',['articless'=>$articless,'article'=>$article,'id'=>$uid,'comment'=>$comments,'reply'=>$replys,'user'=>$user]);
+        // return view('home.user.xiangqing');
+    }
+    //文章删除
+    public function delete(Request $request)
+    {
+        $id = $request->aid;
+          
+        try{
+
+            $res = Article::destroy($id);
+            
+            if($res){
+                $rs = DB::table('comment')->where('article_id',$id)->delete();
+                 $article = Article::where('user_id',session('uid'))->get();
+                 $uid =  session('uid');
+                if($rs){
+
+                    return redirect("/home/user?id=$uid");
+                }
+                else{
+                    return redirect("/home/user?id=$uid");
+                }
+            }
+
+        }catch(\Exception $e){
+
+            return back()->with('error','删除失败');
+        }
+    }
+    //收藏详情
+     public function cxiangqing(Request $request)
+    {
+    
+        $id = $request->get('id');
+        $uid = $request->get('uid');
+        // dd($id);
+        $article = Article::where('user_id',$uid)->get();
+        $articless = Article::where('id',$id)->first();
+       $comments = DB::table('user')->where('article_id',$id)->join('comment','comment.user_id','=','user.id')->latest('time')->get();
+       $replys = DB::table('user')->join('reply','reply.user_id','=','user.id')->get();
+         $user = DB::table('user')->where('id',$uid)->get();
+         return view('home.user.cxiangqing',['articless'=>$articless,'article'=>$article,'id'=>$uid,'comment'=>$comments,'reply'=>$replys,'user'=>$user]);
         // return view('home.user.xiangqing');
     }
     //文章详情页评论
@@ -80,6 +122,16 @@ class UserController extends Controller
         $article = Article::where('user_id',$id)->get();
     	return view('home.user.guanzhu',['article'=>$article,'id'=>$id,'ginfo'=>$ginfo]);
     }
+    //收藏
+    public function collect(Request $request)
+    {
+        $id = $request->get('id');
+        $cinfo = DB::table('collect')->where('collect.user_id',$id)->join('article','article.id','=','collect.article_id')->get();
+        // dd($ginfo);
+        $article = Article::where('user_id',$id)->get();
+        return view('home.user.collect',['article'=>$article,'id'=>$id,'cinfo'=>$cinfo]);
+    }
+
     //加关注
     public function jiaguanzhu(Request $request)
     {
@@ -108,7 +160,8 @@ class UserController extends Controller
     {
         $id = $request->get('id');
         $article = Article::where('user_id',$id)->get();
-    	return view('home.user.huati',['article'=>$article,'id'=>$id]);
+        $cate = Article::where('user_id',$id)->whereNotNull('cate_id')->get();
+    	return view('home.user.huati',['article'=>$article,'id'=>$id,'cate'=>$cate]);
     }
     public function zhuanti(Request $request)
     {
@@ -157,9 +210,13 @@ class UserController extends Controller
     //搜索页面
     public function search(Request $request)
     {
+        // dd(1);
         $id = $request->get('id');
     	$article = Article::where('user_id',$id)->get();
-        return view('home.user.search',['article'=>$article,'id'=>$id]);
+        $keywords = $request -> post('keywords');
+        $ainfo = Article::where('title','like','%'.$keywords.'%')->where('user_id',$id)->get();
+        $count = Article::where('title','like','%'.$keywords.'%')->where('user_id',$id)->count();
+        return view('home.user.search',['article'=>$article,'id'=>$id,'ainfo'=>$ainfo,'keywords'=>$keywords,'count'=>$count]);
     }
 
     //个人信息页面

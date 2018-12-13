@@ -140,7 +140,7 @@ class ConservatorController extends Controller
        
         //存数据
 
-        try{
+        
 
             $data = Conservator::create($res);
             
@@ -148,10 +148,10 @@ class ConservatorController extends Controller
                 return redirect('/admin/conservator')->with('success','添加成功');
             }
 
-        }catch(\Exception $e){
+        
 
             return back()->with('error','添加失败');
-        }
+       
         
     }
 

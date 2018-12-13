@@ -2,53 +2,30 @@
   $configure = DB::table('configure')->first();
 @endphp
 <!DOCTYPE html>
-
 <html>
-
-        <head>
+    
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
         <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE;chrome=1">
         <title>{{$configure->name}}</title>
         <meta name="keywords" content="{{$configure->keywords}}">
-         <meta content="{{$configure->content}}" name="viewport">
+        <meta content="{{$configure->content}}" name="viewport">
+        <link rel="shortcut icon" type="image/x-icon" href="/homes/images/biao.png">
         <link rel='stylesheet' href='/homes/css/owl.carousel.min.css' type='text/css' media='all' />
         <link rel='stylesheet' href='/homes/css/fontello.css' type='text/css' media='all' />
         <link rel='stylesheet' href='/homes/css/nicetheme.css' type='text/css' media='all' />
         <link rel='stylesheet' href='/homes/css/reset.css' type='text/css' media='all' />
         <link rel='stylesheet' href='/homes/css/style.css' type='text/css' media='all' />
-        <link rel="stylesheet" type="text/css" href="/homes/css/bootstrap.min.css">  
-        <link rel="stylesheet" type="text/css" href="/homes/css/index.css"> 
+        <link rel="stylesheet" type="text/css" href="/homes/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/homes/css/index.css">
         <script type='text/javascript' src='/homes/js/jquery.js'></script>
-        <style>
-#header, #header .toggle-tougao, .two-s-footer .footer-box {
-	background-color: #000;
-}
-#header .primary-menu ul > li > a, #menu-mobile a,  #header .js-toggle-message button,  #header .js-toggle-search,  #header .toggle-login,  #header .toggle-tougao {
-	color: #bdbdbd;
-}
-.navbar-toggle .icon-bar {
-	background-color: #bdbdbd;
-}
-#header .primary-menu ul > li.current-menu-item > a,  #header .primary-menu ul > li.menu-item-has-children:hover > a,  #header .primary-menu ul > li.current-menu-ancestor > a,  #header .primary-menu ul > li >a:hover {
-	color: #FFF;
-}
-#header .toggle-tougao:hover,  #header .primary-menu ul > li .sub-menu li a:hover,  #header .primary-menu ul > li .sub-menu li.menu-item-has-children:hover > a,  #header .primary-menu ul > li .sub-menu li.current-menu-item > a {
-	color: #000;
-}
-#header .toggle-tougao, #header .toggle-tougao:hover {
-	border-color: #bdbdbd;
-}
-#header .toggle-tougao:hover {
-	background-color: #FFF;
-}
-#btnForgetpsw:hover{color:#6A6A5F
-}
-#login_btn{background:#A5A593;border-color:#A5A593;}
-#login_btn:hover{background:#464D57;}
-</style>
-        </head>
-
+        <style>#header, #header .toggle-tougao, .two-s-footer .footer-box { background-color: #000; } #header .primary-menu ul > li > a, #menu-mobile a, #header .js-toggle-message button, #header .js-toggle-search, #header .toggle-login, #header .toggle-tougao { color: #bdbdbd; } .navbar-toggle .icon-bar { background-color: #bdbdbd; } #header .primary-menu ul > li.current-menu-item > a, #header .primary-menu ul > li.menu-item-has-children:hover > a, #header .primary-menu ul > li.current-menu-ancestor > a, #header .primary-menu ul > li >a:hover { color: #FFF; } #header .toggle-tougao:hover, #header .primary-menu ul > li .sub-menu li a:hover, #header .primary-menu ul > li .sub-menu li.menu-item-has-children:hover > a, #header .primary-menu ul > li .sub-menu li.current-menu-item > a { color: #000; } #header .toggle-tougao, #header .toggle-tougao:hover { border-color: #bdbdbd; } #header .toggle-tougao:hover { background-color: #FFF; } #btnForgetpsw:hover{color:#6A6A5F } #login_btn{background:#A5A593;border-color:#A5A593;} #login_btn:hover{background:#464D57;}
+      </style>
+       @section('css')
+       
+       @show
+    </head>
 @if($configure->status == 2)
 <body>
         <div class="flex-center position-ref full-height"style="align-items: center;
@@ -78,7 +55,7 @@
         </div>
 <div id="header" class="navbar-fixed-top">
           <div class="container">
-    <h1 class="logo"> <a  href="#" title="MAOLAI博客" style="background-image: url(http://www.lmlblog.com/blog/5/images/logo.png);"/> </a> </h1>
+    <h1 class="logo"> <a  href="#" style="background-image: url(/homes/images/logo.png);"/> </a> </h1>
     <div role="navigation"  class="site-nav  primary-menu">
               <div class="menu-fix-box">
         <ul id="menu-navigation" class="menu">
@@ -87,7 +64,7 @@
                     <li><a href="/home/subject">专题</a></li>
                    
                      @if(!session('uid') == '')
-                     <li><a href="#">关注</a></li>
+                     <li><a href="/home/guanzhu">关注</a></li>
                     <li><a href="/home/user?id={{session('uid')}}">个人中心</a></li>
                     
                  
@@ -271,26 +248,29 @@
                 @endforeach
                  
           </div>
+          @php
+            $cate = DB::table('cate')->inRandomOrder()->limit(2)->get();
+            
+          @endphp
+           
+  
         <div class="top-singles hidden-xs">
+           @foreach($cate as $k => $v)
+              @php
+                $count = DB::table('article')->where('cate_id',$v->id)->count();
+              @endphp
                   <div class="single-item">
-            <div class="image" style="background-image:url(/homes/images/11.jpg)"> <a href="#">
+            <div class="image" style="background-image:url(/images/5.jpg)"> <a href="/home/huati/list/{{$v->id}}">
               <div class="overlay"></div>
-              <div class="cat">wordpress主题</div>
+              <div class="cat">{{$count}}参与</div>
               <div class="title">
-                <h3>blggn -响应博客及商店的WordPress主题</h3>
+                <h3>{{$v->cate}}</h3>
               </div>
               </a> </div>
           </div>
-                  <div class="single-item">
-            <div class="image" style="background-image:url(/homes/images/16.jpg)"> <a href="#">
-              <div class="overlay"></div>
-              <div class="cat">wordpress主题</div>
-              <div class="title">
-                <h3>Magneto响应WordPress杂志和博客主题</h3>
-              </div>
-              </a> </div>
-          </div>
-                </div>
+          @endforeach
+        </div>
+                
       </div>
             </div>
   </div>
@@ -309,42 +289,29 @@
         <div class="sidebar col-xs-12 col-sm-4 col-md-4">
                   <div class="widget suxingme_topic">
             <h3><span>推荐专题</span></h3>
+            @php 
+           $subject = DB::table('subject')->join('article','subject.id','=','article.subject_id')->where('subject_id','!=',null)->orderBy('count','desc')->limit(3)->get();
+                
+            @endphp
+            @foreach($subject as $k => $v)
             <ul class="widget_suxingme_topic">
-                      <li> <a href="#" title="wordpress主题推荐">
+                      <li> <a href="/home/subject/xiangqing/{{$v->subject_id}}" title="{{$v->title}}">
                         <div class="overlay"></div>
-                        <div class="image" style="background-image: url(/homes/images/13.jpg);"></div>
+                        <div class="image" style="background-image: url({{$v->images}});"></div>
                         <div class="title">
-                        <h4>wordpress主题推荐</h4>
+                        <h4>{{$v->title}}</h4>
                         <div class="meta"><span>查看专题</span></div>
                       </div>
                         </a> </li>
                     </ul>
-            <ul class="widget_suxingme_topic">
-                      <li> <a href="#" title="wordpress视频主题">
-                        <div class="overlay"></div>
-                        <div class="image" style="background-image: url(/homes/images/5.jpg);"></div>
-                        <div class="title">
-                        <h4>wordpress视频主题</h4>
-                        <div class="meta"><span>查看专题</span></div>
-                      </div>
-                        </a> </li>
-                    </ul>
-            <ul class="widget_suxingme_topic">
-                      <li> <a href="#" title="wordpress杂志主题">
-                        <div class="overlay"></div>
-                        <div class="image" style="background-image: url(/homes/images/6.jpg);"></div>
-                        <div class="title">
-                        <h4>wordpress杂志主题</h4>
-                        <div class="meta"><span>查看专题</span></div>
-                      </div>
-                        </a> </li>
-                    </ul>
+            @endforeach
+            
           </div>
                   <div class="widget widget_suxingme_postlist">
             <h3><span>推荐文章</span></h3>
             <ul class="recent-posts-widget">
 
-                      <li class="one"> <a href="#" title="{{$artone->user_name}}">
+                      <li class="one"> <a href="/home/xiangqing?id={{$artone->id}}" title="{{$artone->user_name}}">
                         <div class="overlay"></div>
                         <img class="lazy" src="/homes/images/18.jpg" />
                         @php
@@ -356,10 +323,11 @@
                         </a>
                      </li>
                      @foreach($articles as $k => $v)
-                      <li class="others">
-                <div class="image"><a href="#" title="{{$v->user_name}}"> <img class="lazy" src="/homes/images/9.jpg" alt="{{$v->user_name}}" /> </a></div>
-                <div class="title">
-                          <h4><a href="#" title="{{$v->title}}">{{$v->title}}</a></h4>
+                      <li class="others"style="height:40px;">
+                
+                <div class="title"style="margin-left:10px;height:100%;">
+                          <h4><a href="/home/xiangqing?id={{$v->id}}" title="{{$v->title}}">{{$v->title}}</a></h4>
+
                            @php
                            $times = substr($v->time,0,10);
                         @endphp
@@ -373,10 +341,9 @@
             <h3><span>关注我们 么么哒！</span></h3>
             <div class="attentionus">
                 <ul class="items clearfix">
-                <span class="social-widget-link social-link-weibo"> <span class="social-widget-link-count"><i class="icon-weibo"></i>伱好甜丫</span> <span class="social-widget-link-title">新浪微博</span> <a href="http://www.lmlblog.com" target="_blank" rel="nofollow" ></a></span>
-                 <span class="social-widget-link social-link-qq"> <span class="social-widget-link-count"><i class="icon-qq"></i>1597855517</span> <span class="social-widget-link-title">QQ号</span> <a href="http://wpa.qq.com/msgrd?v=3&uin=1597855517&site=qq&menu=yes" rel="nofollow" ></a> </span> <span class="social-widget-link social-link-email"> <span class="social-widget-link-count"><i class="icon-mail"></i>1597855517@qq.com</span> <span class="social-widget-link-title">QQ邮箱</span> <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1597855517@qq.com" target="_blank" rel="nofollow" ></a> </span> 
-                 <span class="social-widget-link social-link-email"> <span class="social-widget-link-count"><i class="icon-mail"></i>haotian970520@163.com</span> <span class="social-widget-link-title">163邮箱</span> <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=lmlblog@qq.com" target="_blank" rel="nofollow" ></a> </span> 
-                 <span class="social-widget-link social-link-wechat"> <span class="social-widget-link-count"><i class="icon-wechat"></i>lmlblog</span> <span class="social-widget-link-title">微信公众号</span> <a id="tooltip-s-weixin" href="javascript:void(0);"></a> </span>
+                <span class="social-widget-link social-link-weibo"> <span class="social-widget-link-count"><i class="icon-weibo"></i>伱好甜丫</span> <span class="social-widget-link-title">新浪微博</span> <a target="_blank" rel="nofollow" ></a></span>
+                 <span class="social-widget-link social-link-qq"> <span class="social-widget-link-count"><i class="icon-qq"></i>1597855517</span> <span class="social-widget-link-title">QQ号</span> <a href="http://wpa.qq.com/msgrd?v=3&uin=1597855517&site=qq&menu=yes" rel="nofollow" ></a> </span> <span class="social-widget-link social-link-email"> <span class="social-widget-link-count"><i class="icon-mail"></i>1597855517@qq.com</span> <span class="social-widget-link-title">QQ邮箱</span> <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1597855517@qq.com" target="_blank" rel="nofollow" ></a> </span>  
+                 <span class="social-widget-link social-link-wechat"> <span class="social-widget-link-count"><i class="icon-wechat"></i>haotian970520</span> <span class="social-widget-link-title">微信公众号</span> <a id="tooltip-s-weixin" href="javascript:void(0);"></a> </span>
               </ul>
                     </div>
           </div>
@@ -423,7 +390,7 @@
             // console.log(sum);
             for(var i=offset; i< (offset+size); i++){
               var content = a[i].content.replace(/<\/?.+?>/g, "").substr(0,200);
-              result +='<div class="ajax-load-con content wow fadeInUp"><div class="content-box posts-image-box"><div class="posts-default-title"><h2><a href="/home/xiangqing?id='+a[i].id+'" title="vidorev视频的WordPress主题" target="_blank">'+ a[i].title +'</a></h2></div><div class="posts-default-content"><div class="posts-text">'+content+'&hellip;</div></div><div class="posts-default-info"><ul><li class="post-author hidden-xs"><div class="avatar"><img alt="maolai" src="'+ a[i].img+'" height="96" width="96"/></div><a href="javascript:void(0)">'+ a[i].name+'</a></li><li class="ico-cat"><i class="icon-list-2"></i><a href="#">wordpress主题</a></li><li class="ico-time"><i class="icon-clock-1"></i>'+ a[i].time +'</li><li class="ico-eye hidden-xs"><i class="icon-eye-4"></i> '+ a[i].count +'</li><li class="ico-like hidden-xs"><i class="icon-thumbs-up"></i> '+ a[i].zan +'</li></ul></div></div></div></div>';
+              result +='<div class="ajax-load-con content wow fadeInUp"><div class="content-box posts-image-box"><div class="posts-default-title"><h2><a href="/home/xiangqing?id='+a[i].id+'"  target="_blank">'+ a[i].title +'</a></h2></div><div class="posts-default-content"><div class="posts-text">'+content+'&hellip;</div></div><div class="posts-default-info"><ul><li class="post-author hidden-xs"><div class="avatar"><img alt="maolai" src="'+ a[i].img+'" height="96" width="96"/></div><a href="javascript:void(0)">'+ a[i].name+'</a></li><li class="ico-cat"><i class="icon-list-2"></i><a href="#">文章</a></li><li class="ico-time"><i class="icon-clock-1"></i>'+ a[i].time +'</li><li class="ico-eye hidden-xs"><i class="icon-eye-4"></i> '+ a[i].count +'</li><li class="ico-like hidden-xs"><i class="icon-thumbs-up"></i> '+ a[i].zan +'</li></ul></div></div></div></div>';
             // aaa += '<div>'+ data[i].title +'</div>';
              
             }
@@ -453,7 +420,7 @@
           <div class="footer-box">
     <div class="container">
               <div class="social-footer"> <a id="tooltip-f-weixin" class="wxii" href="javascript:void(0);"><i class="icon-wechat"></i></a> </div>
-              <div class="nav-footer"> <a>首页</a> <a href="#">wordpress专题</a> <a href="#">域名主机</a> <a href="#">wordpress主题</a> <a>页面模版</a> <a href="http://www.lmlblog.com/2656.html">模板下载</a> </div>
+              <div class="nav-footer"> <a href="/">首页</a> <a>关于我们</a> <a >域名主机</a> <a>联系我们</a>  </div>
               <div class="copyright-footer">
         <p>{{$configure->banquan}}</p>
       </div>
@@ -471,18 +438,19 @@
   </div>
     </div>
 <div class="search-form">
-          <form method="get" action="" role="search">
+          <form method="post" action="/home/search" role="search">
     <div class="search-form-inner">
               <div class="search-form-box">
-        <input class="form-search" type="text" name="s" placeholder="键入搜索关键词">
+        <input class="form-search" type="text" name="keywords" placeholder="键入搜索关键词">
+         {{csrf_field()}}
         <button type="submit" id="btn-search"><i class="icon-search"></i> </button>
       </div>
               <div class="search-commend">
         <h4>大家都在搜</h4>
         <ul>
-                  <li><a href="#">wordpress主题</a></li>
-                  <li><a href="#">个人博客模板</a></li>
-                  <li><a href="#">网页模板</a></li>
+                  <li><a href="#">你好甜</a></li>
+                  <li><a href="#">一句话影评</a></li>
+                  <li><a href="#">大厂男孩</a></li>
                 </ul>
       </div>
             </div>
@@ -491,8 +459,8 @@
         </div>
 <div class="f-weixin-dropdown">
           <div class="tooltip-weixin-inner">
-    <h3>关注我们的公众号</h3>
-    <div class="qcode"> <img src="/homes/http://www.lmlblog.com/blog/5/images/wx.png" width="160" height="160" alt="微信公众号"> </div>
+    <h3>添加我的微信号</h3>
+    <div class="qcode"> <img src="/images/weixin.jpg" width="160" height="160" > </div>
   </div>
           <div class="close-weixin"> <span class="close-top"></span> <span class="close-bottom"></span> </div>
         </div>

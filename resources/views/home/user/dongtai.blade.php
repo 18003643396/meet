@@ -21,7 +21,7 @@
 								<h3>{{$time}}</h3>
 								<div class='archives archives-3' data-date='2018-3'>
 									<div class="brick">
-										<a href="/home/user/xiangqing?id={{$v->id}}&uid={{$user->id}}">{{$v->title}}<span>(0)</span></a>
+										<a href="/home/user/cxiangqing?id={{$v->id}}&uid={{$user->id}}">{{$v->title}}</a>
 									</div>
 								</div>
 							</div>

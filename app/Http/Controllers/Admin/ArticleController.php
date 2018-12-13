@@ -91,7 +91,7 @@ class ArticleController extends Controller
     	if($res){
     		return redirect('/admin/subject')->with('succsess','审核完成');
     	}else{
-    		return back()->with('error','审核失败');
+    		return redirect('/admin/subject')->with('succsess','审核完成');
     	}
     }
 
@@ -101,7 +101,7 @@ class ArticleController extends Controller
     	if($res){
     		return redirect('/admin/subject')->with('succsess','审核完成');
     	}else{
-    		return back()->with('error','审核失败');
+    		return redirect('/admin/subject')->with('succsess','审核完成');
     	}
     }
 

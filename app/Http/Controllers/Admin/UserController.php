@@ -95,7 +95,7 @@ class UserController extends Controller
         try{
 
             $data = User::create($res);
-            dump($data);
+           
             if($data){
                 return redirect('admin/user')->with('success','添加成功');
             }

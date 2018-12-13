@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="keywords" content="">
 <meta name="description" content="">
+<link rel="shortcut icon" type="image/x-icon" href="/homes/images/biao.png">
 <link type="text/css" href="/homes/themes/css/v3/reset.css" rel="stylesheet">
 <link type="text/css" href="/homes/themes/css/v3/public.css" rel="stylesheet">
 <link type="text/css" href="/homes/themes/css/v3/register.css" rel="stylesheet">
@@ -130,7 +131,9 @@ background:url(../../images/v3/iphone.png) -25px -290px no-repeat;
 </head>
 <body>
 	<div id="header" style="height:80px;background:#000;">
-		
+		<center>
+			<img src="/homes/images/logo.png"style="margin-top:20px;">
+		</center>
 	</div>
 		<a class="png_bg" href="/">返回主页</a>
 	<div class="register_content">

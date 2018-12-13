@@ -213,7 +213,7 @@
             contentType: false,
             processData: false,
             success: function(data) {
-            	console.log(data);
+            	// console.log(data);
                 $('#img1').attr('src',data);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {

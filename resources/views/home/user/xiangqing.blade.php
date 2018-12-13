@@ -26,7 +26,7 @@
 						<div class="meta split split--responsive cf">
 							<div class="split__title">
 								<time datetime="{{$articless->time}}">{{$articless->time}}</time>
-								<span class=""><a href="" rel="tag">主题</a><a href="" rel="tag">日常</a><a href="" rel="tag">更新</a> </span>
+								<span class=""><a href="" rel="tag">主题</a><a href="" rel="tag">日常</a>@if($id == session('uid'))<a href="/home/user/delete?aid={{$articless->id}}" rel="tag">删除</a>@endif </span>
 							</div>
 							<div id="social-share"><span class="entypo-share"><i class="iconfont">&#xe614;</i>分享</span></div>
 							<div class="slide">
@@ -59,7 +59,7 @@
 				<div class="comment-area">
 					<section class="comments">
 						<div class="comments-main">
-							<div id="comments-list-title"><span>30</span> 条评论 </div>
+							<div id="comments-list-title"></div>
 							<div id="loading-comments">
 								<div class="host">
 									<div class="loading loading-0"></div>
@@ -168,20 +168,30 @@
 		</div>
 		<div class="navpost-part">
 			<div id="NextPrevPosts">
+		@php
+
+    		$last = DB::table('article')->where('id','<',$articless->id)->where('user_id',$id)->orderBy('id','desc')->limit(1)->first();
+			
+    		$next = DB::table('article')->where('id','>',$articless->id)->where('user_id',$id)->orderBy('id','asc')->limit(1)->first();
+    	@endphp
+    	@if($last)
 				<div class="prev" data-aos="slide-right" data-aos-delay="1.5s">
 					<div class="arrow"><i class="iconfont">&#xe625;</i></div>
 					<div class="preview">
-						<div class="pull-left featuredImg" style="background-image:url('statics/images/97a354cb9519f97e84139f26017386026b3fd7f517b96-DCDbdE-250x250.jpeg');"></div>
-						<a class="pull-left preview-content bold" href="#"><span>《别哭妈妈》</span></a>
+						<div class="pull-left featuredImg" style="background-image:url('');"></div>
+						<a class="pull-left preview-content bold" href="/home/user/xiangqing?id={{$last->id}}&uid={{$last->user_id}}"><span>{{$last->title}}</span></a>
 					</div>
 				</div>
+		@endif
+		@if($next)
 				<div class="next" data-aos="slide-left" data-aos-delay="1.5s">
 					<div class="arrow"><i class="iconfont">&#xe623;</i></div>
 					<div class="preview">
-						<div class="pull-right featuredImg" style="background-image:url('statics/images/no-image.png');"></div>
-						<a class="pull-right preview-content bold" href="#"><span>重构图像样式测试</span></a>
+						<div class="pull-right featuredImg" style="background-image:url('');"></div>
+						<a class="pull-right preview-content bold" href="/home/user/xiangqing?id={{$next->id}}&uid={{$next->user_id}}"><span>{{$next->title}}</span></a>
 					</div>
 				</div>
+		@endif
 			</div>
 		</div>
 

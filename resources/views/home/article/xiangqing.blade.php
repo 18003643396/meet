@@ -6,27 +6,35 @@
 <link rel="stylesheet" href="/homes/pinglun/css/style.css">
 <link rel="stylesheet" href="/homes/pinglun/css/comment.css">
  <article style="margin-top:10px;">
-  <h1 class="t_nav"><span>您现在的位置是：首页 > 慢生活 > 程序人生</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">慢生活</a></h1>
+  <h1 class="t_nav"><span>您现在的位置是：首页 > 文章 > {{$article->title}}</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">文章</a></h1>
   <div class="infosbox">
     <div class="newsview">
       <h3 class="news_title">{{$article->title}}</h3>
       <div class="bloginfo">
         <ul>
           <li class="author"><a href="/home/user?id={{$article->user_id}}">{{$article->user_name}}</a></li>
-          <li class="lmname"><a href="/">学无止境</a></li>
+          @if($article->cate_id == null)
+          <li class="lmname"><a href="/">文章</a></li>
+          @else
+          <li class="lmname"><a href="/">话题</a></li>
+          @endif
           <li class="timer">{{$article->time}}</li>
           <li class="view">{{$article->count}}</li>
           <li class="icon-thumbs-up"  style="padding-left:0px;">&nbsp;{{$article->zan}}</li>
           
         </ul>
       </div>
-      <div class="news_about"><strong>简介</strong></div>
+      @php
+       $author = DB::table('user')->where('id',$article->user_id)->first(); 
+      @endphp
+      <div class="news_about"><strong>简介:{{$author->jianjie}}</strong></div>
       <div class="news_con">
         {!! $article->content !!}
         &nbsp;
          </div>
     </div>
     <div class="share">
+      <span class="session" name="{{session('uid')}}"></span>
       <p class="diggit" ><a href="#" id="zan"name="{{$article->id}}"><i class="icon-thumbs-up"></i>
       @if($res == '')
       点赞
@@ -43,49 +51,79 @@
      
     </a></p>
       <script type="text/javascript">
+        
             $('#zan').click(function(){
-              var article_id = $(this).attr('name');
-                  // console.log(user_id);
-                 $.get('/home/article/zan',{article_id:article_id},function(data){
-                      // console.log(data);
-                       if(data == 1){
-                          $('#zan').html('<i class="icon-thumbs-up"></i>点赞');
-                       }else if(data == 2){
-                         $('#zan').html('<i class="icon-thumbs-up"></i>已点赞');
-                      }else if(data == 3){
-                        alert('点赞失败！');
-                      }else{
-                        alert('取消点赞失败！');
-                      }
-                 });
+              
+              
+                var article_id = $(this).attr('name');
+                    // console.log(user_id);
+                   $.get('/home/article/zan',{article_id:article_id},function(data){
+                        // console.log(data);
+                         if(data == 1){
+                            $('#zan').html('<i class="icon-thumbs-up"></i>点赞');
+                            return;
+                         }else if(data == 2){
+                           $('#zan').html('<i class="icon-thumbs-up"></i>已点赞');
+                           return;
+                        }else if(data == 3){
+                          alert('点赞失败！');
+                          return;
+                        }else{
+                          alert('请先登录！');
+                          return;
+                        }
+                   });
+                
             });
 
             $('#collect').click(function(){
-              var article_id = $(this).attr('name');
-                  // console.log(user_id);
-                 $.get('/home/article/collect',{article_id:article_id},function(data){
-                      // console.log(data);
-                       if(data == 1){
-                          $('#collect').html('<i class="icon-thumbs-up"></i>收藏');
-                       }else if(data == 2){
-                         $('#collect').html('<i class="icon-thumbs-up"></i>已收藏');
-                      }else if(data == 3){
-                        alert('收藏失败！');
-                      }else{
-                        alert('删除收藏失败！');
-                      }
-                 });
+              
+                var article_id = $(this).attr('name');
+                    // console.log(user_id);
+                   $.get('/home/article/collect',{article_id:article_id},function(data){
+                        // console.log(data);
+                         if(data == 1){
+                            $('#collect').html('<i class="icon-thumbs-up"></i>收藏');
+                            return;
+                         }else if(data == 2){
+                           $('#collect').html('<i class="icon-thumbs-up"></i>已收藏');
+                           return;
+                        }else if(data == 3){
+                          alert('收藏失败！');
+                          return;
+                        }else{
+                          alert('请先登录！');
+                          return;
+                        }
+                   });
+                
             });
           </script>
       </div>
    
     <div class="nextinfo">
-      <p>上一篇：<a href="/news/life/2018-03-13/804.html">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>
-      <p>下一篇：<a href="/news/life/">返回列表</a></p>
+    	@php
+    		$last = DB::table('article')->where('id','<',$article->id)->where('subject_id',null)->orderBy('id','desc')->limit(1)->first();
+    		$next = DB::table('article')->where('id','>',$article->id)->where('subject_id',null)->orderBy('id','asc')->limit(1)->first();
+    	@endphp
+
+      <p>上一篇：@if($last == '')
+                  无
+                @else
+        <a href="/home/xiangqing?id={{$last->id}}">{{$last->title}}</a>
+                @endif
+      </p>
+      <p>下一篇：@if($next == '')
+                  无
+                @else
+        <a href="/home/xiangqing?id={{$next->id}}">{{$next->title}}</a>
+                @endif
+      </p>
     </div>
    @php
       $uuser = DB::table('user')->where('id',session('uid'))->first(); 
    @endphp
+   @if(session('uid') != '')
     <div class="news_pl">
       <h2>文章评论</h2>
       <ul>
@@ -98,8 +136,11 @@
           </div>
           <!--评论区域 end-->
           <!--回复区域 begin-->
+          @if(session('uid') != '')
           <span id = 'user_name' name="{{session('uname')}}"></span>
+
           <span id="userimg" name="{{$uuser->img}}"></span>
+		@endif
           <div class="comment-show">
             @foreach($comment as $k => $v)
 
@@ -171,53 +212,33 @@
         </div>
       </ul>
     </div>
-   
+   @endif
    </div>
   <div class="sidebar">
     <div class="zhuanti"style="padding:30px 0px">
-      <h2 class="hometitle">特别推荐</h2>
+      <h2 class="hometitle">专题推荐</h2>
+       @php 
+           $subject = DB::table('subject')->join('article','subject.id','=','article.subject_id')->where('subject_id','!=',null)->orderBy('count','desc')->limit(3)->get();
+                
+        @endphp
+           
       <ul>
-        <li> <i><img src="/homes/xiangqing/images/banner03.jpg"></i>
-          <p>帝国cms调用方法 <span><a href="/">阅读</a></span> </p>
+         @foreach($subject as $k => $v)
+        <li> <i><img src="{{$v->images}}"></i>
+          <p>{{$v->title}}<span><a href="/home/subject/xiangqing/{{$v->subject_id}}">查看专题</a></span> </p>
         </li>
-        <li> <i><img src="/homes/xiangqing/images/b04.jpg"></i>
-          <p>5.20 我想对你说 <span><a href="/">阅读</a></span></p>
-        </li>
-        <li> <i><img src="/homes/xiangqing/images/b05.jpg"></i>
-          <p>个人博客，属于我的小世界！ <span><a href="/">阅读</a></span></p>
-        </li>
+          @endforeach
       </ul>
     </div>
-    <div class="tuijian"style="padding:30px 0px">
-      <h2 class="hometitle">推荐文章</h2>
-      <ul class="tjpic">
-        <i><img src="/homes/xiangqing/images/toppic01.jpg"></i>
-        <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-      </ul>
-      <ul class="sidenews">
-        <li> <i><img src="/homes/xiangqing/images/toppic01.jpg"></i>
-          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="/homes/xiangqing/images/toppic02.jpg"></i>
-          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="/homes/xiangqing/images/v1.jpg"></i>
-          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="/homes/xiangqing/images/v2.jpg"></i>
-          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-          <span>2018-05-13</span> </li>
-      </ul>
-    </div>
-    
+  
     <div class="guanzhu" id="follow-us"style="padding:30px 0px">
       <h2 class="hometitle">关注我们 么么哒！</h2>
       <ul>
-        <li class="sina"><a href="/" target="_blank"><span>新浪微博</span>杨青博客</a></li>
-        <li class="tencent"><a href="/" target="_blank"><span>腾讯微博</span>杨青博客</a></li>
-        <li class="qq"><a href="/" target="_blank"><span>QQ号</span>476847113</a></li>
-        <li class="email"><a href="/" target="_blank"><span>邮箱帐号</span>dancesmiling@qq.com</a></li>
-        <li class="wxgzh"><a href="/" target="_blank"><span>微信号</span>yangqq_1987</a></li>
+        <li class="sina"><a  target="_blank"><span>新浪微博</span>伱好甜丫</a></li>
+        
+        <li class="qq"><a target="_blank"><span>QQ号</span>1597855517</a></li>
+        <li class="email"><a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1597855517@qq.com" target="_blank"><span>邮箱帐号</span>1597855517@qq.com</a></li>
+        <li class="wxgzh"><a target="_blank"><span>微信号</span>haotian970520</a></li>
       </ul>
     </div>
   </div>
@@ -242,7 +263,9 @@
 </script>
 <!--点击评论创建评论条-->
 <script type="text/javascript">
+   
     $('.commentAll').on('click','.plBtn',function(){
+     
         var article_id = $('#collect').attr('name');
         // console.log(article_id);
         var myDate = new Date();
@@ -278,12 +301,14 @@
         }); 
       }
         //动态创建评论模块
-        
+     
     });
 </script>
 <!--点击回复动态创建回复块-->
 <script type="text/javascript">
+  
     $('.comment-show').on('click','.pl-hf',function(){
+    
         //获取回复人的名字
         var fhName = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();
         //回复@
@@ -303,11 +328,14 @@
             $(this).addClass('hf-con-block');
             $(this).parents('.date-dz-right').siblings('.hf-con').remove();
         }
+      
     });
 </script>
 <!--评论回复块创建-->
 <script type="text/javascript">
+ 
     $('.comment-show').on('click','.hf-pl',function(){
+     
         var oThis = $(this);
         var myDate = new Date();
         //获取当前年
@@ -348,6 +376,7 @@
               }
             });
          }
+       
     });
 </script>
 <!--删除评论块-->
@@ -355,10 +384,10 @@
     $('.commentAll').on('click','.cdelete',function(){
     
         var comment_id = $(this).parent().parent().parent().prev().attr('name');
-        console.log(comment_id);
+        // console.log(comment_id);
         var ddelete = $(this);
         $.get('/home/article/cdelete',{comment_id:comment_id},function(data){
-          console.log(data);
+          // console.log(data);
           if(data == 1){
             ddelete.parents('.date-dz-right').parents('.date-dz').parents('.comment-show-con-list').parents('.comment-show-con').remove();
           }else{
@@ -375,10 +404,10 @@
         var oT = $(this).parents('.date-dz-right').parents('.date-dz').parents('.all-pl-con');
         if(oT.siblings('.all-pl-con').length >= 1){
             var reply_id = $(this).prev().attr('name');
-            console.log(reply_id);
+            // console.log(reply_id);
             var dddelete = $(this);
           $.get('/home/article/rdelete',{reply_id:reply_id},function(data){
-            console.log(data);
+            // console.log(data);
               if(data == 1){
                   oT.remove();
               }else{
@@ -403,7 +432,9 @@
 </script>
 <!--点赞-->
 <script type="text/javascript">
+   
     $('.comment-show').on('click','.date-dz-z',function(){
+    
         var zNum = $(this).find('.z-num').html();
         var commentid = $(this).parent().parent().parent().prev().attr('name');
 
@@ -439,6 +470,7 @@
               }
             })
         }
+      
     })
 </script>
     @stop

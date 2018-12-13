@@ -18,15 +18,17 @@
 			 $user = DB::table('user')->where('id',$id)->first();
 		@endphp
 		<div class="Yarn_Background" style="background-image: url({{$user->background}});"></div>
-		<form class="js-search search-form search-form--modal" method="get" action="/home/user/search?id={{$user->id}}" role="search">
+		<form class="js-search search-form search-form--modal" method="post" action="/home/user/search?id={{$user->id}}" role="search">
 			<div class="search-form__inner">
 				<div>
 					<div id="search-container" class="ajax_search">
-						<form method="get" id="searchform" action="">
-							<div class="filter_container"><input type="text" value="" autocomplete="off" placeholder="Type then select or enter" name="s" id="search-input" />
+						<form method="post" id="searchform" action="/home/user/search?id={{$user->id}}">
+							<div class="filter_container">
+								<input type="text" value="" autocomplete="off" placeholder="Type then select or enter" name="keywords" id="search-input" />
 								<ul id="search_filtered" class="search_filtered"></ul>
 							</div>
-							<input type="submit" name="submit" id="searchsubmit" class="searchsubmit" value="" />
+							 {{csrf_field()}}
+							<input type="submit"  id="searchsubmit" class="searchsubmit" value="" />
 						</form>
 					</div>
 				</div>
@@ -77,7 +79,9 @@
 											
 										</ul>
 									</li>
-
+									<li id="menu-item-173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
+										<a href="/home/user/collect?id={{$user->id}}">收藏</a>
+									</li>
 									<li id="menu-item-173" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
 										<a href="/home/user/shijianzhou?id={{$user->id}}">时间轴</a>
 									</li>
@@ -184,6 +188,62 @@
 				<article itemscope="itemscope">
 					<div class="posts-list js-posts">
 						@foreach($article as $k => $v)
+						
+						@if($v->subject_id != null)
+						<!-- 专题 -->
+						<div class="post post-layout-list" data-aos="fade-up">
+							<div class="postnormal review ">
+								<div class="post-container review-item">
+									<div class="row review-item-wrapper">
+										<div class="col-sm-3">
+											<a rel="nofollow">
+												<div class="review-item-img" style="background-image: url(/homes/statics/images/diego-ph-249471-2-800x1000.jpg);"></div>
+											</a>
+										</div>
+										<div class="col-sm-9 flex-xs-middle">
+											<div class="review-item-title">
+												<a href="/home/user/xiangqing?id={{$v->id}}&uid={{$user->id}}" rel="bookmark">{{$v->title}}</a>
+											</div>
+											<div class="review-item-creator"><b>发布日期：</b>{{$v->time}}</div>
+											<span class="review-item-info"><b>总浏览量：</b>{{$v->count}} reads</span>
+										</div>
+									</div>
+									<div class="review-bg-wrapper">
+										<div class="bg-blur" style="background-image: url(/homes/statics/images/diego-ph-249471-2-800x1000.jpg);"></div>
+									</div>
+								</div>
+								<div class="post-container">
+									<div class="entry-content">{{strip_tags( str_limit($v->content,200) )}}&hellip;</div>
+									<div class="post-footer">
+										<a class="gaz-btn primary" href="/home/user/xiangqing?id={{$v->id}}&uid={{$user->id}}">READ MORE</a>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						@elseif($v->cate_id != null )
+						<!-- 话题 -->
+						<div class="post post-layout-list js-gallery" data-aos="fade-up">
+							<div class="post-album">
+								<div class="row content">
+									<div class="bg" style="background-image: url(/homes/statics/images/IMG_0150.jpg);"></div>
+									<div class="contentext flex-xs-middle">
+										<div class="album-title">
+											<a href="/home/user/xiangqing?id={{$v->id}}&uid={{$user->id}}">{{$v->title}}</a>
+										</div>
+										<h5 class="review-item-creator"><b>发布日期：</b>{{$v->time}}</h5>
+										<div class="album-content">{{strip_tags( str_limit($v->content,200) )}}&hellip;</div>
+									</div>
+									<div class="album-thumb-width flex-xs-middle">
+										<div class="row album-thumb no-gutter">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						@else
+						<!-- 文章 -->
 						<div class="post post-layout-list" data-aos="fade-up">
 							<div class="status_list_item icon_kyubo">
 								<div class="status_user" style="background-image: url(/homes/statics/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
@@ -194,103 +254,12 @@
 								</div>
 							</div>
 						</div>
+						<!-- 专题 -->
+						@endif
+						
 						@endforeach
-						<div class="post post-layout-list" data-aos="fade-up">
-							<div class="postnormal review ">
-								<div class="post-container review-item">
-									<div class="row review-item-wrapper">
-										<div class="col-sm-3">
-											<a rel="nofollow" href="detail.html">
-												<div class="review-item-img" style="background-image: url(/homes/statics/images/diego-ph-249471-2-800x1000.jpg);"></div>
-											</a>
-										</div>
-										<div class="col-sm-9 flex-xs-middle">
-											<div class="review-item-title">
-												<a href="detail.html" rel="bookmark">我才不会写年终总结之瞎说篇</a>
-											</div>
-											<div class="review-item-creator"><b>发布日期：</b>2017-12-30</div>
-											<span class="review-item-info"><b>总浏览量：</b>1203 reads</span>
-										</div>
-									</div>
-									<div class="review-bg-wrapper">
-										<div class="bg-blur" style="background-image: url(/homes/statics/images/diego-ph-249471-2-800x1000.jpg);"></div>
-									</div>
-								</div>
-								<div class="post-container">
-									<div class="entry-content">确实讨厌去写所谓的年终总结，在公司已经被动的想领导上交一个总结，自己就懒得去总结，不然，我觉得脑子里应该会编写出八九不离十的内容，所以正经八儿的事情略了，瞎说一下。 年初的人事调动是个人最不能接受的事情，但不接受也得接受，老板一句“这是命令...</div>
-									<div class="post-footer">
-										<a class="gaz-btn primary" href="">READ MORE</a>
-										<span class="total-comments-on-post pull-right"><a href="">31 Comments</a></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post post-layout-list" data-aos="fade-up">
-							<div class="status_list_item icon_kyubo">
-								<div class="status_user" style="background-image: url(/homes/statics/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
-									<div class="status_section">
-										<a href="detail.html" class="status_btn">状态</a>
-										<p class="section_p">因为我这后半年飘忽不定的更新节奏，感觉真的对不住用户。最近才松下来能处理反馈的bug，顺便加快新主题 Dcras 的制作，农历年后或许能上线，准确时间，不敢说-- 为了感谢大家对 Yarn 的支持，Dcras 会以 获兑现码半价的承诺 给 Yarn ... </p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post post-layout-list js-gallery" data-aos="fade-up">
-							<div class="post-album">
-								<div class="row content">
-									<div class="bg" style="background-image: url(/homes/statics/images/IMG_0150.jpg);"></div>
-									<div class="contentext flex-xs-middle">
-										<div class="album-title">
-											<a href="detail.html">重构图像样式测试</a>
-										</div>
-										<h5 class="review-item-creator"><b>发布日期：</b>2017-11-13</h5>
-										<div class="album-content">如眼所见是一个图像样式，必须写五十左右的文字作为这个文本框的空白填充，不写也是可以的，强迫症不能容忍空白。</div>
-									</div>
-									<div class="album-thumb-width flex-xs-middle">
-										<div class="row album-thumb no-gutter">
-											<div class="col-xs-4"><img class="thumb" src="statics/images/IMG_0150-250x250.jpg" /></div>
-											<div class="col-xs-4"><img class="thumb" src="statics/images/IMG_0149-250x250.jpg" /></div>
-											<div class="col-xs-4"><img class="thumb" src="statics/images/IMG_0146-250x250.jpg" /></div>
-											<div class="col-xs-4"><img class="thumb" src="statics/images/IMG_0147-250x250.jpg" /></div>
-											<div class="col-xs-4"><img class="thumb" src="statics/images/IMG_0148-250x250.jpg" /></div>
-											<div class="col-xs-4">
-												<a href="">5 pics</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post post-layout-list" data-aos="fade-up">
-							<div class="postnormal review ">
-								<div class="post-container review-item">
-									<div class="row review-item-wrapper">
-										<div class="col-sm-3">
-											<a rel="nofollow" href="detail.html">
-												<div class="review-item-img" style="background-image: url(statics/images/47fb3c_9afed6c259f94589881bd55376206366mv2_d_3840_5784_s_4_2-800x450.jpg);"></div>
-											</a>
-										</div>
-										<div class="col-sm-9 flex-xs-middle">
-											<div class="review-item-title">
-												<a href="detail.html" rel="bookmark">给大家介绍一下</a>
-											</div>
-											<div class="review-item-creator"><b>发布日期：</b>2017-10-02</div>
-											<span class="review-item-info"><b>总浏览量：</b>1600 reads</span>
-										</div>
-									</div>
-									<div class="review-bg-wrapper">
-										<div class="bg-blur" style="background-image: url(statics/images/47fb3c_9afed6c259f94589881bd55376206366mv2_d_3840_5784_s_4_2-800x450.jpg);"></div>
-									</div>
-								</div>
-								<div class="post-container">
-									<div class="entry-content">现在的明星的影响力足以影响国内娱乐圈的"半壁江山"，发条微博，新浪都恐慌好几天，来来来，蹭个热点给大家介绍一下我的女朋友。</div>
-									<div class="post-footer">
-										<a class="gaz-btn primary" href="detail.html">READ MORE</a>
-										<span class="total-comments-on-post pull-right"><a href="">30 Comments</a></span>
-									</div>
-								</div>
-							</div>
-						</div>
+						
+						
 					</div>
 					<!-- post-formats end Infinite Scroll star -->
 					<!-- post-formats -->

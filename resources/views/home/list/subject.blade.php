@@ -15,7 +15,7 @@
  <ul class="widget_suxingme_topic"width='300px;'>
   @foreach($subject as $k => $v)
     <li style="margin-left: 75px;">
-      <a href="#" title="{{$v->title}}">
+      <a href="/home/subject/xiangqing/{{$v->id}}" title="{{$v->title}}">
         <div class="overlay"></div>
           <div class="image" style="background-image: url({{$v->images}});"></div>
            <div class="title">

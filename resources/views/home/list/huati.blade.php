@@ -14,7 +14,9 @@
   @php
     $count = DB::table('article')->where('cate_id',$v->id)->count();
   @endphp
- <li> <div class="shareli"><a href="/home/huati/list/{{$v->id}}" target="_blank"> <i><img src="/images/4.jpg"></i>
+  
+
+ <li> <div class="shareli" style="background-image:url(/images/5.jpg)"><a href="/home/huati/list/{{$v->id}}"> <i><img></i>
       <h2><b>{{$v->cate}}</b></h2>
       <span style="background: #999;">参与 | {{$count}}</span> </a></div> </li>
       @endforeach

@@ -35,14 +35,14 @@
     </div>
     <div class="share">
       <span class="session" name="{{session('uid')}}"></span>
-      <p class="diggit" ><a href="#" id="zan"name="{{$article->id}}"><i class="icon-thumbs-up"></i>
+      <p class="diggit" ><a href="javascript:;" id="zan"name="{{$article->id}}"><i class="icon-thumbs-up"></i>
       @if($res == '')
       点赞
       @else
       已点赞
       @endif
     </a></p>
-      <p class="diggit"><a href="" id="collect" name="{{$article->id}}"><i class="icon-heart-empty"></i>
+      <p class="diggit"><a href="javascript:;" id="collect" name="{{$article->id}}"><i class="icon-heart-empty"></i>
      @if($rs == '')
        收藏
       @else
@@ -84,10 +84,10 @@
                         // console.log(data);
                          if(data == 1){
                             $('#collect').html('<i class="icon-thumbs-up"></i>收藏');
-                            return;
+                            // return;
                          }else if(data == 2){
                            $('#collect').html('<i class="icon-thumbs-up"></i>已收藏');
-                           return;
+                           // return;
                         }else if(data == 3){
                           alert('收藏失败！');
                           return;
@@ -289,8 +289,9 @@
         
         if(oSize.replace(/(^\s*)|(\s*$)/g, "") != ''){
         $.get('/home/article/comment',{article_id:article_id,oSize:oSize},function(data){
-            if(data == 1){
-              oHtml = '<div class="comment-show-con clearfix"><div class="comment-show-con-img pull-left"><img src="'+pimg+'" alt=""></div> <div class="comment-show-con-list pull-left clearfix"><div class="pl-text clearfix"> <a href="#" class="comment-size-name">'+pname+' : </a> <span class="my-pl-con">&nbsp;'+ oSize +'</span> </div> <div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block"><a href="javascript:;" class="removeBlock cdelete">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">0</i>)</a> </div> </div><div class="hf-list-con"></div></div> </div>';
+          // console.log(data);
+            if(data != 0 ){
+              oHtml = '<div class="comment-show-con clearfix"><div class="comment-show-con-img pull-left"><img src="'+pimg+'" alt=""></div><span id="commentid" name="'+data+'"></span><div class="comment-show-con-list pull-left clearfix"><div class="pl-text clearfix"> <a href="#" class="comment-size-name">'+pname+' : </a> <span class="my-pl-con">&nbsp;'+ oSize +'</span> </div> <div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block"><a href="javascript:;" class="removeBlock cdelete">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">0</i>)</a> </div> </div><div class="hf-list-con"></div></div> </div>';
               
                   $('.plBtn').parents('.reviewArea ').siblings('.comment-show').prepend(oHtml);
                   $('.plBtn').siblings('.flex-text-wrap').find('.comment-input').prop('value','').siblings('pre').find('span').text('');
@@ -366,10 +367,10 @@
 
         }else {
             $.get('/home/article/reply',{commentid:commentid,oHfVal:oHfVal},function(data){
-              // console.log(data);
-              if(data == 1){
+               // console.log(data);
+              if(data != 0){
                 var oAt = '回复<a href="#" class="atName">@'+oHfName+'</a> '+oHfVal;
-                var oHtml = '<div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name">'+rname+': </a><span class="my-pl-con">'+oAt+'</span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block"> <a href="javascript:;" class="removeBlock rdelete">删除</a></div> </div></div>';
+                var oHtml = '<div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name">'+rname+': </a><span class="my-pl-con">'+oAt+'</span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block"><span name="'+data+'"></span><a href="javascript:;" class="removeBlock rdelete">删除</a></div> </div></div>';
                  oThis.parents('.hf-con').parents('.comment-show-con-list').find('.hf-list-con').css('display','block').prepend(oHtml) && oThis.parents('.hf-con').siblings('.date-dz-right').find('.pl-hf').addClass('hf-con-block') && oThis.parents('.hf-con').remove();
               }else{
                 alert('回复失败');
@@ -384,7 +385,7 @@
     $('.commentAll').on('click','.cdelete',function(){
     
         var comment_id = $(this).parent().parent().parent().prev().attr('name');
-        // console.log(comment_id);
+         // console.log(comment_id);
         var ddelete = $(this);
         $.get('/home/article/cdelete',{comment_id:comment_id},function(data){
           // console.log(data);
@@ -418,7 +419,7 @@
             
         }else {
           $.get('/home/article/rdelete',{reply_id:reply_id},function(data){
-            console.log(data);
+            // console.log(data);
             if(data == 1){
               dddelete.parents('.date-dz-right').parents('.date-dz').parents('.all-pl-con').parents('.hf-list-con').css('display','none');
                   oT.remove();

@@ -37,7 +37,7 @@
 								<div class="post-container">
 									<div class="entry-content">{{strip_tags( str_limit($v->content,200) )}}&hellip;</div>
 									<div class="post-footer">
-										<a class="gaz-btn primary" href="/home/user/xiangqing?id={{$v->id}}&uid={{$user->id}}">READ MORE</a>
+										<a class="gaz-btn primary" href="/home/user/cxiangqing?id={{$v->id}}&uid={{$user->id}}">READ MORE</a>
 										
 									</div>
 								</div>

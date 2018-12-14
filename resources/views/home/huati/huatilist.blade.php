@@ -64,7 +64,7 @@
 	      </div> 
 	      <div class="posts-default-info"> 
 	       <ul> 
-	        <li class="post-author hidden-xs"><div class="avatar"style=" margin: 0px 0px;"><img src="{{$v->img}}" height="96" width="96"/></div><a href="javascript:void(0)">{{$v->user_name}}</a></li>
+	        <li class="post-author hidden-xs"><div class="avatar"style=" margin: 0px 0px;"><img src="{{$v->img}}" height="96" width="96"/></div><a href="/home/user?id={{$v->user_id}}">{{$v->user_name}}</a></li>
 	        <li class="ico-time"><i class="icon-clock-1"></i> {{$v->time}}</li> 
 	        
 	        

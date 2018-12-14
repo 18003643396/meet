@@ -14,7 +14,7 @@
 				<p class="Searchmeta">共计{{$count}}篇文章</p>
 
 				<div class="location">当前位置：
-					<a href="">首页</a> &raquo; 搜索结果 &raquo; {{$keywords}}
+					首页 &raquo; 搜索结果 &raquo; {{$keywords}}
 				</div>
 				@foreach ($ainfo as $k=>$v)
 				<div class="posts-list js-posts">
@@ -29,7 +29,7 @@
 
 					<span>
 					
-					<a href="">{{$v->title}}</a>
+					<a href="/home/user/xiangqing?id={{$v->id}}&uid={{$user->id}}">{{$v->title}}</a>
 					
 					</span>
 					

@@ -29,14 +29,14 @@
     </div>
     <div class="share">
       <span class="session" name="{{session('uid')}}"></span>
-      <p class="diggit" ><a href="#" id="zan"name="{{$subject->id}}"><i class="icon-thumbs-up"></i>
+      <p class="diggit" ><a href="javascript:;" id="zan"name="{{$subject->id}}"><i class="icon-thumbs-up"></i>
       @if($res == '')
       点赞
       @else
       已点赞
       @endif
     </a></p>
-      <p class="diggit"><a href="" id="collect" name="{{$subject->id}}"><i class="icon-heart-empty"></i>
+      <p class="diggit"><a href="javascript:;" id="collect" name="{{$subject->id}}"><i class="icon-heart-empty"></i>
      @if($rs == '')
        收藏
       @else

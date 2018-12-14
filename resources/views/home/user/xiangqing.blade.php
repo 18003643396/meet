@@ -26,7 +26,7 @@
 						<div class="meta split split--responsive cf">
 							<div class="split__title">
 								<time datetime="{{$articless->time}}">{{$articless->time}}</time>
-								<span class=""><a href="" rel="tag">主题</a><a href="" rel="tag">日常</a>@if($id == session('uid'))<a href="/home/user/delete?aid={{$articless->id}}" rel="tag">删除</a>@endif </span>
+								<span class=""><a rel="tag">主题</a><a rel="tag">日常</a>@if($id == session('uid'))<a href="/home/user/delete?aid={{$articless->id}}" rel="tag">删除</a>@endif </span>
 							</div>
 							<div id="social-share"><span class="entypo-share"><i class="iconfont">&#xe614;</i>分享</span></div>
 							<div class="slide">

@@ -115,37 +115,37 @@
 
                   <div class="progress-group">
                     <span class="progress-text">Add User</span>
-                    <span class="progress-number"><b>8</b>/10</span>
+                    <span class="progress-number"><b>{{$usercount}}</b>/10</span>
 
                     <div class="progress sm">
-                      <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                      <div class="progress-bar progress-bar-aqua" style="width: {{$usercount/10*100}}%"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     <span class="progress-text">Add Article</span>
-                    <span class="progress-number"><b>27</b>/50</span>
+                    <span class="progress-number"><b>{{$artcount}}</b>/50</span>
 
                     <div class="progress sm">
-                      <div class="progress-bar progress-bar-red" style="width: 54%"></div>
+                      <div class="progress-bar progress-bar-red" style="width: {{$artcount/50*100}}%"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     <span class="progress-text">Add Subject</span>
-                    <span class="progress-number"><b>5</b>/10</span>
+                    <span class="progress-number"><b>{{$subcount}}</b>/10</span>
 
                     <div class="progress sm">
-                      <div class="progress-bar progress-bar-green" style="width: 50%"></div>
+                      <div class="progress-bar progress-bar-green" style="width:{{$subcount/10*100}}%"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     <span class="progress-text">Add Cate</span>
-                    <span class="progress-number"><b>7</b>/10</span>
+                    <span class="progress-number"><b>{{$catecount}}</b>/10</span>
 
                     <div class="progress sm">
-                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                      <div class="progress-bar progress-bar-yellow" style="width: {{$catecount/10*100}}%"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->

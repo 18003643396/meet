@@ -211,12 +211,13 @@ class ArticleController extends Controller
         // return $article_id;
         $content = $request->oSize;
         $time = date('Y-m-d H:i:s',time());
-        $data = DB::table('comment')->insert(
+        $id = DB::table('comment')->insertGetId(
                 ['article_id'=>$article_id,'user_id'=>session('uid'),'time'=>$time,'content'=>$content]);
-        if($data){
-            return 1;
+     
+        if($id){
+            return $id;
         }else{
-            return 2;
+            return 0;
         }
     }
 
@@ -228,12 +229,12 @@ class ArticleController extends Controller
         // return $comment_id;
         $content = $request->oHfVal;
         $time = date('Y-m-d H:i:s',time());
-        $data = DB::table('reply')->insert(
+        $id = DB::table('reply')->insertGetId(
                 ['comment_id'=>$comment_id,'user_id'=>session('uid'),'time'=>$time,'content'=>$content]);
-        if($data){
-            return 1;
+        if($id){
+            return $id;
         }else{
-            return 2;
+            return 0;
         }
     }
     //评论点赞
